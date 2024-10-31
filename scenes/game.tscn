@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://w7l1bj0mh51e"]
+
+[node name="Game" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
