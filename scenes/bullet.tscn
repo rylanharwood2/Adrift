@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkguwvaq5v04b"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_ram36"]
+
+[node name="Bullet" type="AnimatedSprite2D"]
+script = ExtResource("1_ram36")

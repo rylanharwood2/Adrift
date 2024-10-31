@@ -28,15 +28,17 @@ func _physics_process(delta: float) -> void:
 	#if direction == 0:
 	#		animated_sprite.play("idle")
 	
-	if momentum > 0:
+	if (momentum >= -1.2) and (momentum <= -0.005):
+		momentum += 0.005
+	elif (momentum <= 1.2) and (momentum >= 0.005):
 		momentum -= 0.005
 		
 	
-	
-	velocity.x = active_direction * SPEED * momentum
+	# TODO
+	velocity.x = float(active_direction) * SPEED * momentum * delta
 		
-	if direction and momentum < 1:
-		momentum += 0.01
+	if direction and (momentum < 1 and momentum > -1):
+		momentum = (momentum + 0.01) 
 		
 	#elif direction == somethingelse:
 	#	velocity.y = direction * SPEED
