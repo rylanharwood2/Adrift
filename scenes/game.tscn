@@ -1,15 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=4 format=3 uid="uid://w7l1bj0mh51e"]
 
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="1_7uh35"]
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
+[ext_resource type="Texture2D" uid="uid://dcg3kmvyu5h4i" path="res://icon.svg" id="3_20edc"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.147369, -1.2691)
 zoom = Vector2(2, 2)
+process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("1_7uh35")
 
 [node name="TileMap" type="TileMap" parent="."]
 format = 2
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-123, -82)
+texture = ExtResource("3_20edc")

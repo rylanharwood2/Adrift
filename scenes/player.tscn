@@ -25,7 +25,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqm2w"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1f8vc"]
+size = Vector2(13, 30)
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_wwnok")
@@ -35,4 +36,8 @@ sprite_frames = SubResource("SpriteFrames_2u6dy")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_aqm2w")
+position = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_1f8vc")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(1, -14)

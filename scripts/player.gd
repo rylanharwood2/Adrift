@@ -1,46 +1,29 @@
 extends CharacterBody2D
 
-const SPEED = 130.0
+const SPEED = 8000.0
+var bullet_type = ""
 
-var momentum = 1.
-var active_direction = ""
+var scene = preload("res://scenes/bullet.tscn")
 
-func _ready() -> void:
-	pass
+func shoot(_bullet_typey):
+	#var scene = load("res://scenes/bullet.tscn")
+	var bullet = scene.instantiate()
+	#bullet.position = $Marker2D.global_position()
+	owner.add_child(bullet)
+	bullet.transform = $Marker2D.global_transform
+	print("created bullet")
 	
+
 func _physics_process(delta: float) -> void:
+	var direction = Input.get_vector("move_left","move_right", "move_up", "move_down")
 	
-	var direction := Input.get_axis("move_left", "move_right")
-	if (direction != 0):
-		active_direction = direction
-	
-	print(momentum)
-	#if Input.is_action_just_pressed("jump"):
-	#	pass
+	if direction: 
+		velocity = direction * SPEED * delta
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 		
-	# flip the sprite
-	#if can_move:
-	#	if direction > 0:
-	#		animated_sprite.flip_h = false
-	#	elif direction < 0:
-	#		animated_sprite.flip_h = true
-	
-	#if direction == 0:
-	#		animated_sprite.play("idle")
-	
-	if (momentum >= -1.2) and (momentum <= -0.005):
-		momentum += 0.005
-	elif (momentum <= 1.2) and (momentum >= 0.005):
-		momentum -= 0.005
-		
-	
-	# TODO
-	velocity.x = float(active_direction) * SPEED * momentum * delta
-		
-	if direction and (momentum < 1 and momentum > -1):
-		momentum = (momentum + 0.01) 
-		
-	#elif direction == somethingelse:
-	#	velocity.y = direction * SPEED
-		
+	if Input.is_action_just_pressed("shoot"):
+		shoot("")
+			
 	move_and_slide()
