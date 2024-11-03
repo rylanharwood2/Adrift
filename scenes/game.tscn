@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=5 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="1_7uh35"]
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Texture2D" uid="uid://dcg3kmvyu5h4i" path="res://icon.svg" id="3_20edc"]
+[ext_resource type="Texture2D" uid="uid://b8cnkjtipwg1f" path="res://assets/sprites/Backgroundtes2t.png" id="4_wfp2v"]
 
 [node name="Game" type="Node2D"]
 
@@ -13,11 +14,18 @@ process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("1_7uh35")
 
-[node name="TileMap" type="TileMap" parent="."]
-format = 2
-
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(-123, -82)
+visible = false
+z_index = -1
+position = Vector2(906, -13)
+scale = Vector2(670, 611.25)
 texture = ExtResource("3_20edc")
+region_enabled = true
+region_rect = Rect2(13.6389, 13.9639, 18.8916, 16.5784)
+
+[node name="Backgroundtes2t" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(33, -34)
+texture = ExtResource("4_wfp2v")
