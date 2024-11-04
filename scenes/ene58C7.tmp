@@ -1,34 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://b327nj58ktob7"]
+[gd_scene load_steps=12 format=3 uid="uid://3kj1b73888bu"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_wwnok"]
-[ext_resource type="Texture2D" uid="uid://dor3rojyhsgbu" path="res://assets/sprites/PlaneTurn.png" id="2_qovok"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_m5566"]
+[ext_resource type="Texture2D" uid="uid://dor3rojyhsgbu" path="res://assets/sprites/PlaneTurn.png" id="2_yiext"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d84kh"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dai3j"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63fd8"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qgrfe"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ab60"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg2kq"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ey106"]
-atlas = ExtResource("2_qovok")
+atlas = ExtResource("2_yiext")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_88jfr"]
@@ -72,24 +72,23 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ar50a"]
 
-[node name="player" type="CharacterBody2D"]
-rotation = 1.5708
-script = ExtResource("1_wwnok")
+[node name="enemy" type="CharacterBody2D"]
+script = ExtResource("1_m5566")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_88jfr")
 animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ar50a")
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(17, -6.15398e-05)
-rotation = 1.5708
+position = Vector2(1, -14)
 
 [node name="jetFlames" type="Marker2D" parent="."]
 position = Vector2(0, 15)
-rotation = 1.5708
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

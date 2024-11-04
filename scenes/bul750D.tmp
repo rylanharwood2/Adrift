@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pa5e"]
-size = Vector2(26.0002, 30.2498)
+size = Vector2(10, 8.5)
 
 [node name="Bullet" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_go2k2")
@@ -36,7 +36,7 @@ script = ExtResource("1_ram36")
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.999989, -3)
+position = Vector2(-9, -0.999999)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_1pa5e")
 

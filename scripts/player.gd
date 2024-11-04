@@ -17,6 +17,9 @@ func shoot(_bullet_typey):
 
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("move_left","move_right", "move_up", "move_down")
+	var look_direction = get_global_mouse_position()
+	
+	look_at(look_direction)
 	
 	if direction: 
 		velocity = direction * SPEED * delta
