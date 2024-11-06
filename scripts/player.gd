@@ -4,9 +4,16 @@ const SPEED = 8000.0
 var bullet_type = ""
 var holding_direction = ""
 
+@export var acceleration: float = 50.0  # Acceleration while pressing forward
+@export var deceleration: float = 0.0   # Deceleration when releasing forward
+@export var max_speed: float = 200.0      # Maximum speed the spaceship can reach
+@export var friction: float = 0.98        # Friction for gradual slowdown
+
 var scene = preload("res://scenes/bullet.tscn")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+
 
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
@@ -16,29 +23,29 @@ func shoot(_bullet_typey):
 	
 
 func _physics_process(delta: float) -> void:
-	var direction = Input.get_vector("move_left","move_right", "move_up", "move_down")
-	var look_direction = get_global_mouse_position()
 	
-	look_at(look_direction)
-	
-	if direction: 
-		velocity = direction * SPEED * delta
-		if direction[0] == -1 and holding_direction != "left":
-			animated_sprite.play("tilt_left")
-			holding_direction = "left"
-		if direction[0] == 1 and holding_direction != "right":
-			animated_sprite.play("tilt_right")
-			holding_direction = "right"
-		if direction[1] == 1:
-			pass
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-		holding_direction = ""
-		animated_sprite.play("idle")
-		
-		
 	if Input.is_action_just_pressed("shoot"):
 		shoot("")
-			
+		
+	var forward_input = Input.is_action_pressed("move_up")
+	var directional_input = Input.get_axis("move_left","move_right")
+
+	if forward_input:
+		if velocity[1] > max_speed:
+			velocity[1] = max_speed
+		if velocity[1] < 0:
+			velocity[1] = 0
+		var direction = Vector2(0, 1).rotated(rotation)
+		print(direction)
+		velocity += (direction * acceleration * delta)
+		print(velocity)
+	elif !forward_input:
+		velocity *= friction
+	
+	
+	if directional_input == -1:
+		rotation_degrees -= 1
+	if directional_input == 1:
+		rotation_degrees += 1
+	
 	move_and_slide()

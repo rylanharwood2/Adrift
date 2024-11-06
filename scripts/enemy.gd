@@ -8,7 +8,7 @@ func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
 	owner.add_child(bullet)
 	bullet.transform = $Muzzle.global_transform
-	print("created bullet")
+	#print("created bullet")
 
 func _process(delta: float) -> void:
 	var direction = (target.position-position).normalized()
