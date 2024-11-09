@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var scene = preload("res://scenes/bullet.tscn")
 @onready var target=$"../Player"
-const SPEED=3000
+const SPEED=4000
 
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
@@ -18,4 +18,5 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 func _on_timer_timeout() -> void:
-	shoot("")
+	pass
+	#	shoot("")
