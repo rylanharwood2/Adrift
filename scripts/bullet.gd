@@ -3,7 +3,7 @@ extends AnimatedSprite2D
 const SPEED = 400
 
 @onready var bullet: AnimatedSprite2D = $"."
-@onready var player: CharacterBody2D = $Player
+@onready var player: CharacterBody2D = %Player
 
 @onready var hit = Node2D.new()
 

@@ -86,10 +86,16 @@ autoplay = "idle"
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ar50a")
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="muzzle" type="Marker2D" parent="."]
 position = Vector2(17, -6.15398e-05)
 rotation = 1.5708
 
-[node name="jetFlames" type="Marker2D" parent="."]
+[node name="jet_flames" type="Marker2D" parent="."]
 position = Vector2(0, 15)
 rotation = 1.5708
+
+[node name="reload_timer" type="Timer" parent="."]
+wait_time = 1.25
+one_shot = true
+
+[connection signal="timeout" from="reload_timer" to="." method="_on_reload_timer_timeout"]

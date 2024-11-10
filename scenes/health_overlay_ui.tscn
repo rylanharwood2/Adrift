@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://baf7exhdloebg"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_7tx1p"]
+[ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="1_aowct"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_7tx1p")
+
+[node name="message_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="start_message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -325.0
+offset_right = 575.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_aowct")
+theme_override_font_sizes/font_size = 64
+text = "Start Message"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="health" type="Label" parent="."]
+offset_right = 101.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_aowct")
+theme_override_font_sizes/font_size = 16
+text = "Health [           ]"
+metadata/_edit_use_anchors_ = true
+
+[node name="ammo" type="Label" parent="."]
+offset_top = 20.0
+offset_right = 204.0
+offset_bottom = 43.0
+theme_override_fonts/font = ExtResource("1_aowct")
+theme_override_font_sizes/font_size = 16
+text = "Ammo   [           ]"
+
+[connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]
