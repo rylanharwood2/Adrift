@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8cnkjtipwg1f"
-path="res://.godot/imported/Backgroundtes2t.png-c1273b3eca653406dd7a15c1b0f2bb64.ctex"
+uid="uid://crcbg2rltg7q4"
+path="res://.godot/imported/background.png-dde469fb1f19281f3784b52d4bea96cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Backgroundtes2t.png"
-dest_files=["res://.godot/imported/Backgroundtes2t.png-c1273b3eca653406dd7a15c1b0f2bb64.ctex"]
+source_file="res://assets/sprites/background.png"
+dest_files=["res://.godot/imported/background.png-dde469fb1f19281f3784b52d4bea96cd.ctex"]
 
 [params]
 
