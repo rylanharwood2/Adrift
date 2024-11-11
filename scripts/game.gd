@@ -21,4 +21,4 @@ func _process(_delta: float) -> void:
 	if %Player.ammo != current_player_ammo:
 		current_player_ammo = %Player.ammo
 		$HUD.update_ammo(%Player.ammo)
-		print(%Player.ammo)
+		

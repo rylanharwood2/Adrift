@@ -1,8 +1,15 @@
 extends CharacterBody2D
 
 var scene = preload("res://scenes/bullet.tscn")
-@onready var target=$"../Player"
+@onready var target=%Player
 const SPEED=4000
+
+func player_hit():
+	if %Player.is_colliding():
+		$AnimatedSprite2D.pause()
+		
+		
+	
 
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()

@@ -1,11 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://3kj1b73888bu"]
+[gd_scene load_steps=15 format=3 uid="uid://3kj1b73888bu"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_m5566"]
 [ext_resource type="Texture2D" uid="uid://bh8hhwqlbf5ea" path="res://assets/sprites/Green Pleb - Mele.png" id="2_pb25y"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6qy0k"]
-atlas = ExtResource("2_pb25y")
-region = Rect2(140, 0, 28, 47)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsxg6"]
 atlas = ExtResource("2_pb25y")
@@ -51,14 +47,6 @@ region = Rect2(140, 0, 28, 47)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6qy0k")
-}],
-"loop": true,
-"name": &"frozen",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_hsxg6")
 }, {
 "duration": 1.0,
@@ -95,18 +83,6 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ar50a"]
 
-[sub_resource type="Animation" id="Animation_k87ok"]
-resource_name = "idle"
-
-[sub_resource type="Animation" id="Animation_bytuv"]
-resource_name = "frozen"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ffwc"]
-_data = {
-"frozen": SubResource("Animation_bytuv"),
-"idle": SubResource("Animation_k87ok")
-}
-
 [node name="enemy" type="CharacterBody2D"]
 rotation = 1.5708
 collision_mask = 128
@@ -115,7 +91,7 @@ script = ExtResource("1_m5566")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = -1.5708
 sprite_frames = SubResource("SpriteFrames_34dbm")
-animation = &"frozen"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -135,8 +111,5 @@ rotation = 1.5708
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_8ffwc")
-}
 
 [connection signal="timeout" from="ShootSpeed" to="." method="_on_timer_timeout"]
