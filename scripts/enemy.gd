@@ -1,16 +1,16 @@
 extends CharacterBody2D
 
 var scene = preload("res://scenes/bullet.tscn")
-@onready var target=%Player
+
+@onready var target = get_tree().current_scene.get_node("Player")
 const SPEED=4000
+
 
 func player_hit():
 	if %Player.is_colliding():
-		$AnimatedSprite2D.pause()
+		pass
+		#$AnimatedSprite2D.pause()
 		
-		
-	
-
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
 	owner.add_child(bullet)
@@ -18,7 +18,9 @@ func shoot(_bullet_typey):
 	#print("created bullet")
 
 func _process(delta: float) -> void:
-	var direction = (target.position-position).normalized()
+	
+	var targgg = target.position
+	var direction = (targgg-position).normalized()
 	velocity = direction * SPEED * delta
 	look_at(target.position)
 	

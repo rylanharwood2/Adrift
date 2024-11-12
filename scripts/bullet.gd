@@ -16,6 +16,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 	$Timer.start()
 	hit = body
+	print(body.get_class())
+	# TODO 
+	if !(body.get_class() == "CharacterBody2D"):
+		body.queue_free()
+		queue_free()
 
 
 

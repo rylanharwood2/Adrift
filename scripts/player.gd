@@ -7,16 +7,16 @@ var holding_direction = ""
 @export var health: int = 5
 @export var ammo: int = 5
 
-@export var is_colliding: bool = false
-@export var is_tilting: bool = false
+var is_colliding: bool = false
+var is_tilting: bool = false
+var is_boosting: bool = false
 @export var flame_on_counter : int = 0
 @export var idle_couter : int = 0
 
 @export var acceleration: float = 70.0  # Acceleration while pressing forward
-#@export var deceleration: float = 0.0   # Deceleration when releasing forward
 @export var max_speed: float = 200.0      # Maximum speed the spaceship can reach
 @export var friction: float = 0.965        # Friction for gradual slowdown
-@export var rotation_speed: float = 1.5        # Rotation speed when pressing a side input
+@export var rotation_speed: float = 1.3        # Rotation speed when pressing a side input
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -39,6 +39,11 @@ func _on_reload_timer_timeout() -> void:
 # enemy latch on
 
 
+# boooooooooost
+func boost() -> void:
+	pass
+
+
 
 # Control Loop
 func _physics_process(delta: float) -> void:
@@ -52,10 +57,10 @@ func _physics_process(delta: float) -> void:
 		
 	var forward_input = Input.is_action_pressed("move_up")
 	var directional_input = Input.get_axis("move_left","move_right")
-
-	if forward_input:
-		var direction = Vector2(1, 0).rotated(rotation)
-
+	
+	var direction = Vector2(1, 0).rotated(rotation)
+	
+	if forward_input:	
 		velocity += (direction * acceleration * delta)
 		if (velocity.length() > max_speed):
 				velocity = velocity.normalized() * max_speed
@@ -67,14 +72,14 @@ func _physics_process(delta: float) -> void:
 	if directional_input == 1:
 		rotation_degrees += rotation_speed
 	
-	var direction = Input.get_axis("move_left", "move_right")
-	if direction == 1 and !is_tilting:
+	var tilting_direction = Input.get_axis("move_left", "move_right")
+	if tilting_direction == 1 and !is_tilting:
 		$AnimatedSprite2D.play("tilt_right")
 		is_tilting = true
-	elif direction == -1 and !is_tilting:
+	elif tilting_direction == -1 and !is_tilting:
 		$AnimatedSprite2D.play("tilt_left")
 		is_tilting = true
-	if direction == 0:
+	if tilting_direction == 0:
 		$AnimatedSprite2D.play("idle")
 		is_tilting = false
 		
@@ -83,12 +88,14 @@ func _physics_process(delta: float) -> void:
 		$flame_on.play("flame_on")
 		flame_on_counter += 1
 		idle_couter = 0
-		#print("ahhh")
 	if !Input.is_action_pressed("move_up") and idle_couter == 0:
 		$flame_on.play("idle")
 		flame_on_counter = 0
 		idle_couter += 1
-		#print("fuck")
+	if Input.is_action_pressed("boost"):
+		# TODO
+		velocity = 1.2 * velocity#.rotated(rotation)
+		max_speed = 300 
 	
 	move_and_slide()
 

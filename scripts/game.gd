@@ -1,17 +1,33 @@
 extends Node2D
 
+var rand = RandomNumberGenerator.new()
+var enemy_scene = load("res://scenes/suicune_enemy.tscn")
+
 var current_player_health : int = -1
 var current_player_ammo : int = -1
 
 func new_game():
 	$HUD.show_message("Welcome to the \nThunderdome!!")
 	
+func wave_spawner():
+	for i in range(0,10):
+		print("g")
+		var enemy = enemy_scene.instantiate()
+		rand.randomize()
+		var possible_locations = [$enemy_spawn_points/spawn1, $enemy_spawn_points/spawn2, $enemy_spawn_points/spawn3, $enemy_spawn_points/spawn4]
+		enemy.position = possible_locations[rand.randf_range(0,3)].position
+		add_child(enemy)
+		
+		
+		
+func _on_timer_timeout() -> void:
+	wave_spawner()
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	new_game()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
