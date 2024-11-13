@@ -30,11 +30,16 @@ func _process(delta: float) -> void:
 	
 	move_and_slide()
 
+
 func _on_timer_timeout() -> void:
 	pass
 	#	shoot("")
 
-
 func _on_ready() -> void:
 	pass
 	#$ProgressBar.value = health
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.health -= 1
+		print("successful")

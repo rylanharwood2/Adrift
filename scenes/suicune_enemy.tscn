@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3kj1b73888bu"]
+[gd_scene load_steps=20 format=3 uid="uid://3kj1b73888bu"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_m5566"]
 [ext_resource type="Texture2D" uid="uid://bh8hhwqlbf5ea" path="res://assets/sprites/Green Pleb - Mele.png" id="2_pb25y"]
@@ -107,6 +107,8 @@ _data = {
 "idle": SubResource("Animation_k87ok")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rrwbv"]
+
 [node name="enemy" type="CharacterBody2D" groups=["enemies"]]
 rotation = 1.5708
 collision_mask = 128
@@ -153,5 +155,13 @@ step = 1.0
 value = 2.0
 show_percentage = false
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="hurtbox" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CapsuleShape2D_rrwbv")
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="ShootSpeed" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

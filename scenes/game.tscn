@@ -36,6 +36,14 @@ script = ExtResource("1_7uh35")
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 unique_name_in_owner = true
+health = 5
+ammo = 5
+flame_on_counter = 0
+idle_couter = 0
+acceleration = 70.0
+max_speed = 200.0
+friction = 0.965
+rotation_speed = 1.3
 
 [node name="HUD" parent="." instance=ExtResource("7_sxbnq")]
 

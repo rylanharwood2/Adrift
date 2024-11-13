@@ -24,6 +24,7 @@ var scene = preload("res://scenes/bullet.tscn")
 
 # Weapon Mechanics
 func shoot(_bullet_typey):
+	# TODO decide if bullets should have pierce
 	var bullet = scene.instantiate()
 	owner.add_child(bullet)
 	bullet.transform = $muzzle.global_transform
@@ -106,4 +107,4 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
-	is_colliding = true
+	pass#is_colliding = true
