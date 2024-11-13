@@ -154,14 +154,6 @@ animations = [{
 [node name="player" type="CharacterBody2D"]
 rotation = -1.5708
 script = ExtResource("1_wwnok")
-health = null
-ammo = null
-flame_on_counter = null
-idle_couter = null
-acceleration = null
-max_speed = null
-friction = null
-rotation_speed = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708

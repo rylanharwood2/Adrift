@@ -41,8 +41,32 @@ func _on_reload_timer_timeout() -> void:
 
 # boooooooooost
 func boost() -> void:
-	pass
+	# TODO
+	velocity = 1.2 * velocity#.rotated(rotation)
+	max_speed = 300 
 
+func play_tilting_animation() -> void:
+	var tilting_direction = Input.get_axis("move_left", "move_right")
+	if tilting_direction == 1 and !is_tilting:
+		$AnimatedSprite2D.play("tilt_right")
+		is_tilting = true
+	elif tilting_direction == -1 and !is_tilting:
+		$AnimatedSprite2D.play("tilt_left")
+		is_tilting = true
+	if tilting_direction == 0:
+		$AnimatedSprite2D.play("idle")
+		is_tilting = false
+
+func play_flame_amimation() -> void:
+	if Input.is_action_pressed("move_up") and flame_on_counter == 0:
+		$flame_on.play("flame_on")
+		flame_on_counter += 1
+		idle_couter = 0
+	if !Input.is_action_pressed("move_up") and idle_couter == 0:
+		$flame_on.play("idle")
+		flame_on_counter = 0
+		idle_couter += 1
+		
 
 
 # Control Loop
@@ -72,30 +96,12 @@ func _physics_process(delta: float) -> void:
 	if directional_input == 1:
 		rotation_degrees += rotation_speed
 	
-	var tilting_direction = Input.get_axis("move_left", "move_right")
-	if tilting_direction == 1 and !is_tilting:
-		$AnimatedSprite2D.play("tilt_right")
-		is_tilting = true
-	elif tilting_direction == -1 and !is_tilting:
-		$AnimatedSprite2D.play("tilt_left")
-		is_tilting = true
-	if tilting_direction == 0:
-		$AnimatedSprite2D.play("idle")
-		is_tilting = false
+	play_tilting_animation()
 		
+	play_flame_amimation()
 	
-	if Input.is_action_pressed("move_up") and flame_on_counter == 0:
-		$flame_on.play("flame_on")
-		flame_on_counter += 1
-		idle_couter = 0
-	if !Input.is_action_pressed("move_up") and idle_couter == 0:
-		$flame_on.play("idle")
-		flame_on_counter = 0
-		idle_couter += 1
 	if Input.is_action_pressed("boost"):
-		# TODO
-		velocity = 1.2 * velocity#.rotated(rotation)
-		max_speed = 300 
+		boost()
 	
 	move_and_slide()
 

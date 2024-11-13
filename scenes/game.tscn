@@ -1,17 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=10 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="1_7uh35"]
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_p1si3"]
 [ext_resource type="Texture2D" uid="uid://crcbg2rltg7q4" path="res://assets/sprites/background.png" id="6_g387b"]
-[ext_resource type="PackedScene" uid="uid://3kj1b73888bu" path="res://scenes/suicune_enemy.tscn" id="6_nvvcq"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaf6g"]
-size = Vector2(20.414, 20)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j1mg"]
-size = Vector2(26.2023, 4.59818)
+size = Vector2(26.2023, 0.956628)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_occl0"]
 size = Vector2(206.389, 2.83333)
@@ -19,18 +15,21 @@ size = Vector2(206.389, 2.83333)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muc02"]
 size = Vector2(100010, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxjjc"]
+size = Vector2(1619, 0.999969)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_p1si3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 10
 scale = Vector2(0.147369, -1.2691)
-zoom = Vector2(2, 2)
+zoom = Vector2(1.2, 1.2)
 process_callback = 0
-limit_left = -927
-limit_top = -766
-limit_right = 993
-limit_bottom = 834
+limit_left = -791
+limit_top = -463
+limit_right = 809
+limit_bottom = 485
 position_smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource("1_7uh35")
@@ -39,9 +38,6 @@ script = ExtResource("1_7uh35")
 unique_name_in_owner = true
 
 [node name="HUD" parent="." instance=ExtResource("7_sxbnq")]
-
-[node name="suicune_enemy" parent="." instance=ExtResource("6_nvvcq")]
-position = Vector2(259, -122)
 
 [node name="enemy_spawn_points" type="Node" parent="."]
 
@@ -65,32 +61,30 @@ autostart = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world_boundries"]
 
-[node name="top" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
-position = Vector2(35, -798)
-rotation = -3.14159
-scale = Vector2(94.9348, 3.46998)
-shape = SubResource("RectangleShape2D_eaf6g")
-one_way_collision = true
-one_way_collision_margin = 0.0
-
 [node name="bottom" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
-position = Vector2(34, 759.959)
+position = Vector2(7, 463.24)
 scale = Vector2(73.4287, 2.59172)
 shape = SubResource("RectangleShape2D_4j1mg")
 one_way_collision = true
 
 [node name="left" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
-position = Vector2(-915, -1)
+position = Vector2(-803, 2)
 rotation = 1.5708
 scale = Vector2(9, 9)
 shape = SubResource("RectangleShape2D_occl0")
 one_way_collision = true
 
 [node name="right" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
-position = Vector2(985, -8)
+position = Vector2(821, -46)
 rotation = -1.5708
 scale = Vector2(-0.0167095, 1.41319)
 shape = SubResource("RectangleShape2D_muc02")
+one_way_collision = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
+position = Vector2(5.5, -485.5)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_kxjjc")
 one_way_collision = true
 
 [node name="Background" type="Sprite2D" parent="."]
