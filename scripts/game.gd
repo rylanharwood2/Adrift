@@ -14,8 +14,13 @@ func new_game():
 func wave_spawner():
 	$enemy_spawn_points/spawn_timer.one_shot = true
 	for i in range(0,10):
-		$enemy_spawn_points/spawn_timer.start(1)
-		
+		await get_tree().create_timer(2).timeout 
+		var enemy = enemy_scene.instantiate()
+		rand.randomize()
+		var possible_locations = [$enemy_spawn_points/spawn1, $enemy_spawn_points/spawn2, $enemy_spawn_points/spawn3, $enemy_spawn_points/spawn4]
+		enemy.position = possible_locations[rand.randf_range(0,3)].position
+		add_child(enemy)
+
 		
 		
 		
