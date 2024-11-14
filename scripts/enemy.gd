@@ -4,7 +4,7 @@ var scene = preload("res://scenes/bullet.tscn")
 
 @onready var target = get_tree().current_scene.get_node("Player")
 
-const SPEED = 6000
+const SPEED = 4000
 var health: int = 2
 
 func player_hit():

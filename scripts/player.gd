@@ -10,6 +10,7 @@ var holding_direction = ""
 var is_colliding: bool = false
 var is_tilting: bool = false
 var is_boosting: bool = false
+
 @export var flame_on_counter : int = 0
 @export var idle_couter : int = 0
 
