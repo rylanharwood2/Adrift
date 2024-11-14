@@ -10,14 +10,14 @@ var holding_direction = ""
 var is_colliding: bool = false
 var is_tilting: bool = false
 var is_boosting: bool = false
-
+var rotation_direction = 0
 @export var flame_on_counter : int = 0
 @export var idle_couter : int = 0
 
-@export var acceleration: float = 70.0  # Acceleration while pressing forward
-@export var max_speed: float = 200.0      # Maximum speed the spaceship can reach
-@export var friction: float = 0.965        # Friction for gradual slowdown
-@export var rotation_speed: float = 1.3        # Rotation speed when pressing a side input
+@export var acceleration: float = 70.0  	# Acceleration while pressing forward
+@export var max_speed: float = 200.0      	# Maximum speed the spaceship can reach
+@export var friction: float = 0.965        	# Friction for gradual slowdown
+@export var rotation_speed: float = 2    	# Rotation speed when pressing a side input
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -44,8 +44,10 @@ func _on_reload_timer_timeout() -> void:
 # boooooooooost
 func boost() -> void:
 	# TODO
-	velocity = 1.2 * velocity#.rotated(rotation)
 	max_speed = 300 
+	velocity += (rotation_direction * acceleration * 0.05)
+	if (velocity.length() > max_speed):
+		velocity = velocity.normalized() * max_speed
 
 func play_tilting_animation() -> void:
 	var tilting_direction = Input.get_axis("move_left", "move_right")
@@ -84,10 +86,10 @@ func _physics_process(delta: float) -> void:
 	var forward_input = Input.is_action_pressed("move_up")
 	var directional_input = Input.get_axis("move_left","move_right")
 	
-	var direction = Vector2(1, 0).rotated(rotation)
+	rotation_direction = Vector2(1, 0).rotated(rotation)
 	
-	if forward_input:	
-		velocity += (direction * acceleration * delta)
+	if forward_input:
+		velocity += (rotation_direction * acceleration * delta)
 		if (velocity.length() > max_speed):
 				velocity = velocity.normalized() * max_speed
 	elif !forward_input:
