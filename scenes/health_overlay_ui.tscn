@@ -46,4 +46,12 @@ theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 16
 text = "Ammo   [           ]"
 
+[node name="boost" type="Label" parent="."]
+offset_top = 40.0
+offset_right = 184.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("1_aowct")
+theme_override_font_sizes/font_size = 16
+text = "Boost [          ]"
+
 [connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]

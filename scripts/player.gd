@@ -6,6 +6,7 @@ var holding_direction = ""
 
 @export var health: int = 5
 @export var ammo: int = 5
+@export var boost_meter: int = 100
 
 var is_colliding: bool = false
 var is_tilting: bool = false
@@ -44,8 +45,12 @@ func _on_reload_timer_timeout() -> void:
 # boooooooooost
 func boost() -> void:
 	# TODO
-	velocity = 1.2 * velocity#.rotated(rotation)
-	max_speed = 300 
+	if boost_meter > 0:
+		velocity = 1.2 * velocity#.rotated(rotation)
+		max_speed = 300 
+		boost_meter -= 1
+	else:
+		pass
 
 func play_tilting_animation() -> void:
 	var tilting_direction = Input.get_axis("move_left", "move_right")
@@ -60,6 +65,7 @@ func play_tilting_animation() -> void:
 		is_tilting = false
 
 func play_flame_amimation() -> void:
+	# TODO make flame_on_counter / idle_counter into one variable
 	if Input.is_action_pressed("move_up") and flame_on_counter == 0:
 		$flame_on.play("flame_on")
 		flame_on_counter += 1
@@ -104,6 +110,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("boost"):
 		boost()
+	elif !Input.is_action_pressed("boost"):
+		if boost_meter < 100:
+			boost_meter += 1
 	
 	move_and_slide()
 
