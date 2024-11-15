@@ -44,12 +44,12 @@ func _on_reload_timer_timeout() -> void:
 
 # boooooooooost
 func boost() -> void:
-  if boost_meter > 0:
-	  max_speed = 300 
-	  velocity += (rotation_direction * acceleration * 0.05)
-    boost_meter -= 1
-	  if (velocity.length() > max_speed):
-		  velocity = velocity.normalized() * max_speed
+	if boost_meter > 0:
+		max_speed = 300 
+		velocity += (rotation_direction * acceleration * 0.05)
+		boost_meter -= 1
+	if (velocity.length() > max_speed):
+		velocity = velocity.normalized() * max_speed
 	else:
 		pass
 
