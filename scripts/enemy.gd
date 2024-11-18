@@ -5,6 +5,7 @@ var scene = preload("res://scenes/bullet.tscn")
 @onready var target = get_tree().current_scene.get_node("Player")
 
 const SPEED = 4000
+const TURN_SPEED = 2.0 # max turn speed (idk units)
 var health: int = 2
 
 func player_hit():
@@ -24,10 +25,19 @@ func flash():
 func _process(delta: float) -> void:
 	
 	var targgg = target.position
-	var direction = (targgg-position).normalized()
-	velocity = direction * SPEED * delta
-	look_at(target.position)
+	#var direction = (targgg-position).normalized()
+	#look_at(target.position)
+	#velocity = direction * SPEED * delta
+	var target_angle = (targgg - position).angle()
 	
+	# limit rotation speed
+	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta)
+	
+	# move in dir the enemy is facing
+	var direction = Vector2(cos(rotation), sin(rotation))
+	velocity = direction * SPEED * delta
+
+
 	#if health != 2:
 	#	$ProgressBar.value = 1
 	

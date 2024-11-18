@@ -49,4 +49,6 @@ func _process(_delta: float) -> void:
 		current_player_ammo = %Player.ammo
 		$HUD.update_ammo(%Player.ammo)
 	$HUD.update_boost_meter()
+	
+	# maybe add a velocity/speed element to the hud for debugging
 		
