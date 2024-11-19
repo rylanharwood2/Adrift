@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=11 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="1_7uh35"]
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_p1si3"]
 [ext_resource type="Texture2D" uid="uid://crcbg2rltg7q4" path="res://assets/sprites/background.png" id="6_g387b"]
+[ext_resource type="PackedScene" uid="uid://bg8jy2q0w2r0q" path="res://scenes/big_bad_dude.tscn" id="6_px1t3"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j1mg"]
@@ -90,6 +91,10 @@ one_way_collision = true
 z_index = -2
 position = Vector2(9, -11)
 texture = ExtResource("6_g387b")
+
+[node name="Node2D" parent="." instance=ExtResource("6_px1t3")]
+position = Vector2(-261, -43)
+scale = Vector2(4, 4)
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]

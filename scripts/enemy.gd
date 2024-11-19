@@ -21,10 +21,11 @@ func flash():
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
 	$flash_timer.start()
 
+func play_death():
+	$AnimationPlayer.play("death")
+
 func _process(delta: float) -> void:
-	
-	var targgg = target.position
-	var direction = (targgg-position).normalized()
+	var direction = (target.position-position).normalized()
 	velocity = direction * SPEED * delta
 	look_at(target.position)
 	
@@ -37,7 +38,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	pass
 	#	shoot("")
-
+ 
 func _on_ready() -> void:
 	flash()
 	#$ProgressBar.value = health

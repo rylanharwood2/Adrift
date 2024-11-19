@@ -12,7 +12,7 @@ func _physics_process(delta):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		if (body.health == 1):
-			body.queue_free()
+			body.play_death()
 		else:
 			body.health -= 1
 		body.flash()

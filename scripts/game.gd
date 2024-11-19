@@ -13,7 +13,7 @@ func new_game():
 
 func wave_spawner():
 	$enemy_spawn_points/spawn_timer.one_shot = true
-	for i in range(0,10):
+	for i in range(0,0):
 		await get_tree().create_timer(2).timeout 
 		var enemy = enemy_scene.instantiate()
 		rand.randomize()
