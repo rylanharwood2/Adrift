@@ -310,7 +310,7 @@ _data = {
 
 [node name="suicune_enemy" type="CharacterBody2D" groups=["enemies"]]
 rotation = 1.5708
-collision_mask = 128
+collision_mask = 129
 script = ExtResource("1_m5566")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

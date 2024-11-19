@@ -6,7 +6,7 @@ var holding_direction = ""
 
 @export var health: int = 5
 @export var ammo: int = 5
-@export var boost_meter: int = 100
+@export var boost_meter: float = 100.0
 
 var is_colliding: bool = false
 var is_tilting: bool = false
@@ -109,12 +109,31 @@ func _physics_process(delta: float) -> void:
 		
 	play_flame_amimation()
 	
+	# TODO recharge if boost_meter is 0 but the button is still held down	
+	#if (Input.is_action_pressed("boost") and is_boosting):
+		#is_boosting = true
+		#if is_boosting and boost_meter != 0:
+			#boost()
+		#else:
+			#is_boosting = false
+	#elif !Input.is_action_pressed("boost"):
+		#is_boosting = false
+		#if boost_meter < 100:
+			#boost_meter += 0.4
+			
 	if Input.is_action_pressed("boost"):
-		boost()
+		if boost_meter > 0:
+			is_boosting = true
+			boost()
+		else:
+			is_boosting = false
+			if boost_meter < 100:
+				boost_meter += 0.4
 	elif !Input.is_action_pressed("boost"):
+		is_boosting = false
 		if boost_meter < 100:
-			boost_meter += 1
-	
+			boost_meter += 0.4
+	print(boost_meter)
 	move_and_slide()
 
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
