@@ -14,11 +14,9 @@ func update_health(health_update:int):
 
 func update_ammo(ammo_update:int):
 	$ammo.text = "Ammo [ " + str(%Player.ammo) + " ]"
-	print(%Player.ammo)
-	print(%Player.boost_meter)
 
 func update_boost_meter():
-	$boost.text = "Boost [ " + str(%Player.boost_meter) + " ]"
+	$boost.text = "Boost [ " + str(int(%Player.boost_meter)) + " ]"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

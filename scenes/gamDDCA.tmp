@@ -30,16 +30,16 @@ unique_name_in_owner = true
 [node name="enemy_spawn_points" type="Node" parent="."]
 
 [node name="spawn1" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(-753, -545)
+position = Vector2(-445, -243)
 
 [node name="spawn2" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(761, -537)
+position = Vector2(450, -239)
 
 [node name="spawn3" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(764, 532)
+position = Vector2(453, 243)
 
 [node name="spawn4" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(-747, 542)
+position = Vector2(-452, 247)
 
 [node name="spawn_timer" type="Timer" parent="enemy_spawn_points"]
 one_shot = true
@@ -68,7 +68,7 @@ scale = Vector2(-0.0167095, 1.41319)
 shape = SubResource("RectangleShape2D_muc02")
 one_way_collision = true
 
-[node name="top" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
 position = Vector2(5.5, -485.5)
 rotation = 3.14159
 shape = SubResource("RectangleShape2D_kxjjc")
@@ -83,9 +83,7 @@ texture = ExtResource("6_g387b")
 position = Vector2(-261, -43)
 scale = Vector2(4, 4)
 
-[node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
-limit_top = -486
-limit_bottom = 464
+[node name="Node2D2" parent="." instance=ExtResource("6_uo2vg")]
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]

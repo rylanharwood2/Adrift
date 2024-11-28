@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://bg8jy2q0w2r0q"]
+
+[ext_resource type="Texture2D" uid="uid://cxhh3pf74rgdy" path="res://assets/sprites/King Nut.png" id="1_3f7of"]
+[ext_resource type="Script" path="res://scripts/big_bad_dude.gd" id="1_86q2e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msxre"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(0, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5yht"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(66, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jewiv"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(132, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlurl"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(198, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnyqe"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(264, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88lvm"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(330, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3kru"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(396, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jto6n"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(462, 0, 66, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57cun"]
+atlas = ExtResource("1_3f7of")
+region = Rect2(528, 0, 66, 112)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xuqi5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msxre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5yht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jewiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlurl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnyqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88lvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3kru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jto6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57cun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4px2"]
+radius = 123.911
+
+[node name="big_bad_dude" type="CharacterBody2D"]
+script = ExtResource("1_86q2e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xuqi5")
+autoplay = "default"
+frame_progress = 0.10133
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_j4px2")
+disabled = true
+debug_color = Color(0.705922, 0.433879, 0.600165, 0.42)

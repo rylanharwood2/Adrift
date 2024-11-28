@@ -7,6 +7,7 @@ var scene = preload("res://scenes/bullet.tscn")
 const SPEED = 4000
 const TURN_SPEED = 2.0 # max turn speed (idk units)
 var health: int = 2
+var dead: bool = false
 
 func player_hit():
 	pass
@@ -22,11 +23,16 @@ func flash():
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
 	$flash_timer.start()
 
+func play_death():
+	dead = true
+	if dead:
+		$AnimatedSprite2D.play("death")
+		$AnimationPlayer.play("death")
+
+
 func _process(delta: float) -> void:
-	
 	var targgg = target.position
 	#var direction = (targgg-position).normalized()
-	#look_at(target.position)
 	#velocity = direction * SPEED * delta
 	var target_angle = (targgg - position).angle()
 	
@@ -47,7 +53,7 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	pass
 	#	shoot("")
-
+ 
 func _on_ready() -> void:
 	flash()
 	#$ProgressBar.value = health

@@ -12,8 +12,17 @@ func _physics_process(delta):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		if (body.health == 1):
-			body.queue_free()
+			body.play_death()
 		else:
 			body.health -= 1
 		body.flash()
 		queue_free()
+
+
+func _on_despawn_timer_timeout() -> void:
+	# kill the bullets that exit the screen, helps with lag
+	queue_free()
+
+
+func _on_ready() -> void:
+	$despawn_timer.start(15)
