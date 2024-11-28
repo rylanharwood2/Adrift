@@ -13,7 +13,7 @@ func new_game():
 
 func wave_spawner():
 	$enemy_spawn_points/spawn_timer.one_shot = true
-	for i in range(0,0):
+	for i in range(0,100):
 		await get_tree().create_timer(2).timeout 
 		var enemy = enemy_scene.instantiate()
 		rand.randomize()
@@ -49,4 +49,9 @@ func _process(_delta: float) -> void:
 		current_player_ammo = %Player.ammo
 		$HUD.update_ammo(%Player.ammo)
 	$HUD.update_boost_meter()
+	
+	if Input.is_action_pressed("pause"):
+		$Camera/main_menu/VBoxContainer.show()
 		
+	if !Input.is_action_just_pressed("pause"):
+		$Camera/main_menu/VBoxContainer.hide()

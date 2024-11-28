@@ -134,6 +134,7 @@ func _physics_process(delta: float) -> void:
 		if boost_meter < 100:
 			boost_meter += 0.4
 	print(boost_meter)
+	
 	move_and_slide()
 
 func _on_enemy_detector_body_entered(body: Node2D) -> void:

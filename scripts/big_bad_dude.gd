@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED : int = 2000
+const SPEED : int = 500
 @onready var target = get_tree().current_scene.get_node("Player")
 
 # Called when the node enters the scene tree for the first time.
@@ -11,7 +11,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction = (target.position-position).normalized()
-	#velocity = direction * SPEED * delta
+	velocity = direction * SPEED * delta
 	
 	
 	move_and_slide()

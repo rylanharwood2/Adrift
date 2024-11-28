@@ -6,6 +6,7 @@ var scene = preload("res://scenes/bullet.tscn")
 
 const SPEED = 4000
 var health: int = 2
+var dead: bool = false
 
 func player_hit():
 	pass
@@ -22,7 +23,10 @@ func flash():
 	$flash_timer.start()
 
 func play_death():
-	$AnimationPlayer.play("death")
+	dead = true
+	if dead:
+		$AnimatedSprite2D.play("death")
+		$AnimationPlayer.play("death")
 
 func _process(delta: float) -> void:
 	var direction = (target.position-position).normalized()
