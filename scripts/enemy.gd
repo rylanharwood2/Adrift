@@ -9,6 +9,9 @@ const TURN_SPEED = 2.0 # max turn speed (idk units)
 var health: int = 2
 var dead: bool = false
 
+var targgg = Vector2(0,0)
+var target_angle = Vector2(0,0)
+
 func player_hit():
 	pass
 	#if %Player.is_colliding():
@@ -31,19 +34,25 @@ func play_death():
 
 
 func _process(delta: float) -> void:
-	var targgg = target.position
-	#var direction = (targgg-position).normalized()
-	#velocity = direction * SPEED * delta
-	var target_angle = (targgg - position).angle()
+	var direction = Vector2(cos(rotation), sin(rotation))
+	if !dead:
+		targgg = target.position
+		target_angle = (targgg - position).angle()
+		print(target_angle)
+		#var direction = (targgg-position).normalized()
+		#velocity = direction * SPEED * delta
 	
 	# limit rotation speed
-	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta)
+		rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta)
 	
 	# move in dir the enemy is facing
-	var direction = Vector2(cos(rotation), sin(rotation))
-	velocity = direction * SPEED * delta
+	
+		velocity = direction * SPEED * delta
 
-
+	if dead:
+		velocity = Vector2(0,0)
+		set_collision_layer_value(1, false)
+		set_collision_mask_value(1, false)
 	#if health != 2:
 	#	$ProgressBar.value = 1
 	
