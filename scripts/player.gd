@@ -133,7 +133,7 @@ func _physics_process(delta: float) -> void:
 		is_boosting = false
 		if boost_meter < 100:
 			boost_meter += 0.4
-	print(boost_meter)
+	
 	
 	move_and_slide()
 
