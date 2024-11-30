@@ -33,7 +33,7 @@ func shoot(_bullet_typey):
 	ammo -= 1
 
 func reload():
-	if ammo < 5:
+	if ammo < 50:
 		$reload_timer.start()
 	
 func _on_reload_timer_timeout() -> void:
@@ -46,7 +46,7 @@ func _on_reload_timer_timeout() -> void:
 func boost() -> void:
 	if boost_meter > 0:
 		max_speed = 300 
-		velocity += (rotation_direction * acceleration * 0.05)
+		velocity += (rotation_direction * acceleration * 0.25)
 		boost_meter -= 0.4
 	if (velocity.length() > max_speed):
 		velocity = velocity.normalized() * max_speed
@@ -128,7 +128,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			is_boosting = false
 			if boost_meter < 100:
-				boost_meter += 0.4
+				boost_meter += 1.5
 	elif !Input.is_action_pressed("boost"):
 		is_boosting = false
 		if boost_meter < 100:

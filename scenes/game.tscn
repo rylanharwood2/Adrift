@@ -1,11 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=14 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_p1si3"]
 [ext_resource type="Texture2D" uid="uid://crcbg2rltg7q4" path="res://assets/sprites/background.png" id="6_g387b"]
 [ext_resource type="PackedScene" uid="uid://bg8jy2q0w2r0q" path="res://scenes/big_bad_dude.tscn" id="6_px1t3"]
 [ext_resource type="PackedScene" uid="uid://nsua5t72inru" path="res://scenes/camera.tscn" id="6_uo2vg"]
+[ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/testboss1.png" id="7_1i7vf"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
+[ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/testboss2.png" id="8_mbx16"]
+[ext_resource type="Texture2D" uid="uid://caqt7stblywj8" path="res://assets/sprites/AsteroidGrayTest.png" id="9_f2cg1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j1mg"]
 size = Vector2(26.2023, 0.956628)
@@ -80,12 +83,40 @@ position = Vector2(9, -11)
 texture = ExtResource("6_g387b")
 
 [node name="Node2D" parent="." instance=ExtResource("6_px1t3")]
-position = Vector2(-261, -43)
+position = Vector2(-636, -238)
 scale = Vector2(4, 4)
 
 [node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
 limit_top = -486
 limit_bottom = 464
+
+[node name="Testboss1" type="Sprite2D" parent="."]
+position = Vector2(619, -97)
+texture = ExtResource("7_1i7vf")
+
+[node name="Testboss2" type="Sprite2D" parent="."]
+position = Vector2(-166, 180)
+texture = ExtResource("8_mbx16")
+
+[node name="AsteroidGrayTest" type="Sprite2D" parent="."]
+position = Vector2(278, 135)
+texture = ExtResource("9_f2cg1")
+
+[node name="AsteroidGrayTest2" type="Sprite2D" parent="."]
+position = Vector2(-290, 165)
+texture = ExtResource("9_f2cg1")
+
+[node name="AsteroidGrayTest3" type="Sprite2D" parent="."]
+position = Vector2(-344, -81)
+texture = ExtResource("9_f2cg1")
+
+[node name="AsteroidGrayTest4" type="Sprite2D" parent="."]
+position = Vector2(-218, 313)
+texture = ExtResource("9_f2cg1")
+
+[node name="AsteroidGrayTest5" type="Sprite2D" parent="."]
+position = Vector2(36, 255)
+texture = ExtResource("9_f2cg1")
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
