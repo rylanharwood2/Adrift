@@ -139,3 +139,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
 	pass#is_colliding = true
+
+
+func _on_ready() -> void:
+	$ship_startup.play()
