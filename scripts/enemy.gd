@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 	if !dead:
 		targgg = target.position
 		target_angle = (targgg - position).angle()
-		print(target_angle)
+		
 		#var direction = (targgg-position).normalized()
 		#velocity = direction * SPEED * delta
 	

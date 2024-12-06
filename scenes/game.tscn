@@ -47,6 +47,7 @@ one_shot = true
 [node name="world_boundries" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world_boundries"]
+collision_mask = 0
 
 [node name="bottom" type="CollisionShape2D" parent="world_boundries/StaticBody2D"]
 position = Vector2(7, 463.24)
@@ -79,7 +80,7 @@ z_index = -2
 position = Vector2(9, -11)
 texture = ExtResource("6_g387b")
 
-[node name="Node2D" parent="." instance=ExtResource("6_px1t3")]
+[node name="BigBad" parent="." instance=ExtResource("6_px1t3")]
 position = Vector2(-261, -43)
 scale = Vector2(4, 4)
 

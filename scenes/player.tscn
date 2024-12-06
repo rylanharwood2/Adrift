@@ -1,9 +1,16 @@
-[gd_scene load_steps=25 format=3 uid="uid://b327nj58ktob7"]
+[gd_scene load_steps=28 format=3 uid="uid://b327nj58ktob7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wwnok"]
 [ext_resource type="Texture2D" uid="uid://dor3rojyhsgbu" path="res://assets/sprites/PlaneTurn.png" id="2_qovok"]
+[ext_resource type="Shader" path="res://scripts/flash.gdshader" id="2_xlifc"]
 [ext_resource type="Texture2D" uid="uid://dollkoll5l36" path="res://assets/sprites/Flame.png" id="3_d8xk6"]
 [ext_resource type="AudioStream" uid="uid://cc7ky0ml6gshb" path="res://assets/sfx/ship_sounds.wav" id="4_80fm8"]
+[ext_resource type="AudioStream" uid="uid://y5oasx7yajya" path="res://assets/sfx/single_shot_2.wav" id="4_pabxg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4a8iu"]
+shader = ExtResource("2_xlifc")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d84kh"]
 atlas = ExtResource("2_qovok")
@@ -157,6 +164,7 @@ rotation = -1.5708
 script = ExtResource("1_wwnok")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_4a8iu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_88jfr")
 animation = &"idle"
@@ -181,7 +189,7 @@ position = Vector2(-14, -5.06799e-05)
 rotation = 1.5708
 
 [node name="reload_timer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 0.5
 one_shot = true
 
 [node name="enemy_detector" type="Area2D" parent="."]
@@ -193,13 +201,26 @@ rotation = -1.5708
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CapsuleShape2D_nnutb")
 
-[node name="ship_startup" type="AudioStreamPlayer" parent="."]
+[node name="shoot_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pabxg")
+bus = &"SFX"
+
+[node name="ship_startup" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_80fm8")
 bus = &"SFX"
 
+[node name="player_hurt" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[node name="invulnerability_frames" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="flash_timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="reload_timer" to="." method="_on_reload_timer_timeout"]
-[connection signal="area_entered" from="enemy_detector" to="." method="_on_enemy_detector_area_entered"]
-[connection signal="area_shape_entered" from="enemy_detector" to="." method="_on_enemy_detector_area_shape_entered"]
 [connection signal="body_entered" from="enemy_detector" to="." method="_on_enemy_detector_body_entered"]
-[connection signal="body_shape_entered" from="enemy_detector" to="." method="_on_enemy_detector_body_shape_entered"]
+[connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]

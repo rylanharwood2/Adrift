@@ -323,10 +323,6 @@ autoplay = "idle"
 frame = 17
 frame_progress = 1.0
 
-[node name="flash_timer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 scale = Vector2(1.2, 1.2)
@@ -339,6 +335,10 @@ rotation = 1.5708
 [node name="jetFlames" type="Marker2D" parent="."]
 position = Vector2(-15, 5.43594e-05)
 rotation = 1.5708
+
+[node name="flash_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
 
 [node name="ShootSpeed" type="Timer" parent="."]
 autostart = true
@@ -363,7 +363,8 @@ step = 1.0
 value = 2.0
 show_percentage = false
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
+collision_mask = 128
 
 [node name="hurtbox" type="CollisionShape2D" parent="Area2D"]
 rotation = 1.5708
