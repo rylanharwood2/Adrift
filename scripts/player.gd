@@ -1,43 +1,57 @@
 extends CharacterBody2D
 
-const SPEED = 8000.0
-var bullet_type = ""
-var holding_direction = ""
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+# TODO universal random number seed?
+var rng = RandomNumberGenerator.new()
 
 @export var health: int = 5
-@export var ammo: int = 5
-@export var boost_meter: float = 100.0
+@export var ammo_cap: int = 10
+@export var ammo: int = 10
 
-var is_colliding: bool = false
-var is_tilting: bool = false
-var is_boosting: bool = false
-var rotation_direction = 0
 @export var flame_on_counter : int = 0
 @export var idle_couter : int = 0
 
 @export var acceleration: float = 70.0  	# Acceleration while pressing forward
 @export var max_speed: float = 200.0      	# Maximum speed the spaceship can reach
-@export var friction: float = 0.965        	# Friction for gradual slowdown
+@export var friction: float = 0.99        	# Friction for gradual slowdown
 @export var rotation_speed: float = 2    	# Rotation speed when pressing a side input
+@export var boost_meter: float = 100.0
+
+
+const SPEED = 8000.0
+
+var bullet_type = ""
+var holding_direction = ""
+var is_colliding: bool = false
+var is_tilting: bool = false
+var is_boosting: bool = false
+var rotation_direction = 0
 
 var scene = preload("res://scenes/bullet.tscn")
-
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # Weapon Mechanics
 func shoot(_bullet_typey):
 	# TODO decide if bullets should have pierce
 	var bullet = scene.instantiate()
+	
+	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
+	$shoot_sound.play()
 	owner.add_child(bullet)
 	bullet.transform = $muzzle.global_transform
 	ammo -= 1
 
 func reload():
-	if ammo < 50:
+
+	if ammo < ammo_cap:
 		$reload_timer.start()
 	
 func _on_reload_timer_timeout() -> void:
 	ammo += 1
+
+func flash():
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
+	$flash_timer.start()
 
 # enemy latch on
 
@@ -85,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		if (ammo > 0):
 			shoot("")
 	
-	if $reload_timer.is_stopped() and ammo < 5:
+	if $reload_timer.is_stopped() and ammo < ammo_cap:
 		reload()
 		
 	var forward_input = Input.is_action_pressed("move_up")
@@ -138,4 +152,20 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
-	pass#is_colliding = true
+	# TODO allow them to hit you again if they are still attached
+	if ($invulnerability_frames.is_stopped() and body.is_in_group("enemies")):
+		$invulnerability_frames.start()
+		$player_hurt.play()
+		flash()
+		health -= 1
+		#is_colliding = true
+	
+
+
+func _on_ready() -> void:
+	$ship_startup.play()
+	$invulnerability_frames.start()
+
+
+func _on_flash_timer_timeout() -> void:
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
