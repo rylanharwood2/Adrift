@@ -10,6 +10,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		show()
 		get_tree().paused = true
+		$blur_layer.material.set_shader_parameter("amount", 1)
 	elif $VBoxContainer/start_button.is_pressed():
 		get_tree().paused = false
 		hide()
