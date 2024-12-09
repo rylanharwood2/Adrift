@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/testboss1.png" id="7_1i7vf"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/testboss2.png" id="8_mbx16"]
-[ext_resource type="Texture2D" uid="uid://caqt7stblywj8" path="res://assets/sprites/AsteroidGrayTest.png" id="9_f2cg1"]
+[ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j1mg"]
 size = Vector2(26.2023, 0.956628)
@@ -24,6 +24,15 @@ size = Vector2(1619, 0.999969)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_p1si3")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(9, -11)
+texture = ExtResource("6_g387b")
+
+[node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
+limit_top = -486
+limit_bottom = 464
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 unique_name_in_owner = true
@@ -78,47 +87,31 @@ rotation = 3.14159
 shape = SubResource("RectangleShape2D_kxjjc")
 one_way_collision = true
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -2
-position = Vector2(9, -11)
-texture = ExtResource("6_g387b")
+[node name="physics_bodies" type="Node" parent="."]
 
-
-[node name="BigBad" parent="." instance=ExtResource("6_px1t3")]
+[node name="BigBad" parent="physics_bodies" instance=ExtResource("6_px1t3")]
+visible = false
 position = Vector2(-261, -43)
 scale = Vector2(4, 4)
 
-[node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
-limit_top = -486
-limit_bottom = 464
-
-[node name="Testboss1" type="Sprite2D" parent="."]
+[node name="Testboss1" type="Sprite2D" parent="physics_bodies"]
+visible = false
 position = Vector2(619, -97)
 texture = ExtResource("7_1i7vf")
 
-[node name="Testboss2" type="Sprite2D" parent="."]
+[node name="Testboss2" type="Sprite2D" parent="physics_bodies"]
+visible = false
 position = Vector2(-166, 180)
 texture = ExtResource("8_mbx16")
 
-[node name="AsteroidGrayTest" type="Sprite2D" parent="."]
-position = Vector2(278, 135)
-texture = ExtResource("9_f2cg1")
+[node name="gray_asteroid" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
+position = Vector2(-298, 177)
 
-[node name="AsteroidGrayTest2" type="Sprite2D" parent="."]
-position = Vector2(-290, 165)
-texture = ExtResource("9_f2cg1")
+[node name="gray_asteroid2" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
+position = Vector2(346, 107)
 
-[node name="AsteroidGrayTest3" type="Sprite2D" parent="."]
-position = Vector2(-344, -81)
-texture = ExtResource("9_f2cg1")
-
-[node name="AsteroidGrayTest4" type="Sprite2D" parent="."]
-position = Vector2(-218, 313)
-texture = ExtResource("9_f2cg1")
-
-[node name="AsteroidGrayTest5" type="Sprite2D" parent="."]
-position = Vector2(36, 255)
-texture = ExtResource("9_f2cg1")
+[node name="gray_asteroid3" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
+position = Vector2(-167, -155)
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]

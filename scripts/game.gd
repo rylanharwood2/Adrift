@@ -53,8 +53,5 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("pause"):
 		$Camera/main_menu/VBoxContainer.show()
 
-	# TODO: maybe add a velocity/speed element to the hud for debugging
-
+	
 		
-	if !Input.is_action_just_pressed("pause"):
-		$Camera/main_menu/VBoxContainer.hide()
