@@ -1,21 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://c27fp8o3i2qqh"]
+[gd_scene load_steps=6 format=3 uid="uid://c27fp8o3i2qqh"]
 
 [ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_4xi3u"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_f2l0b"]
+[ext_resource type="Shader" path="res://scripts/main_menu.gdshader" id="2_7pf3m"]
 
-[node name="main_menu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vau2j"]
+shader = ExtResource("2_7pf3m")
+shader_parameter/amount = null
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sdnv6"]
+
+[node name="main_menu" type="CanvasLayer"]
+process_mode = 3
+layer = 5
+script = ExtResource("1_f2l0b")
+
+[node name="blur_layer" type="Sprite2D" parent="."]
+z_index = 7
+material = SubResource("ShaderMaterial_vau2j")
+position = Vector2(579.5, 325)
+scale = Vector2(1201, 704)
+texture = SubResource("PlaceholderTexture2D_sdnv6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = -57.0
-offset_top = -40.0
-offset_right = 57.0
-offset_bottom = 40.0
+z_index = 8
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -59.0
+offset_right = 30.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="start_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2

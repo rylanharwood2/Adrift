@@ -12,7 +12,7 @@ var rng = RandomNumberGenerator.new()
 @export var flame_on_counter : int = 0
 @export var idle_couter : int = 0
 
-@export var acceleration: float = 70.0  	# Acceleration while pressing forward
+@export var acceleration: float = 90.0  	# Acceleration while pressing forward
 @export var max_speed: float = 200.0      	# Maximum speed the spaceship can reach
 @export var friction: float = 0.99        	# Friction for gradual slowdown
 @export var rotation_speed: float = 2    	# Rotation speed when pressing a side input
@@ -32,7 +32,6 @@ var scene = preload("res://scenes/bullet.tscn")
 
 # Weapon Mechanics
 func shoot(_bullet_typey):
-	# TODO decide if bullets should have pierce
 	var bullet = scene.instantiate()
 	
 	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
