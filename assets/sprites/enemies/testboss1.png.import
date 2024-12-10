@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxhh3pf74rgdy"
-path="res://.godot/imported/King Nut.png-bec3de8bc4c7d2d7b081112015e01314.ctex"
+uid="uid://c7h87itjqjsrq"
+path="res://.godot/imported/testboss1.png-be2f9007d8568d4efb4cfbdb8e17f357.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/King Nut.png"
-dest_files=["res://.godot/imported/King Nut.png-bec3de8bc4c7d2d7b081112015e01314.ctex"]
+source_file="res://assets/sprites/enemies/testboss1.png"
+dest_files=["res://.godot/imported/testboss1.png-be2f9007d8568d4efb4cfbdb8e17f357.ctex"]
 
 [params]
 

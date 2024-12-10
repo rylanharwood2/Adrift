@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://c27fp8o3i2qqh"]
 
-[ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_4xi3u"]
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_f2l0b"]
-[ext_resource type="Shader" path="res://scripts/main_menu.gdshader" id="2_7pf3m"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_xd47n"]
+[ext_resource type="Shader" path="res://scripts/main_menu.gdshader" id="2_3c6pp"]
+[ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_lmcw8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vau2j"]
-shader = ExtResource("2_7pf3m")
+shader = ExtResource("2_3c6pp")
 shader_parameter/amount = null
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sdnv6"]
@@ -13,7 +13,7 @@ shader_parameter/amount = null
 [node name="main_menu" type="CanvasLayer"]
 process_mode = 3
 layer = 5
-script = ExtResource("1_f2l0b")
+script = ExtResource("1_xd47n")
 
 [node name="blur_layer" type="Sprite2D" parent="."]
 z_index = 7
@@ -41,16 +41,16 @@ size_flags_vertical = 4
 
 [node name="start_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_4xi3u")
+theme_override_fonts/font = ExtResource("3_lmcw8")
 text = "Start"
 
 [node name="options_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_4xi3u")
+theme_override_fonts/font = ExtResource("3_lmcw8")
 text = "Options"
 
 [node name="quit_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_4xi3u")
+theme_override_fonts/font = ExtResource("3_lmcw8")
 theme_override_font_sizes/font_size = 16
 text = "Quit"

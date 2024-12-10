@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://nsua5t72inru"]
 
 [ext_resource type="Script" path="res://scenes/camera.gd" id="1_olk4v"]
-[ext_resource type="PackedScene" uid="uid://c27fp8o3i2qqh" path="res://scenes/main_menu.tscn" id="2_8ne8h"]
+[ext_resource type="PackedScene" uid="uid://c27fp8o3i2qqh" path="res://scenes/main_menu_ui.tscn" id="2_8ne8h"]
 
 [node name="Node2D" type="Camera2D"]
 z_index = 10

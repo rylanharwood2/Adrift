@@ -8,10 +8,12 @@ var current_player_ammo : int = -1
 
 func new_game():
 	$HUD.show_message("")#Welcome to the \nThunderdome!!")
-	
+	#%Player.start($start_position(this is a marker2d).position)
+	$enemy_spawn_points/start_timer.start()
 	
 
 func wave_spawner():
+	# TODO apparently decide if I want to use wave spawner or a timer
 	$enemy_spawn_points/spawn_timer.one_shot = true
 	for i in range(0,20):
 		await get_tree().create_timer(2).timeout 
@@ -21,16 +23,19 @@ func wave_spawner():
 		enemy.position = possible_locations[rand.randf_range(0,3)].position
 		add_child(enemy)
 
-		
-		
+func _on_start_timer_timeout() -> void:
+	for i in range(0,15):
+		$enemy_spawn_points/spawn_timer.start()
+		await get_tree().create_timer(2).timeout 
 		
 func _on_timer_timeout() -> void:
 	
 	var enemy = enemy_scene.instantiate()
 	rand.randomize()
-	var possible_locations = [$enemy_spawn_points/spawn1, $enemy_spawn_points/spawn2, $enemy_spawn_points/spawn3, $enemy_spawn_points/spawn4]
-	print(rand.randi_range(0,3))
-	enemy.position = possible_locations[rand.randi_range(0,3)].position
+	var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
+	$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
+
+	enemy.position = mob_spawn_location.position
 	add_child(enemy)
 
 
@@ -38,7 +43,7 @@ func _on_timer_timeout() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	new_game()
-	wave_spawner()
+	#wave_spawner()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -54,4 +59,5 @@ func _process(_delta: float) -> void:
 		$Camera/main_menu/VBoxContainer.show()
 
 	
-		
+func _on_player_dead() -> void:
+	$enemy_spawn_points/spawn_timer.stop()

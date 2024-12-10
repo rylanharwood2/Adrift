@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du3p8wavfsjl6"
-path="res://.godot/imported/Pew Pew update test.png-920e95bafa2aecc5f171aed327150c00.ctex"
+uid="uid://bvmr3lh0msqfl"
+path="res://.godot/imported/default_bullet.png-079de69bc5ada5ec328edbb02d3ed96b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Pew Pew update test.png"
-dest_files=["res://.godot/imported/Pew Pew update test.png-920e95bafa2aecc5f171aed327150c00.ctex"]
+source_file="res://assets/sprites/player/default_bullet.png"
+dest_files=["res://.godot/imported/default_bullet.png-079de69bc5ada5ec328edbb02d3ed96b.ctex"]
 
 [params]
 

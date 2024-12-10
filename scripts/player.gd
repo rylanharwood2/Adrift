@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal dead
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # TODO universal random number seed?
@@ -157,6 +159,11 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		$player_hurt.play()
 		flash()
 		health -= 1
+	
+		if health <= 0:
+			dead.emit()
+			queue_free()
+	
 		#is_colliding = true
 	
 

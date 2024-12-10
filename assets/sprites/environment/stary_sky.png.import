@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caqt7stblywj8"
-path="res://.godot/imported/AsteroidGrayTest.png-e89b673f16a4ac57d3fb70549865282a.ctex"
+uid="uid://cu2f12nna4e61"
+path="res://.godot/imported/stary_sky.png-2c8e4432546b1a0d1075d548e7b2911f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AsteroidGrayTest.png"
-dest_files=["res://.godot/imported/AsteroidGrayTest.png-e89b673f16a4ac57d3fb70549865282a.ctex"]
+source_file="res://assets/sprites/environment/stary_sky.png"
+dest_files=["res://.godot/imported/stary_sky.png-2c8e4432546b1a0d1075d548e7b2911f.ctex"]
 
 [params]
 

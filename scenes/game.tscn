@@ -1,14 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=16 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_p1si3"]
-[ext_resource type="Texture2D" uid="uid://crcbg2rltg7q4" path="res://assets/sprites/background.png" id="6_g387b"]
+[ext_resource type="Texture2D" uid="uid://cu2f12nna4e61" path="res://assets/sprites/environment/stary_sky.png" id="3_vb2cv"]
+[ext_resource type="Texture2D" uid="uid://iofww4h8ovh8" path="res://assets/sprites/environment/planets.png" id="4_x4fr3"]
 [ext_resource type="PackedScene" uid="uid://bg8jy2q0w2r0q" path="res://scenes/big_bad_dude.tscn" id="6_px1t3"]
 [ext_resource type="PackedScene" uid="uid://nsua5t72inru" path="res://scenes/camera.tscn" id="6_uo2vg"]
-[ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/testboss1.png" id="7_1i7vf"]
+[ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/enemies/testboss1.png" id="7_1i7vf"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
-[ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/testboss2.png" id="8_mbx16"]
+[ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
 [ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
+
+[sub_resource type="Curve2D" id="Curve2D_e5dhq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -896, -568, 0, 0, 0, 0, 888, -568, 0, 0, 0, 0, 888, 496, 0, 0, 0, 0, -896, 496, 0, 0, 0, 0, -896, -568)
+}
+point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j1mg"]
 size = Vector2(26.2023, 0.956628)
@@ -25,12 +32,25 @@ size = Vector2(1619, 0.999969)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_p1si3")
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -2
-position = Vector2(9, -11)
-texture = ExtResource("6_g387b")
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="star_sky" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(117, 72)
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="star_sky_sprite" type="Sprite2D" parent="ParallaxBackground/star_sky"]
+position = Vector2(-799, -470)
+texture = ExtResource("3_vb2cv")
+centered = false
+
+[node name="planets" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(119, 72)
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="planets_sprite" type="Sprite2D" parent="ParallaxBackground/planets"]
+position = Vector2(-786, -470)
+texture = ExtResource("4_x4fr3")
+centered = false
 
 [node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
 limit_top = -486
@@ -43,20 +63,20 @@ unique_name_in_owner = true
 
 [node name="enemy_spawn_points" type="Node" parent="."]
 
-[node name="spawn1" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(-753, -545)
+[node name="suicune_spawn_path" type="Path2D" parent="enemy_spawn_points"]
+curve = SubResource("Curve2D_e5dhq")
 
-[node name="spawn2" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(761, -537)
-
-[node name="spawn3" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(764, 532)
-
-[node name="spawn4" type="Marker2D" parent="enemy_spawn_points"]
-position = Vector2(-747, 542)
+[node name="spawn_location" type="PathFollow2D" parent="enemy_spawn_points/suicune_spawn_path"]
+position = Vector2(-896, -568)
 
 [node name="spawn_timer" type="Timer" parent="enemy_spawn_points"]
+wait_time = 2.0
 one_shot = true
+
+[node name="start_timer" type="Timer" parent="enemy_spawn_points"]
+wait_time = 2.0
+one_shot = true
+autostart = true
 
 [node name="world_boundries" type="Node" parent="."]
 
@@ -106,14 +126,16 @@ visible = false
 position = Vector2(-166, 180)
 texture = ExtResource("8_mbx16")
 
-[node name="gray_asteroid" parent="." instance=ExtResource("9_bkh4i")]
+[node name="gray_asteroid" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
 position = Vector2(-39, -113)
 
-[node name="gray_asteroid2" parent="." instance=ExtResource("9_bkh4i")]
+[node name="gray_asteroid2" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
 position = Vector2(1033, 135)
 
-[node name="gray_asteroid3" parent="." instance=ExtResource("9_bkh4i")]
+[node name="gray_asteroid3" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
 position = Vector2(0, -560)
 
+[connection signal="dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="enemy_spawn_points/start_timer" to="." method="_on_start_timer_timeout"]
