@@ -30,6 +30,8 @@ z_index = -2
 position = Vector2(9, -11)
 texture = ExtResource("6_g387b")
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
 [node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
 limit_top = -486
 limit_bottom = 464
@@ -104,14 +106,14 @@ visible = false
 position = Vector2(-166, 180)
 texture = ExtResource("8_mbx16")
 
-[node name="gray_asteroid" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
-position = Vector2(-298, 177)
+[node name="gray_asteroid" parent="." instance=ExtResource("9_bkh4i")]
+position = Vector2(-39, -113)
 
-[node name="gray_asteroid2" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
-position = Vector2(346, 107)
+[node name="gray_asteroid2" parent="." instance=ExtResource("9_bkh4i")]
+position = Vector2(1033, 135)
 
-[node name="gray_asteroid3" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
-position = Vector2(-167, -155)
+[node name="gray_asteroid3" parent="." instance=ExtResource("9_bkh4i")]
+position = Vector2(0, -560)
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
