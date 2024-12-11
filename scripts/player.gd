@@ -163,7 +163,7 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		if health <= 0:
 			dead.emit()
 			queue_free()
-	
+			
 		#is_colliding = true
 	
 
