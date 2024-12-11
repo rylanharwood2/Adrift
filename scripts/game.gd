@@ -55,9 +55,6 @@ func _process(_delta: float) -> void:
 		$HUD.update_ammo(%Player.ammo)
 	$HUD.update_boost_meter()
 	
-	if Input.is_action_pressed("pause"):
-		$Camera/main_menu/VBoxContainer.show()
-
 	
 func _on_player_dead() -> void:
 	$enemy_spawn_points/spawn_timer.stop()
