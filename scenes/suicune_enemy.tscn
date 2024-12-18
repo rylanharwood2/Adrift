@@ -320,8 +320,6 @@ rotation = -1.5708
 sprite_frames = SubResource("SpriteFrames_34dbm")
 animation = &"death"
 autoplay = "idle"
-frame = 17
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
