@@ -16,6 +16,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		else:
 			body.health -= 1
 		body.flash()
+
+	if body.is_in_group("asteroid"):
+		body.play_death()
+	
+	if !body.is_in_group("player"):
 		queue_free()
 
 

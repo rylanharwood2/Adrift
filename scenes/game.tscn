@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=16 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_p1si3"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/testboss2.png" id="8_mbx16"]
 [ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
+[ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
+[ext_resource type="AudioStream" uid="uid://c003c4cxqh6jg" path="res://assets/sfx/The Son of Flynn (From ＂TRON： Legacy＂⧸Score).wav" id="11_tctk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j1mg"]
 size = Vector2(26.2023, 0.956628)
@@ -112,6 +114,14 @@ position = Vector2(346, 107)
 
 [node name="gray_asteroid3" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
 position = Vector2(-167, -155)
+
+[node name="FrozenAsteroid" parent="physics_bodies" instance=ExtResource("10_3u7ti")]
+position = Vector2(-379, -73)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_tctk4")
+autoplay = true
+bus = &"Music"
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]

@@ -23,6 +23,7 @@ window/stretch/mode="viewport"
 
 enemies=""
 player=""
+asteroid=""
 
 [input]
 

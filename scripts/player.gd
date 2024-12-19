@@ -12,7 +12,7 @@ var rng = RandomNumberGenerator.new()
 @export var flame_on_counter : int = 0
 @export var idle_couter : int = 0
 
-@export var acceleration: float = 90.0  	## Acceleration while pressing forward
+@export var acceleration: float = 9.0  	## Acceleration while pressing forward
 @export var max_speed: float = 200.0      	## Maximum speed the spaceship can reach
 @export var friction: float = 0.99        	## Friction for gradual slowdown
 @export var rotation_speed: float = 2    	## Rotation speed when pressing a side input
@@ -21,6 +21,7 @@ var rng = RandomNumberGenerator.new()
 
 const SPEED = 8000.0
 
+var boost_acceleration = acceleration * 2.5
 var bullet_type = ""
 var holding_direction = ""
 var is_colliding: bool = false
@@ -51,7 +52,7 @@ func flash():
 # boooooooooost
 func boost() -> void:
 	if boost_meter > 0:
-		velocity += (rotation_direction * acceleration * 0.25)
+		velocity += (rotation_direction * boost_acceleration)
 		boost_meter -= 0.4
 	if (velocity.length() > max_speed):
 		velocity = velocity.normalized() * max_speed
@@ -99,17 +100,17 @@ func _physics_process(delta: float) -> void:
 	
 	rotation_direction = Vector2(1, 0).rotated(rotation)
 	
-	if forward_input:
-		velocity += (rotation_direction * acceleration * delta)
-		if (velocity.length() > max_speed):
-			velocity = velocity.normalized() * max_speed
-	elif !forward_input:
-		velocity *= friction
-	
 	if directional_input == -1:
 		rotation_degrees -= rotation_speed
 	if directional_input == 1:
 		rotation_degrees += rotation_speed
+	
+	if forward_input:
+		velocity += (rotation_direction * acceleration)
+		if (velocity.length() > max_speed):
+			velocity = velocity.normalized() * max_speed
+	elif !forward_input:
+		velocity *= friction
 	
 	play_tilting_animation()
 	play_flame_amimation()

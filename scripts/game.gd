@@ -8,8 +8,7 @@ var current_player_ammo : int = -1
 
 func new_game():
 	$HUD.show_message("")#Welcome to the \nThunderdome!!")
-	
-	
+
 
 func wave_spawner():
 	$enemy_spawn_points/spawn_timer.one_shot = true

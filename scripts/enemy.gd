@@ -75,3 +75,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_flash_timer_timeout() -> void:
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "death":
+		queue_free()
