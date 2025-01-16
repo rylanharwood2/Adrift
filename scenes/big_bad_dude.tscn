@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://bg8jy2q0w2r0q"]
 
-[ext_resource type="Texture2D" uid="uid://cxhh3pf74rgdy" path="res://assets/sprites/King Nut.png" id="1_3f7of"]
+[ext_resource type="Texture2D" uid="uid://cxhh3pf74rgdy" path="res://assets/sprites/enemies/king_nut.png" id="1_3f7of"]
 [ext_resource type="Script" path="res://scripts/big_bad_dude.gd" id="1_86q2e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_msxre"]

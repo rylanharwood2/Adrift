@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t81lm3v5lnxx"
-path="res://.godot/imported/testShip.png-e7d4a1def8c9b30d407b631f31920561.ctex"
+uid="uid://du3p8wavfsjl6"
+path="res://.godot/imported/ice_bullets.png-2a446dc75aa6ae1dbb6bf46bdc4d85e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/testShip.png"
-dest_files=["res://.godot/imported/testShip.png-e7d4a1def8c9b30d407b631f31920561.ctex"]
+source_file="res://assets/sprites/player/ice_bullets.png"
+dest_files=["res://.godot/imported/ice_bullets.png-2a446dc75aa6ae1dbb6bf46bdc4d85e0.ctex"]
 
 [params]
 

@@ -4,7 +4,9 @@ var scene = preload("res://scenes/bullet.tscn")
 
 @onready var target = get_tree().current_scene.get_node("Player")
 
-const SPEED = 4000
+var rand = RandomNumberGenerator.new()
+
+var  SPEED = randf_range(3500.0, 4500.0)
 const TURN_SPEED = 2.0 # max turn speed (idk units)
 var health: int = 2
 var dead: bool = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crcbg2rltg7q4"
-path="res://.godot/imported/background.png-dde469fb1f19281f3784b52d4bea96cd.ctex"
+uid="uid://bh8hhwqlbf5ea"
+path="res://.godot/imported/Green Pleb - Mele.png-7d2fe607661f0a851dd0422c26edd855.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/background.png"
-dest_files=["res://.godot/imported/background.png-dde469fb1f19281f3784b52d4bea96cd.ctex"]
+source_file="res://assets/sprites/enemies/Green Pleb - Mele.png"
+dest_files=["res://.godot/imported/Green Pleb - Mele.png-7d2fe607661f0a851dd0422c26edd855.ctex"]
 
 [params]
 

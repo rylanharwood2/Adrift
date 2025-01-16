@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8wn2cjdpb7jo"
-path="res://.godot/imported/Green Pleb - Death.png-8caff0dd7247763882267ef653698b18.ctex"
+uid="uid://bvmr3lh0msqfl"
+path="res://.godot/imported/default_bullet.png-079de69bc5ada5ec328edbb02d3ed96b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Green Pleb - Death.png"
-dest_files=["res://.godot/imported/Green Pleb - Death.png-8caff0dd7247763882267ef653698b18.ctex"]
+source_file="res://assets/sprites/player/default_bullet.png"
+dest_files=["res://.godot/imported/default_bullet.png-079de69bc5ada5ec328edbb02d3ed96b.ctex"]
 
 [params]
 

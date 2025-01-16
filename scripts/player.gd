@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+signal dead
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
 
-@export var health: int = 5
+@export var health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
 
@@ -136,7 +138,18 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		$player_hurt.play()
 		flash()
 		health -= 1
+	
+		if health <= 0:
+			dead.emit()
+			queue_free()
+			
+		#is_colliding = true
+	
 
+
+func _on_ready() -> void:
+	$ship_startup.play()
+	$invulnerability_frames.start()
 
 func _on_flash_timer_timeout() -> void:
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)

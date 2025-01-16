@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dor3rojyhsgbu"
-path="res://.godot/imported/PlaneTurn.png-3c28778a0eb235715573f5c41f31bfc2.ctex"
+uid="uid://iofww4h8ovh8"
+path="res://.godot/imported/planets.png-d4bc1fd5e2ca4e4f0a7de4c29b9442f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlaneTurn.png"
-dest_files=["res://.godot/imported/PlaneTurn.png-3c28778a0eb235715573f5c41f31bfc2.ctex"]
+source_file="res://assets/sprites/environment/planets.png"
+dest_files=["res://.godot/imported/planets.png-d4bc1fd5e2ca4e4f0a7de4c29b9442f7.ctex"]
 
 [params]
 

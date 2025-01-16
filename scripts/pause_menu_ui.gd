@@ -6,7 +6,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# TODO show the pause screen and pause the game when escape is pressed, turn it off when start is pressed
+	# TODO fix the logic so you can press esc again to close the pause menu
 	if Input.is_action_just_pressed("pause"):
 		show()
 		get_tree().paused = true

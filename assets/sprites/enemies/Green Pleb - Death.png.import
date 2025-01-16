@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7h87itjqjsrq"
-path="res://.godot/imported/testboss1.png-14eae29ff146f69c9c03902970de171d.ctex"
+uid="uid://b8wn2cjdpb7jo"
+path="res://.godot/imported/Green Pleb - Death.png-4e801772be06c4a51b58c762189242cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/testboss1.png"
-dest_files=["res://.godot/imported/testboss1.png-14eae29ff146f69c9c03902970de171d.ctex"]
+source_file="res://assets/sprites/enemies/Green Pleb - Death.png"
+dest_files=["res://.godot/imported/Green Pleb - Death.png-4e801772be06c4a51b58c762189242cf.ctex"]
 
 [params]
 

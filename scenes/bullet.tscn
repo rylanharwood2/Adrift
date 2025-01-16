@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkguwvaq5v04b"]
 
-[ext_resource type="Texture2D" uid="uid://bl5t1koqih073" path="res://assets/sprites/pew_pew.png" id="1_21rt8"]
+[ext_resource type="Texture2D" uid="uid://bvmr3lh0msqfl" path="res://assets/sprites/player/default_bullet.png" id="1_506iy"]
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_ram36"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6cxyu"]
-atlas = ExtResource("1_21rt8")
-region = Rect2(0, 0, 4, 8)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uvfu"]
+atlas = ExtResource("1_506iy")
+region = Rect2(0, 0, 30, 23)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_go2k2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6cxyu")
+"texture": SubResource("AtlasTexture_1uvfu")
 }],
 "loop": true,
 "name": &"default",

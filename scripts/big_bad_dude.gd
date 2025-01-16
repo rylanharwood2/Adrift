@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+signal bam
+
 const SPEED : int = 500
 @onready var target = get_tree().current_scene.get_node("Player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	bam.emit()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
