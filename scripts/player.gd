@@ -7,7 +7,7 @@ signal dead
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
 
-@export var health: int = 5
+@export var health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
 

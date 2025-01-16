@@ -24,7 +24,7 @@ func wave_spawner():
 		add_child(enemy)
 
 func _on_start_timer_timeout() -> void:
-	for i in range(0,15):
+	for i in range(0,25):
 		$enemy_spawn_points/spawn_timer.start()
 		await get_tree().create_timer(2).timeout 
 		

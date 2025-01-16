@@ -135,6 +135,10 @@ position = Vector2(1033, 135)
 [node name="gray_asteroid3" parent="physics_bodies" instance=ExtResource("9_bkh4i")]
 position = Vector2(0, -560)
 
+[node name="big_bad_dude" parent="." instance=ExtResource("6_px1t3")]
+position = Vector2(-317, -58)
+scale = Vector2(2.83379, 2.51005)
+
 [connection signal="dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
