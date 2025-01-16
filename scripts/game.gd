@@ -8,9 +8,10 @@ var current_player_ammo : int = -1
 
 func new_game():
 	$HUD.show_message("")#Welcome to the \nThunderdome!!")
+
 	#%Player.start($start_position(this is a marker2d).position)
 	$enemy_spawn_points/start_timer.start()
-	
+
 
 func wave_spawner():
 	# TODO apparently decide if I want to use wave spawner or a timer

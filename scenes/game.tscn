@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
 [ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
+[ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
+[ext_resource type="AudioStream" uid="uid://c003c4cxqh6jg" path="res://assets/sfx/The Son of Flynn (From ＂TRON： Legacy＂⧸Score).wav" id="11_tctk4"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
 _data = {
@@ -139,7 +141,16 @@ position = Vector2(0, -560)
 position = Vector2(-317, -58)
 scale = Vector2(2.83379, 2.51005)
 
+
 [connection signal="dead" from="Player" to="." method="_on_player_dead"]
+[node name="FrozenAsteroid" parent="physics_bodies" instance=ExtResource("10_3u7ti")]
+position = Vector2(-379, -73)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_tctk4")
+autoplay = true
+bus = &"Music"
+
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="enemy_spawn_points/start_timer" to="." method="_on_start_timer_timeout"]
