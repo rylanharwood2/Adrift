@@ -149,6 +149,7 @@ stream = ExtResource("11_tctk4")
 autoplay = true
 bus = &"Music"
 
+[connection signal="dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="enemy_spawn_points/start_timer" to="." method="_on_start_timer_timeout"]
