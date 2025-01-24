@@ -8,6 +8,7 @@ signal dead
 var rng = RandomNumberGenerator.new()
 
 @export var health: int = 50
+@export var max_health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
 
