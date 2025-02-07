@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal dead
+signal healthpack_captured
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -143,6 +144,9 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		if health <= 0:
 			dead.emit()
 			queue_free()
+	
+	if (body.is_in_group("healthpack")):
+		healthpack_captured.emit()
 			
 		#is_colliding = true
 	
