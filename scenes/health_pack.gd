@@ -19,7 +19,8 @@ func add_health():
 		player.health += 5
 
 func player_detection():
-	%Player.connect("healthpack_captured", add_health(), 0)#"pressed", self, "_start_game")
+	pass
+	#player.connect("healthpack_captured", self, "add_health")#"pressed", self, "_start_game")
 	
 	
 	

@@ -1,13 +1,13 @@
 extends AnimatedSprite2D
 
-const SPEED = 300
+var speed = 300
 
 @onready var bullet: AnimatedSprite2D = $"."
 @onready var player: CharacterBody2D = %Player
 
 
 func _physics_process(delta):
-	position -= transform.y * SPEED * delta
+	position -= transform.y * speed * delta
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
@@ -16,10 +16,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		else:
 			body.health -= 1
 		body.flash()
-
+ 
 	if body.is_in_group("asteroid"):
 		body.play_death()
-		
 	
 	if !body.is_in_group("player"):
 		queue_free()

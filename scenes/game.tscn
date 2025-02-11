@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_p1si3"]
 [ext_resource type="Texture2D" uid="uid://cu2f12nna4e61" path="res://assets/sprites/environment/stary_sky.png" id="3_vb2cv"]
 [ext_resource type="Texture2D" uid="uid://iofww4h8ovh8" path="res://assets/sprites/environment/planets.png" id="4_x4fr3"]
-[ext_resource type="PackedScene" uid="uid://bg8jy2q0w2r0q" path="res://scenes/big_bad_dude.tscn" id="6_px1t3"]
 [ext_resource type="PackedScene" uid="uid://nsua5t72inru" path="res://scenes/camera.tscn" id="6_uo2vg"]
 [ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/enemies/testboss1.png" id="7_1i7vf"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
@@ -13,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
 [ext_resource type="AudioStream" uid="uid://c003c4cxqh6jg" path="res://assets/sfx/The Son of Flynn (From ＂TRON： Legacy＂⧸Score).wav" id="11_tctk4"]
 [ext_resource type="PackedScene" uid="uid://dffvmpbamr3rg" path="res://scenes/health_pack.tscn" id="13_a6ypd"]
+[ext_resource type="PackedScene" uid="uid://cyoarbaw7rvhv" path="res://scenes/capo_enemy.tscn" id="14_l336a"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
 _data = {
@@ -114,11 +114,6 @@ one_way_collision = true
 
 [node name="physics_bodies" type="Node" parent="."]
 
-[node name="BigBad" parent="physics_bodies" instance=ExtResource("6_px1t3")]
-visible = false
-position = Vector2(-261, -43)
-scale = Vector2(4, 4)
-
 [node name="Testboss1" type="Sprite2D" parent="physics_bodies"]
 visible = false
 position = Vector2(619, -97)
@@ -145,6 +140,9 @@ position = Vector2(557, 131)
 
 [node name="gray_asteroid" parent="." instance=ExtResource("9_bkh4i")]
 position = Vector2(486, -321)
+
+[node name="capo_enemy" parent="." instance=ExtResource("14_l336a")]
+position = Vector2(-271, 206)
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]

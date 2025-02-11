@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://3kj1b73888bu"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_m5566"]
+[ext_resource type="Script" path="res://scripts/suicune_enemy.gd" id="1_m5566"]
 [ext_resource type="Shader" path="res://scripts/flash.gdshader" id="1_rt8es"]
 [ext_resource type="Texture2D" uid="uid://bh8hhwqlbf5ea" path="res://assets/sprites/enemies/Green Pleb - Mele.png" id="2_pb25y"]
 [ext_resource type="Texture2D" uid="uid://b8wn2cjdpb7jo" path="res://assets/sprites/enemies/Green Pleb - Death.png" id="3_4d1rw"]
@@ -338,9 +338,6 @@ rotation = 1.5708
 wait_time = 0.2
 one_shot = true
 
-[node name="ShootSpeed" type="Timer" parent="."]
-autostart = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_8ffwc")
@@ -372,5 +369,4 @@ shape = SubResource("CapsuleShape2D_rrwbv")
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
-[connection signal="timeout" from="ShootSpeed" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

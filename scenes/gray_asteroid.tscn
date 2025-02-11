@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cepyg8irkh4ah"]
 
-[ext_resource type="Script" path="res://gray_asteroid.gd" id="1_iwwse"]
+[ext_resource type="Script" path="res://scripts/gray_asteroid.gd" id="1_iwwse"]
 [ext_resource type="Texture2D" uid="uid://caqt7stblywj8" path="res://assets/sprites/environment/asteroid_gray.png" id="1_yj03a"]
 [ext_resource type="Texture2D" uid="uid://bnajwj7sfx5gi" path="res://assets/sprites/environment/Asteroid Explosionsplosion.png" id="2_a5n67"]
 
@@ -46,7 +46,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cll4m")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -69,10 +69,11 @@ script = ExtResource("1_iwwse")
 sprite_frames = SubResource("SpriteFrames_df8qa")
 animation = &"death"
 autoplay = "default"
+frame = 4
+frame_progress = 1.0
 speed_scale = 1.11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-872, 414)
 shape = SubResource("CircleShape2D_0mk8i")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

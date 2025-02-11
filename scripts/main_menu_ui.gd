@@ -9,7 +9,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$big_bad_dude.bam.connect(display_menu)
+	pass
+	#$big_bad_dude.bam.connect(display_menu)
 	#player.dead.connect("display_menu") #
 	
 	#$big_bad_dude.bam.disconnect(display_menu)

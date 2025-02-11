@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dapujo60xltqt"
-path="res://.godot/imported/AsteroidFrozen.png-3467d71c93f2a71d80a760ace45f4fdf.ctex"
+uid="uid://ddmo5ejpkiy7c"
+path="res://.godot/imported/AsteroidFrozenExplode.png-2ed6dbad98e1cbea55b6c65fe2df2d66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AsteroidFrozen.png"
-dest_files=["res://.godot/imported/AsteroidFrozen.png-3467d71c93f2a71d80a760ace45f4fdf.ctex"]
+source_file="res://assets/sprites/environment/AsteroidFrozenExplode.png"
+dest_files=["res://.godot/imported/AsteroidFrozenExplode.png-2ed6dbad98e1cbea55b6c65fe2df2d66.ctex"]
 
 [params]
 

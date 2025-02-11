@@ -12,6 +12,5 @@ func play_death() -> void:
 	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	print("ah shit")
 	if $AnimatedSprite2D.animation == "death":
 		queue_free()

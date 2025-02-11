@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddmo5ejpkiy7c"
-path="res://.godot/imported/AsteroidFrozenExplode.png-db73e4cc20f870ecee83469100d27202.ctex"
+uid="uid://j3s1w45fkn67"
+path="res://.godot/imported/CapoShootingAnimation-8.3fps.png-1db685ed0cb0c53fa312db55e91371d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AsteroidFrozenExplode.png"
-dest_files=["res://.godot/imported/AsteroidFrozenExplode.png-db73e4cc20f870ecee83469100d27202.ctex"]
+source_file="res://assets/sprites/enemies/CapoShootingAnimation-8.3fps.png"
+dest_files=["res://.godot/imported/CapoShootingAnimation-8.3fps.png-1db685ed0cb0c53fa312db55e91371d3.ctex"]
 
 [params]
 

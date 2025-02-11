@@ -1,6 +1,7 @@
 extends Node2D
 
 var rand = RandomNumberGenerator.new()
+# TODO aidan this variable is important, load the powerup at the top of the file so it will be ready when you need it
 var enemy_scene = load("res://scenes/suicune_enemy.tscn")
 
 var current_player_health : int = -1
@@ -24,13 +25,16 @@ func wave_spawner():
 		enemy.position = possible_locations[rand.randf_range(0,3)].position
 		add_child(enemy)
 
+
 func _on_start_timer_timeout() -> void:
 	for i in range(0,25):
 		$enemy_spawn_points/spawn_timer.start()
 		await get_tree().create_timer(2).timeout 
-		
+
+
 func _on_timer_timeout() -> void:
-	
+	# TODO aidan this section creates an enemy then picks a spawn location then adds them to the overall scene
+	# youre gonna use some of this idea 
 	var enemy = enemy_scene.instantiate()
 	rand.randomize()
 	var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
@@ -40,11 +44,11 @@ func _on_timer_timeout() -> void:
 	add_child(enemy)
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	new_game()
 	#wave_spawner()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -55,7 +59,7 @@ func _process(_delta: float) -> void:
 		current_player_ammo = %Player.ammo
 		$HUD.update_ammo(%Player.ammo)
 	$HUD.update_boost_meter()
-	
-	
+
+
 func _on_player_dead() -> void:
 	$enemy_spawn_points/spawn_timer.stop()

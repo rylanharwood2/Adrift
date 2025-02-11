@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://d1y4vwf7h4jbg"]
 
 [ext_resource type="Script" path="res://scripts/frozen_asteroid.gd" id="1_t45jo"]
-[ext_resource type="Texture2D" uid="uid://dapujo60xltqt" path="res://assets/sprites/AsteroidFrozen.png" id="2_xkxg0"]
-[ext_resource type="Texture2D" uid="uid://ddmo5ejpkiy7c" path="res://assets/sprites/AsteroidFrozenExplode.png" id="3_v7fev"]
+[ext_resource type="Texture2D" uid="uid://dapujo60xltqt" path="res://assets/sprites/environment/AsteroidFrozen.png" id="2_xkxg0"]
+[ext_resource type="Texture2D" uid="uid://ddmo5ejpkiy7c" path="res://assets/sprites/environment/AsteroidFrozenExplode.png" id="3_v7fev"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxclc"]
 atlas = ExtResource("3_v7fev")

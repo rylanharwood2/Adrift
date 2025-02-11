@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://beo4c8ybts6ae"]
+
+[ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/enemies/testboss1.png" id="1_xsvtj"]
+[ext_resource type="Script" path="res://scripts/ice_powerup.gd" id="2_vtlgl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5fyn"]
+atlas = ExtResource("1_xsvtj")
+region = Rect2(0, 0, 179, 157)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kj8if"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5fyn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cu6o0"]
+
+[node name="ice_powerup" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_kj8if")
+script = ExtResource("2_vtlgl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_cu6o0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
