@@ -1,20 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://beo4c8ybts6ae"]
+[gd_scene load_steps=7 format=3 uid="uid://ven0ypcm3pn6"]
 
-[ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/enemies/testboss1.png" id="1_xsvtj"]
+[ext_resource type="Texture2D" uid="uid://dyhs5vqfwrcqq" path="res://assets/sprites/environment/IcePowerUpIcon-4fps.png" id="1_khfmy"]
 [ext_resource type="Script" path="res://scripts/ice_powerup.gd" id="2_vtlgl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k5fyn"]
-atlas = ExtResource("1_xsvtj")
-region = Rect2(0, 0, 179, 157)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioiuq"]
+atlas = ExtResource("1_khfmy")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffiq3"]
+atlas = ExtResource("1_khfmy")
+region = Rect2(30, 0, 30, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kj8if"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k5fyn")
+"texture": SubResource("AtlasTexture_ioiuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffiq3")
 }],
 "loop": true,
-"name": &"default",
+"name": &"wiggle",
 "speed": 5.0
 }]
 
@@ -22,9 +29,12 @@ animations = [{
 
 [node name="ice_powerup" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_kj8if")
+animation = &"wiggle"
+frame_progress = 0.678547
 script = ExtResource("2_vtlgl")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_cu6o0")

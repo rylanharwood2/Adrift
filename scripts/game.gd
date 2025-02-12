@@ -1,4 +1,5 @@
 extends Node2D
+var animation: String
 
 var rand = RandomNumberGenerator.new()
 # TODO aidan this variable is important, load the powerup at the top of the file so it will be ready when you need it
@@ -63,3 +64,7 @@ func _process(_delta: float) -> void:
 
 func _on_player_dead() -> void:
 	$enemy_spawn_points/spawn_timer.stop()
+
+func add_new_child(child_to_add,animation):
+	add_child(child_to_add)
+	child_to_add.play(animation)
