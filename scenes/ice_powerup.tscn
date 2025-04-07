@@ -30,7 +30,7 @@ animations = [{
 [node name="ice_powerup" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_kj8if")
 animation = &"wiggle"
-frame_progress = 0.678547
+frame_progress = 0.584659
 script = ExtResource("2_vtlgl")
 
 [node name="Area2D" type="Area2D" parent="."]

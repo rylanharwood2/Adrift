@@ -1,7 +1,6 @@
 extends AnimatedSprite2D
 
-# TODO aidan you should edit the sprite and the size of the collision shape to match
-
+@onready var player = get_node("%Player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,5 +15,5 @@ func _process(delta: float) -> void:
 
 # I added an area2d as a hitbox for player detection
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	# this function is called when a body enters
-	print("moan")
+	player.activate_ice_powerup()
+	queue_free()

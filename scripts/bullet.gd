@@ -3,7 +3,7 @@ extends AnimatedSprite2D
 var speed = 300
 
 @onready var bullet: AnimatedSprite2D = $"."
-@onready var player: CharacterBody2D = %Player
+@onready var player: CharacterBody2D = get_node("%Player")
 
 
 func _physics_process(delta):

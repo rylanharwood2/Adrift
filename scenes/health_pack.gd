@@ -1,6 +1,6 @@
 extends Node2D
 @onready var player = get_node("%Player")
-@onready var player_hitbox = get_node("@Player/")
+@onready var player_hitbox = get_node("%Player/")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

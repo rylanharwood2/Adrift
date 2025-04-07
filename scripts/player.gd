@@ -150,6 +150,9 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 			
 		#is_colliding = true
 	
+func active_ice_powerup() -> void:
+	print("moan")
+
 
 func _on_flash_timer_timeout() -> void:
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
