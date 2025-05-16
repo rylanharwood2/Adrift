@@ -15,18 +15,56 @@ func new_game():
 	$enemy_spawn_points/start_timer.start()
 
 
-func wave_spawner():
-	# TODO apparently decide if I want to use wave spawner or a timer
-	$enemy_spawn_points/spawn_timer.one_shot = true
-	for i in range(0,20):
-		await get_tree().create_timer(2).timeout 
+func wave_spawner(timeout):
+		
+	for i in range(0,timeout):
+		await get_tree().create_timer(timeout).timeout 
 		var enemy = enemy_scene.instantiate()
 		rand.randomize()
-		var possible_locations = [$enemy_spawn_points/spawn1, $enemy_spawn_points/spawn2, $enemy_spawn_points/spawn3, $enemy_spawn_points/spawn4]
-		enemy.position = possible_locations[rand.randf_range(0,3)].position
+		var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
+		$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
+		print("yellow")
+		enemy.position = mob_spawn_location.position
 		add_child(enemy)
 
+func wave_controller():
+	$enemy_spawn_points/spawn_timer.one_shot = true
+	
+	var waves : int = 5
+	var waves_done : bool = false
+	var timeout : float = 0
+	
+	for i in waves:
+		timeout = (1/(i+1))
+		# why is timeout 0 after first iteration ????
+		print(timeout)
+		await wave_spawner(timeout)
+		
+	"""
+	main idea
+	
+	once first asteroid is destroyed and enemies spill out
+	some logic in main? for when to start the waves
+	
+	for i in waves:
+		print "Wave X"
+		spawn Y enemies suicune & Z enemies capo
+		
+	couple options:
+			timer
+			kill all enemies
+			kill some percentage
+			
+	when said option is complete increment i
+	
+	maintain waves_done boolean until boss starts
+	signal?
+	
+	"""
 
+
+
+"""
 func _on_start_timer_timeout() -> void:
 	for i in range(0,25):
 		$enemy_spawn_points/spawn_timer.start()
@@ -43,12 +81,12 @@ func _on_timer_timeout() -> void:
 
 	enemy.position = mob_spawn_location.position
 	add_child(enemy)
-
+"""
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	new_game()
-	#wave_spawner()
+	wave_controller()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
