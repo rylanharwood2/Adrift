@@ -28,6 +28,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_cu6o0"]
 
 [node name="ice_powerup" type="AnimatedSprite2D"]
+z_index = 7
 sprite_frames = SubResource("SpriteFrames_kj8if")
 animation = &"wiggle"
 frame_progress = 0.584659

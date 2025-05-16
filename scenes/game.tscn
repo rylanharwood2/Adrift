@@ -144,6 +144,15 @@ position = Vector2(486, -321)
 [node name="capo_enemy" parent="." instance=ExtResource("14_l336a")]
 position = Vector2(-271, 206)
 
+[node name="capo_enemy2" parent="." instance=ExtResource("14_l336a")]
+position = Vector2(-1056, 148)
+
+[node name="capo_enemy3" parent="." instance=ExtResource("14_l336a")]
+position = Vector2(1176, -600)
+
+[node name="capo_enemy4" parent="." instance=ExtResource("14_l336a")]
+position = Vector2(-1308, -1388)
+
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="enemy_spawn_points/start_timer" to="." method="_on_start_timer_timeout"]
