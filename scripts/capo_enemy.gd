@@ -53,9 +53,12 @@ func _process(delta: float) -> void:
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
 	bullet.speed *= 2
+	
+	print(owner)
 	owner.add_child(bullet)
 	bullet.transform = $muzzle.global_transform
 	$reload_speed.start()
+	
 
 func flash():
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)

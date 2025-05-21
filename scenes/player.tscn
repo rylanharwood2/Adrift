@@ -174,7 +174,9 @@ z_index = -1
 position = Vector2(-17, -6.15398e-05)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_tabny")
-animation = &"idle"
+animation = &"flame_on"
+frame = 3
+frame_progress = 1.0
 
 [node name="hitbox" type="CollisionShape2D" parent="." groups=["player"]]
 rotation = 1.5708

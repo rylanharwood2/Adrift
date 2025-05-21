@@ -15,5 +15,5 @@ func _process(delta: float) -> void:
 
 # I added an area2d as a hitbox for player detection
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	player.activate_ice_powerup()
+	#player.activate_ice_powerup()
 	queue_free()

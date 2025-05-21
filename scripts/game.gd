@@ -3,7 +3,8 @@ var animation: String
 
 var rand = RandomNumberGenerator.new()
 # TODO aidan this variable is important, load the powerup at the top of the file so it will be ready when you need it
-var enemy_scene = load("res://scenes/suicune_enemy.tscn")
+var suicune_enemy_scene = load("res://scenes/suicune_enemy.tscn")
+var capo_enemy_scene = load("res://scenes/capo_enemy.tscn")
 
 var current_player_health : int = -1
 var current_player_ammo : int = -1
@@ -15,30 +16,54 @@ func new_game():
 	$enemy_spawn_points/start_timer.start()
 
 
-func wave_spawner(timeout):
-		
-	for i in range(0,timeout):
-		await get_tree().create_timer(timeout).timeout 
-		var enemy = enemy_scene.instantiate()
+func wave_spawner(waves, wave_spawn_rates):
+	
+	for sub_wave in range(0, wave_spawn_rates[0]):
+			
+		# somehow connect to Bullets enemy killed signal and check for all enemies dead
 		rand.randomize()
-		var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
-		$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
-		print("yellow")
-		enemy.position = mob_spawn_location.position
-		add_child(enemy)
+		for individual_enemy in range(0, wave_spawn_rates[1] + wave_spawn_rates[2]):
+			if wave_spawn_rates[1] > 0:
+				wave_spawn_rates[1] -= 1
+				var suicune_enemy = suicune_enemy_scene.instantiate()
+				
+				var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
+				$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
+				
+				suicune_enemy.position = mob_spawn_location.position
+				add_child(suicune_enemy)
+				
+			elif wave_spawn_rates[2] > 0:
+				wave_spawn_rates[2] -= 1
+				var capo_enemy = capo_enemy_scene.instantiate()
+				
+				var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
+				$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
+				
+				capo_enemy.position = mob_spawn_location.position
+				add_child(capo_enemy)
+	
+	while true:
+		if get_tree().get_first_node_in_group("enemies") != null:
+			await get_tree().create_timer(2).timeout 
+		else:
+			break
 
 func wave_controller():
 	$enemy_spawn_points/spawn_timer.one_shot = true
 	
-	var waves : int = 5
+	var wave_spawn_rates = [[1,3,0], [1,4,0], [1,5,0], [1,100,0]]
+	var waves : int = len(wave_spawn_rates)
 	var waves_done : bool = false
 	var timeout : float = 0
 	
+	#[[waves, numsuicune, numcapos],[waves+1, numsuicune+1, numcapos]]
+	
 	for i in waves:
-		timeout = (1/(i+1))
-		# why is timeout 0 after first iteration ????
-		print(timeout)
-		await wave_spawner(timeout)
+		var wave_message = str("Wave ",i+1)
+		$HUD.show_message(wave_message)
+		
+		await wave_spawner(waves, wave_spawn_rates[i])
 		
 	"""
 	main idea

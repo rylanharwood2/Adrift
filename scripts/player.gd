@@ -8,7 +8,7 @@ signal healthpack_captured
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
 
-@export var health: int = 50
+@export var health: int = 8
 @export var max_health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
@@ -18,7 +18,7 @@ var rng = RandomNumberGenerator.new()
 
 @export var acceleration: float = 9.0  	## Acceleration while pressing forward
 @export var max_speed: float = 200.0      	## Maximum speed the spaceship can reach
-@export var friction: float = 0.99        	## Friction for gradual slowdown
+@export var friction: float = 0.982        	## Friction for gradual slowdown
 @export var rotation_speed: float = 2    	## Rotation speed when pressing a side input
 @export var boost_meter: float = 100.0
 
@@ -88,6 +88,7 @@ func play_flame_amimation() -> void:
 func _on_ready() -> void:
 	$ship_startup.play()
 	$invulnerability_frames.start()
+	
 
 # Control Loop
 func _physics_process(delta: float) -> void:
@@ -130,6 +131,11 @@ func _physics_process(delta: float) -> void:
 		is_boosting = false
 		if boost_meter < 100 and is_boost_recharging:
 			boost_meter += 0.4
+	
+	if Input.is_action_pressed("drift(ebrake)"):
+		rotation_speed = 4
+	elif !Input.is_action_pressed("drift(ebrake)"):
+		rotation_speed = 2
 	
 	move_and_slide()
 
