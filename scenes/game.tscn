@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
 [ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
 [ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
-[ext_resource type="AudioStream" uid="uid://c003c4cxqh6jg" path="res://assets/sfx/The Son of Flynn (From ＂TRON： Legacy＂⧸Score).wav" id="11_tctk4"]
+[ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
 [ext_resource type="PackedScene" uid="uid://dffvmpbamr3rg" path="res://scenes/health_pack.tscn" id="13_a6ypd"]
 [ext_resource type="PackedScene" uid="uid://cyoarbaw7rvhv" path="res://scenes/capo_enemy.tscn" id="13_n4q2g"]
 
@@ -128,7 +128,7 @@ texture = ExtResource("8_mbx16")
 position = Vector2(-379, -73)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_tctk4")
+stream = ExtResource("10_cg0uc")
 autoplay = true
 bus = &"Music"
 
