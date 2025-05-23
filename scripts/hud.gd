@@ -10,10 +10,10 @@ func show_message(text):
 	$message_timer.start()
 
 func update_health(health_update:int):
-	$health.text = "Health [ " + str(%Player.health) + " ]"
+	$health.text = "Health [ " + str(health_update) + " ]"#%Player.health) + " ]"
 
 func update_ammo(ammo_update:int):
-	$ammo.text = "Ammo [ " + str(%Player.ammo) + " ]"
+	$ammo.text = "Ammo [ " + str(ammo_update) + " ]"
 
 func update_boost_meter():
 	$boost.text = "Boost [ " + str(int(%Player.boost_meter)) + " ]"
@@ -26,6 +26,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
 
 
 func _on_message_timer_timeout() -> void:

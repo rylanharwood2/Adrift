@@ -112,6 +112,8 @@ func _on_timer_timeout() -> void:
 func _ready() -> void:
 	new_game()
 	wave_controller()
+	
+	%Player.health_changed.connect($HUD.update_health)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

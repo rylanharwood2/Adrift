@@ -7,6 +7,7 @@ signal healthpack_captured
 
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
+signal health_changed
 
 @export var health: int = 8
 @export var max_health: int = 50
@@ -44,6 +45,7 @@ func shoot(_bullet_typey):
 	owner.add_child(bullet)
 	bullet.transform = $muzzle.global_transform
 	ammo -= 1
+	
 
 func reload():
 	if ammo < ammo_cap:
@@ -92,6 +94,9 @@ func _on_ready() -> void:
 
 # Control Loop
 func _physics_process(delta: float) -> void:
+	update_health_changed() # TODO comically this is still prolly wrong, the enemy should send a signal 
+	# that updates the players health instead of running this check every frame
+	
 	if Input.is_action_just_pressed("shoot"):
 		if (ammo > 0):
 			shoot("")
@@ -146,7 +151,7 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		$player_hurt.play()
 		flash()
 		health -= 1
-	
+		
 		if health <= 0:
 			dead.emit()
 			queue_free()
@@ -159,6 +164,10 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 func active_ice_powerup() -> void:
 	print("moan")
 
+func update_health_changed():
+	
+	# if health_now != health_before:
+	health_changed.emit()
 
 func _on_flash_timer_timeout() -> void:
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
