@@ -118,13 +118,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if %Player.health != current_player_health:
-		current_player_health = %Player.health
-		$HUD.update_health(%Player.health)
-	if %Player.ammo != current_player_ammo:
-		current_player_ammo = %Player.ammo
-		$HUD.update_ammo(%Player.ammo)
-	$HUD.update_boost_meter()
+	pass
+	#if %Player.health != current_player_health:
+	#	current_player_health = %Player.health
+	#	$HUD.update_health(%Player.health)
+	#if %Player.ammo != current_player_ammo:
+	#	current_player_ammo = %Player.ammo
+	#	$HUD.update_ammo(%Player.ammo)
+	#$HUD.update_boost_meter()
 
 
 func _on_player_dead() -> void:

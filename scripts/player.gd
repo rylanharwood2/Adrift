@@ -7,9 +7,9 @@ signal healthpack_captured
 
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
-signal health_changed
+signal health_changed(new_health)
 
-@export var health: int = 8
+@export var health: int = 2
 @export var max_health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
@@ -37,72 +37,17 @@ var rotation_direction = 0
 
 var scene = preload("res://scenes/bullet.tscn")
 
-## Weapon Mechanics
-func shoot(_bullet_typey):
-	var bullet = scene.instantiate()
-	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
-	$shoot_sound.play()
-	owner.add_child(bullet)
-	bullet.transform = $muzzle.global_transform
-	ammo -= 1
-	
-
-func reload():
-	if ammo < ammo_cap:
-		$reload_timer.start()
-
-func flash():
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
-	$flash_timer.start()
-
-# boooooooooost
-func boost() -> void:
-	if boost_meter > 0:
-		velocity += (rotation_direction * boost_acceleration)
-		boost_meter -= 0.4
-	if (velocity.length() > max_speed):
-		velocity = velocity.normalized() * max_speed
-
-func play_tilting_animation() -> void:
-	var tilting_direction = Input.get_axis("move_left", "move_right")
-	if tilting_direction == 1 and !is_tilting:
-		$AnimatedSprite2D.play("tilt_right")
-		is_tilting = true
-	elif tilting_direction == -1 and !is_tilting:
-		$AnimatedSprite2D.play("tilt_left")
-		is_tilting = true
-	if tilting_direction == 0:
-		$AnimatedSprite2D.play("idle")
-		is_tilting = false
-
-func play_flame_amimation() -> void:
-	# TODO make flame_on_counter / idle_counter into one variable
-	var flame_on = Input.is_action_pressed("move_up") or Input.is_action_pressed("boost") # FLAME ON!
-	if flame_on and flame_on_counter == 0:
-		$flame_on.play("flame_on")
-		flame_on_counter += 1
-		idle_couter = 0
-	if !flame_on and idle_couter == 0:
-		$flame_on.play("idle")
-		flame_on_counter = 0
-		idle_couter += 1
 
 func _on_ready() -> void:
 	$ship_startup.play()
 	$invulnerability_frames.start()
-	
 
 # Control Loop
 func _physics_process(delta: float) -> void:
-	update_health_changed() # TODO comically this is still prolly wrong, the enemy should send a signal 
+	update_health_changed(health) # TODO comically this is still prolly wrong, the enemy should send a signal 
 	# that updates the players health instead of running this check every frame
 	
-	if Input.is_action_just_pressed("shoot"):
-		if (ammo > 0):
-			shoot("")
-	
-	if $reload_timer.is_stopped() and ammo < ammo_cap:
-		reload()
+	process_loop_detect_shoot()
 	
 	var forward_input = Input.is_action_pressed("move_up")
 	var boost_input = Input.is_action_pressed("boost")
@@ -142,8 +87,80 @@ func _physics_process(delta: float) -> void:
 	elif !Input.is_action_pressed("drift(ebrake)"):
 		rotation_speed = 2
 	
-	move_and_slide()
+	move_and_slide()	
 
+
+## Weapon Mechanics
+func shoot(_bullet_typey):
+	var bullet = scene.instantiate()
+	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
+	$shoot_sound.play()
+	owner.add_child(bullet)
+	bullet.transform = $muzzle.global_transform
+	ammo -= 1
+	
+func process_loop_detect_shoot():
+	if Input.is_action_just_pressed("shoot"):
+		if (ammo > 0):
+			shoot("")
+	
+	if $reload_timer.is_stopped() and ammo < ammo_cap:
+		reload()
+	
+func reload():
+	if ammo < ammo_cap:
+		$reload_timer.start()
+
+func _on_reload_timer_timeout() -> void:
+	ammo += 1
+
+
+# flash on damage received
+func flash():
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
+	$flash_timer.start()
+
+func _on_flash_timer_timeout() -> void:
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+
+
+# boooooooooost
+func boost() -> void:
+	if boost_meter > 0:
+		velocity += (rotation_direction * boost_acceleration)
+		boost_meter -= 0.4
+	if (velocity.length() > max_speed):
+		velocity = velocity.normalized() * max_speed
+	
+func _on_boost_cooldown_timer_timeout() -> void:
+	is_boost_recharging = true
+
+func play_tilting_animation() -> void:
+	var tilting_direction = Input.get_axis("move_left", "move_right")
+	if tilting_direction == 1 and !is_tilting:
+		$AnimatedSprite2D.play("tilt_right")
+		is_tilting = true
+	elif tilting_direction == -1 and !is_tilting:
+		$AnimatedSprite2D.play("tilt_left")
+		is_tilting = true
+	if tilting_direction == 0:
+		$AnimatedSprite2D.play("idle")
+		is_tilting = false
+
+func play_flame_amimation() -> void:
+	# TODO make flame_on_counter / idle_counter into one variable
+	var flame_on = Input.is_action_pressed("move_up") or Input.is_action_pressed("boost") # FLAME ON!
+	if flame_on and flame_on_counter == 0:
+		$flame_on.play("flame_on")
+		flame_on_counter += 1
+		idle_couter = 0
+	if !flame_on and idle_couter == 0:
+		$flame_on.play("idle")
+		flame_on_counter = 0
+		idle_couter += 1
+
+
+# detect collisions
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
 	# TODO allow them to hit you again if they are still attached
 	if ($invulnerability_frames.is_stopped() and body.is_in_group("enemies")):
@@ -154,7 +171,7 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		
 		if health <= 0:
 			dead.emit()
-			queue_free()
+			#queue_free()
 	
 	if (body.is_in_group("healthpack")):
 		healthpack_captured.emit()
@@ -164,16 +181,7 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 func active_ice_powerup() -> void:
 	print("moan")
 
-func update_health_changed():
-	
+func update_health_changed(updated_health):
+	# check if current UI stored health is different from true health
 	# if health_now != health_before:
-	health_changed.emit()
-
-func _on_flash_timer_timeout() -> void:
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
-
-func _on_reload_timer_timeout() -> void:
-	ammo += 1
-	
-func _on_boost_cooldown_timer_timeout() -> void:
-	is_boost_recharging = true
+	health_changed.emit(updated_health)
