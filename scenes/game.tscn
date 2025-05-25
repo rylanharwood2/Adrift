@@ -72,15 +72,6 @@ curve = SubResource("Curve2D_e5dhq")
 [node name="spawn_location" type="PathFollow2D" parent="enemy_spawn_points/suicune_spawn_path"]
 position = Vector2(-896, -568)
 
-[node name="spawn_timer" type="Timer" parent="enemy_spawn_points"]
-wait_time = 2.0
-one_shot = true
-
-[node name="start_timer" type="Timer" parent="enemy_spawn_points"]
-wait_time = 2.0
-one_shot = true
-autostart = true
-
 [node name="world_boundries" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world_boundries"]
@@ -145,5 +136,3 @@ position = Vector2(486, -321)
 position = Vector2(-639, 505)
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
-[connection signal="timeout" from="enemy_spawn_points/spawn_timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="enemy_spawn_points/start_timer" to="." method="_on_start_timer_timeout"]

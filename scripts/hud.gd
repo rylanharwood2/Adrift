@@ -4,10 +4,11 @@ extends CanvasLayer
 
 signal start_game
 
-func show_message(text):
+func show_message(text, dead: bool = false):	
 	$start_message.text = text
 	$start_message.show()
-	$message_timer.start()
+	if !dead:
+		$message_timer.start()
 
 func update_health(health_update:int):
 	$health.text = "Health [ " + str(health_update) + " ]"#%Player.health) + " ]"
@@ -15,8 +16,8 @@ func update_health(health_update:int):
 func update_ammo(ammo_update:int):
 	$ammo.text = "Ammo [ " + str(ammo_update) + " ]"
 
-func update_boost_meter():
-	$boost.text = "Boost [ " + str(int(%Player.boost_meter)) + " ]"
+func update_boost_meter(boost_update:float):
+	$boost.text = "Boost [ " + str(int(boost_update)) + " ]"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

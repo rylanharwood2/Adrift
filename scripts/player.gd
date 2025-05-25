@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
-signal dead
+signal player_died
 signal healthpack_captured
+signal health_changed(new_health)
+signal ammo_changed(new_ammo)
+signal boost_changed(new_boost)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
-signal health_changed(new_health)
 
 @export var health: int = 2
 @export var max_health: int = 50
@@ -34,6 +36,9 @@ var is_tilting: bool = false
 var is_boosting: bool = false
 var is_boost_recharging: bool = true
 var rotation_direction = 0
+var last_health: int = -1
+var last_ammo: int = -1
+var last_boost: int = -1
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -44,21 +49,20 @@ func _on_ready() -> void:
 
 # Control Loop
 func _physics_process(delta: float) -> void:
-	update_health_changed(health) # TODO comically this is still prolly wrong, the enemy should send a signal 
-	# that updates the players health instead of running this check every frame
-	
-	process_loop_detect_shoot()
+	# TODO  comically this way of using signals is still prolly wrong, the enemy should send a signal 
+	# that tells us to update the player health only on a collision instead of running this check every frame
+	if health > 0:
+		update_health_changed(health) 
+		update_ammo_changed(ammo)
+		update_boost_changed(boost_meter)
+	else:
+		update_health_changed(0) 
 	
 	var forward_input = Input.is_action_pressed("move_up")
 	var boost_input = Input.is_action_pressed("boost")
 	var directional_input = Input.get_axis("move_left","move_right")
 	
 	rotation_direction = Vector2(1, 0).rotated(rotation)
-	
-	if directional_input == -1:
-		rotation_degrees -= rotation_speed
-	if directional_input == 1:
-		rotation_degrees += rotation_speed
 	
 	if forward_input:
 		velocity += (rotation_direction * acceleration)
@@ -67,8 +71,6 @@ func _physics_process(delta: float) -> void:
 	elif !forward_input:
 		velocity *= friction
 	
-	play_tilting_animation()
-	play_flame_amimation()
 	
 	if Input.is_action_pressed("boost") and boost_meter > 0:
 		is_boost_recharging = false
@@ -87,7 +89,12 @@ func _physics_process(delta: float) -> void:
 	elif !Input.is_action_pressed("drift(ebrake)"):
 		rotation_speed = 2
 	
-	move_and_slide()	
+	if health > 0:
+		detect_shoot()
+		play_tilting_animation()
+		play_flame_amimation()
+		determine_rotation(directional_input)
+		move_and_slide()	
 
 
 ## Weapon Mechanics
@@ -99,7 +106,7 @@ func shoot(_bullet_typey):
 	bullet.transform = $muzzle.global_transform
 	ammo -= 1
 	
-func process_loop_detect_shoot():
+func detect_shoot():
 	if Input.is_action_just_pressed("shoot"):
 		if (ammo > 0):
 			shoot("")
@@ -134,6 +141,13 @@ func boost() -> void:
 	
 func _on_boost_cooldown_timer_timeout() -> void:
 	is_boost_recharging = true
+
+func determine_rotation(directional_input) -> void:
+	if directional_input == -1:
+		rotation_degrees -= rotation_speed
+	if directional_input == 1:
+		rotation_degrees += rotation_speed
+	
 
 func play_tilting_animation() -> void:
 	var tilting_direction = Input.get_axis("move_left", "move_right")
@@ -170,7 +184,7 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		health -= 1
 		
 		if health <= 0:
-			dead.emit()
+			player_died.emit("You Died!\nPress R to Restart", true)
 			#queue_free()
 	
 	if (body.is_in_group("healthpack")):
@@ -181,7 +195,27 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 func active_ice_powerup() -> void:
 	print("moan")
 
+# theres prob a better way of doing this but these set up the signal to change the HUD
 func update_health_changed(updated_health):
-	# check if current UI stored health is different from true health
-	# if health_now != health_before:
-	health_changed.emit(updated_health)
+	if last_health != updated_health:
+		last_health = updated_health
+		health_changed.emit(updated_health)
+
+func update_ammo_changed(updated_ammo):
+	if last_ammo != updated_ammo:
+		last_ammo = updated_ammo
+		ammo_changed.emit(updated_ammo)
+
+func update_boost_changed(updated_boost):
+	if last_boost != updated_boost:
+		last_boost = updated_boost
+		boost_changed.emit(updated_boost)
+
+
+func _on_player_died() -> void:
+	var restart = Input.is_action_pressed("restart")
+	if restart:
+		print("were in")
+		pass
+		
+		# I have no idea how to restart the game lmao
