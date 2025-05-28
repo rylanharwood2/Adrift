@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cepyg8irkh4ah"]
 
-[ext_resource type="Script" path="res://scripts/gray_asteroid.gd" id="1_iwwse"]
+[ext_resource type="Script" uid="uid://cgy0gwat5fbg6" path="res://scripts/gray_asteroid.gd" id="1_iwwse"]
 [ext_resource type="Texture2D" uid="uid://caqt7stblywj8" path="res://assets/sprites/environment/asteroid_gray.png" id="1_yj03a"]
 [ext_resource type="Texture2D" uid="uid://bnajwj7sfx5gi" path="res://assets/sprites/environment/Asteroid Explosionsplosion.png" id="2_a5n67"]
 

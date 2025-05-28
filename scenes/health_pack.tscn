@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dffvmpbamr3rg"]
 
-[ext_resource type="Script" path="res://scenes/health_pack.gd" id="1_ejyjs"]
+[ext_resource type="Script" uid="uid://cn1wpd48urne7" path="res://scenes/health_pack.gd" id="1_ejyjs"]
 [ext_resource type="Texture2D" uid="uid://uoahg8spuqbp" path="res://assets/sprites/items/HealthPack.png" id="1_w7x4a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4fcob"]

@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=3 uid="uid://c27fp8o3i2qqh"]
 
-[ext_resource type="Script" path="res://scripts/pause_menu_ui.gd" id="1_xd47n"]
-[ext_resource type="Shader" path="res://scripts/pause_menu_blur.gdshader" id="2_3c6pp"]
+[ext_resource type="Script" uid="uid://c5lju2a5pcpyg" path="res://scripts/pause_menu_ui.gd" id="1_xd47n"]
+[ext_resource type="Shader" uid="uid://mxia4m5fcfew" path="res://scripts/pause_menu_blur.gdshader" id="2_3c6pp"]
 [ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_lmcw8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vau2j"]
 shader = ExtResource("2_3c6pp")
-shader_parameter/amount = null
+shader_parameter/amount = 0.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sdnv6"]
 

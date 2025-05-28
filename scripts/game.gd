@@ -52,7 +52,7 @@ func wave_spawner(waves, wave_spawn_rates):
 func wave_controller():
 	$enemy_spawn_points/spawn_timer.one_shot = true
 	
-	var wave_spawn_rates = [[1,3,0], [1,4,0], [1,5,0], [1,100,0]]
+	var wave_spawn_rates = [[1,3,1], [1,4,0], [1,5,0], [1,100,0]]
 	var waves : int = len(wave_spawn_rates)
 	var waves_done : bool = false
 	var timeout : float = 0

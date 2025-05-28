@@ -1,8 +1,8 @@
 [gd_scene load_steps=34 format=3 uid="uid://cyoarbaw7rvhv"]
 
-[ext_resource type="Script" path="res://scripts/capo_enemy.gd" id="1_m2rrh"]
+[ext_resource type="Script" uid="uid://dktmk1gpy1ab0" path="res://scripts/capo_enemy.gd" id="1_m2rrh"]
 [ext_resource type="Texture2D" uid="uid://j3s1w45fkn67" path="res://assets/sprites/enemies/CapoShootingAnimation-8.3fps.png" id="1_yue7r"]
-[ext_resource type="Shader" path="res://scripts/flash.gdshader" id="2_hwjdu"]
+[ext_resource type="Shader" uid="uid://crupfqg5q331r" path="res://scripts/flash.gdshader" id="2_hwjdu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i3d7n"]
 shader = ExtResource("2_hwjdu")
