@@ -163,7 +163,7 @@ func play_tilting_animation() -> void:
 
 func play_flame_amimation() -> void:
 	# TODO make flame_on_counter / idle_counter into one variable
-	var flame_on = Input.is_action_pressed("move_up") or Input.is_action_pressed("boost") # FLAME ON!
+	var flame_on = Input.is_action_pressed("move_up") or (Input.is_action_pressed("boost") and boost_meter > 0) # FLAME ON!
 	if flame_on and flame_on_counter == 0:
 		$flame_on.play("flame_on")
 		flame_on_counter += 1
