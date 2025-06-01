@@ -1,9 +1,150 @@
-[gd_scene format=3 uid="uid://bgr8mv6xl4dam"]
+[gd_scene load_steps=21 format=3 uid="uid://bgr8mv6xl4dam"]
+
+[ext_resource type="Texture2D" uid="uid://df5p2u5s4ccp5" path="res://assets/sprites/enemies/FinalBossAttackSpin.png" id="1_us061"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xp4uy"]
+atlas = ExtResource("1_us061")
+region = Rect2(0, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyj1q"]
+atlas = ExtResource("1_us061")
+region = Rect2(250, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qc34"]
+atlas = ExtResource("1_us061")
+region = Rect2(500, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wq1r"]
+atlas = ExtResource("1_us061")
+region = Rect2(750, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4peh"]
+atlas = ExtResource("1_us061")
+region = Rect2(1000, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nin2c"]
+atlas = ExtResource("1_us061")
+region = Rect2(0, 250, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yro7x"]
+atlas = ExtResource("1_us061")
+region = Rect2(250, 250, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1g5tu"]
+atlas = ExtResource("1_us061")
+region = Rect2(500, 250, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2mv4"]
+atlas = ExtResource("1_us061")
+region = Rect2(750, 250, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkku2"]
+atlas = ExtResource("1_us061")
+region = Rect2(1000, 250, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv8k1"]
+atlas = ExtResource("1_us061")
+region = Rect2(0, 500, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5uww"]
+atlas = ExtResource("1_us061")
+region = Rect2(250, 500, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uei3j"]
+atlas = ExtResource("1_us061")
+region = Rect2(500, 500, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2u0s"]
+atlas = ExtResource("1_us061")
+region = Rect2(750, 500, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mgjl"]
+atlas = ExtResource("1_us061")
+region = Rect2(1000, 500, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctafc"]
+atlas = ExtResource("1_us061")
+region = Rect2(0, 750, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuch5"]
+atlas = ExtResource("1_us061")
+region = Rect2(250, 750, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsk57"]
+atlas = ExtResource("1_us061")
+region = Rect2(500, 750, 250, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7bdla"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xp4uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyj1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qc34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wq1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4peh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nin2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yro7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1g5tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2mv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkku2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv8k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5uww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uei3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2u0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mgjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctafc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuch5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsk57")
+}],
+"loop": true,
+"name": &"spin attack",
+"speed": 9.0
+}]
 
 [node name="Node2D" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7bdla")
+animation = &"spin attack"
+autoplay = "spin attack"
+frame_progress = 0.726055
 
 [node name="Area2D" type="Area2D" parent="."]
 

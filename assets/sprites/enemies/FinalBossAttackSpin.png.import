@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6c1yb83cxoli"
-path="res://.godot/imported/FinalBossTestOutPut.png-7cdba940fe5693d779487473b38a4602.ctex"
+uid="uid://df5p2u5s4ccp5"
+path="res://.godot/imported/FinalBossAttackSpin.png-e422304ddfe7b8dc7da0a42a6bc9e92e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/FinalBossTestOutPut.png"
-dest_files=["res://.godot/imported/FinalBossTestOutPut.png-7cdba940fe5693d779487473b38a4602.ctex"]
+source_file="res://assets/sprites/enemies/FinalBossAttackSpin.png"
+dest_files=["res://.godot/imported/FinalBossAttackSpin.png-e422304ddfe7b8dc7da0a42a6bc9e92e.ctex"]
 
 [params]
 
