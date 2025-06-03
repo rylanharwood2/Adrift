@@ -132,7 +132,7 @@ position = Vector2(557, 131)
 [node name="gray_asteroid" parent="." instance=ExtResource("9_bkh4i")]
 position = Vector2(486, -321)
 
-[node name="Node2D" parent="." instance=ExtResource("13_kvuet")]
-position = Vector2(-288, 206)
+[node name="helheim" parent="." instance=ExtResource("13_kvuet")]
+position = Vector2(-270, 172)
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]

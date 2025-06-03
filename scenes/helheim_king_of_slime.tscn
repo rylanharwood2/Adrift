@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://bgr8mv6xl4dam"]
+[gd_scene load_steps=25 format=3 uid="uid://bgr8mv6xl4dam"]
 
 [ext_resource type="Texture2D" uid="uid://df5p2u5s4ccp5" path="res://assets/sprites/enemies/FinalBossAttackSpin.png" id="1_us061"]
+[ext_resource type="Script" uid="uid://bsglw5opydy3e" path="res://scenes/helheim_king_of_slime.gd" id="1_xp4uy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xp4uy"]
 atlas = ExtResource("1_us061")
@@ -136,7 +137,14 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="Node2D" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xp4uy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_us061"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dyj1q"]
+
+[node name="helheim" type="CharacterBody2D"]
+script = ExtResource("1_xp4uy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
@@ -144,8 +152,24 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7bdla")
 animation = &"spin attack"
 autoplay = "spin attack"
-frame_progress = 0.726055
+frame = 11
+frame_progress = 0.934268
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="spin_hitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="spin_shape" type="CollisionShape2D" parent="spin_hitbox"]
+position = Vector2(12, 23)
+scale = Vector2(20, 20)
+shape = SubResource("CircleShape2D_xp4uy")
+
+[node name="body_shape" type="CollisionShape2D" parent="."]
+position = Vector2(9, 20)
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_us061")
+
+[node name="body_hitbox" type="Area2D" parent="."]
+
+[node name="body_hitbox_shape" type="CollisionShape2D" parent="body_hitbox"]
+position = Vector2(9, 21)
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_dyj1q")
