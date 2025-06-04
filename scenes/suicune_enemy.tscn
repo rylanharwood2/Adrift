@@ -340,7 +340,7 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_8ffwc")
+&"": SubResource("AnimationLibrary_8ffwc")
 }
 autoplay = "RESET"
 

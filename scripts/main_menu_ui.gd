@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var player = get_node("%Player")
+#@onready var player = get_node("%Player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,4 +28,3 @@ func _process(delta: float) -> void:
 
 func display_menu():
 	print("player dead")
-	$big_bad_dude.bam.disconnect(display_menu)

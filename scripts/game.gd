@@ -17,6 +17,9 @@ func _ready() -> void:
 	%Player.ammo_changed.connect($HUD.update_ammo)
 	%Player.boost_changed.connect($HUD.update_boost_meter)
 	%Player.player_died.connect($HUD.show_message)
+	
+	for health_pack in get_tree().get_nodes_in_group("health_packs"):
+		health_pack.health_pack_entered.connect(%Player.change_health)
 
 func _process(_delta: float) -> void:
 	pass

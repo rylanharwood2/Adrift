@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal bam
+signal health_pack_received
 
 const MOVE_SPEED : int = 750
 const SPIN_SPEED : int = 300
@@ -8,7 +8,7 @@ const SPIN_SPEED : int = 300
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	bam.emit()
+	health_pack_received.emit()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -211,6 +211,8 @@ func update_boost_changed(updated_boost):
 		last_boost = updated_boost
 		boost_changed.emit(updated_boost)
 
+func change_health(change_amount):
+	health += clamp(change_amount, 0, max_health)
 
 func _on_player_died() -> void:
 	var restart = Input.is_action_pressed("restart")

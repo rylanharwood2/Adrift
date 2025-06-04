@@ -24,6 +24,7 @@ window/stretch/mode="viewport"
 enemies=""
 player=""
 asteroid=""
+health_packs=""
 
 [input]
 

@@ -11,3 +11,4 @@ dec 9 pause menu and basic sounds
 winter break -> end of april  motivation is low oof
 may 1 -> may 24  enemy spawn waves are working, improved music, lots of bug fixing, beginning to reorganise scripts. 
    trying to be mostly done with core features by graduation
+may 4 health packs work - I am making progress w signals
