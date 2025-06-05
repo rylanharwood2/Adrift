@@ -31,7 +31,7 @@ func new_game():
 # control enemy spawn waves
 func wave_controller():
 	#[[waves, numsuicune, numcapos],[]]
-	var wave_spawn_rates = [[1,3,0], [1,4,0], [1,5,0], [1,100,0]]
+	var wave_spawn_rates = [[1,3,1], [1,4,2], [1,5,2], [1,100,10]]
 	var waves : int = len(wave_spawn_rates)
 	var waves_done : bool = false
 	var timeout : float = 0

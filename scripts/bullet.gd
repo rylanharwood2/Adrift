@@ -1,10 +1,12 @@
 extends AnimatedSprite2D
+class_name bullet
 
-var speed = 300
+signal enemy_killed
 
 @onready var bullet: AnimatedSprite2D = $"."
 @onready var player: CharacterBody2D = get_node("%Player")
-signal enemy_killed
+
+var speed = 300
 
 func _physics_process(delta):
 	position -= transform.y * speed * delta
@@ -23,7 +25,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 	if !body.is_in_group("player"):
 		queue_free()
-
+	
 
 func _on_despawn_timer_timeout() -> void:
 	# kill the bullets that exit the screen, helps with lag

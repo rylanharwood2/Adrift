@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var target = get_tree().current_scene.get_node("Player")
-var scene = preload("res://scenes/bullet.tscn")
+var scene = preload("res://scenes/capo_bullet.tscn")
 
 var rand = RandomNumberGenerator.new()
 
@@ -54,7 +54,6 @@ func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
 	bullet.speed *= 2
 	
-	print(self)
 	self.add_child(bullet)
 	bullet.global_transform = $muzzle.global_transform
 	$reload_speed.start()

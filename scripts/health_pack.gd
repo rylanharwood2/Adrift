@@ -8,7 +8,7 @@ signal health_pack_entered(amount : int)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.add_to_group("health_packs",true)
-	
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

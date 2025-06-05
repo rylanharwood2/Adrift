@@ -56,7 +56,9 @@ func _physics_process(delta: float) -> void:
 		update_ammo_changed(ammo)
 		update_boost_changed(boost_meter)
 	else:
-		update_health_changed(0) 
+		update_health_changed(0)
+		if health <= 0:
+			player_died.emit("You Died!\nPress R to Restart", true)
 	
 	var forward_input = Input.is_action_pressed("move_up")
 	var boost_input = Input.is_action_pressed("boost")
@@ -183,8 +185,6 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		flash()
 		health -= 1
 		
-		if health <= 0:
-			player_died.emit("You Died!\nPress R to Restart", true)
 			#queue_free()
 	
 	if (body.is_in_group("healthpack")):

@@ -1,4 +1,6 @@
+@icon("res://assets/sprites/enemies/testboss2.png")
 extends CharacterBody2D
+
 
 signal health_pack_received
 
