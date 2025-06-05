@@ -14,4 +14,4 @@ winter break -> end of april  motivation is low oof
 may 1 -> may 24  enemy spawn waves are working, improved music, lots of bug fixing, beginning to reorganise scripts. 
    trying to be mostly done with core features by graduation    lmao 6/4/25
 may 4 health packs work - I am making progress w signals
-may 5 capos bullets work properly for now, can also be spawned like the suicunes in code
+may 5 capos bullets work properly for now, can also be spawned like the suicunes in code. figured out classes + extending

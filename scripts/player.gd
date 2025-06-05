@@ -11,7 +11,7 @@ signal boost_changed(new_boost)
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
 
-@export var health: int = 2
+@export var health: int = 8
 @export var max_health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
@@ -102,6 +102,7 @@ func _physics_process(delta: float) -> void:
 ## Weapon Mechanics
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
+	bullet.speed *= 2
 	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
 	$shoot_sound.play()
 	owner.add_child(bullet)

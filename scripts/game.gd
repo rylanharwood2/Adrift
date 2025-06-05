@@ -4,6 +4,7 @@ var animation: String
 var rand = RandomNumberGenerator.new()
 var suicune_enemy_scene = load("res://scenes/suicune_enemy.tscn")
 var capo_enemy_scene = load("res://scenes/capo_enemy.tscn")
+var helheim_scene = load("res://scenes/helheim_king_of_slime.tscn")
 
 var current_player_health : int = -1
 var current_player_ammo : int = -1
@@ -31,7 +32,7 @@ func new_game():
 # control enemy spawn waves
 func wave_controller():
 	#[[waves, numsuicune, numcapos],[]]
-	var wave_spawn_rates = [[1,3,1], [1,4,2], [1,5,2], [1,100,10]]
+	var wave_spawn_rates = [[1,3,1,0], [1,4,2,0], [1,5,2,1], [1,100,10,0]]
 	var waves : int = len(wave_spawn_rates)
 	var waves_done : bool = false
 	var timeout : float = 0
@@ -52,8 +53,8 @@ func wave_spawner(waves, wave_spawn_rates):
 	for sub_wave in range(0, wave_spawn_rates[0]):
 			
 		rand.randomize()
-		for individual_enemy in range(0, wave_spawn_rates[1] + wave_spawn_rates[2]):
-			if wave_spawn_rates[1] > 0:
+		for individual_enemy in range(0, wave_spawn_rates[1] + wave_spawn_rates[2] + wave_spawn_rates[3]):
+			if wave_spawn_rates[1] > 0: # Spawn Suicunes
 				wave_spawn_rates[1] -= 1
 				var suicune_enemy = suicune_enemy_scene.instantiate()
 				
@@ -63,7 +64,7 @@ func wave_spawner(waves, wave_spawn_rates):
 				suicune_enemy.position = mob_spawn_location.position
 				add_child(suicune_enemy)
 				
-			elif wave_spawn_rates[2] > 0:
+			elif wave_spawn_rates[2] > 0: # Spawn Capos
 				wave_spawn_rates[2] -= 1
 				var capo_enemy = capo_enemy_scene.instantiate()
 				
@@ -72,6 +73,14 @@ func wave_spawner(waves, wave_spawn_rates):
 				
 				capo_enemy.position = mob_spawn_location.position
 				add_child(capo_enemy)
+			
+			elif wave_spawn_rates[3] > 0: # Spawn boss
+				wave_spawn_rates[3] -= 1
+				var helheim = helheim_scene.instantiate()
+				
+				helheim.position = Vector2(0,0)
+				add_child(helheim)
+				print("added")
 	
 	while true:
 		if get_tree().get_first_node_in_group("enemies") != null:

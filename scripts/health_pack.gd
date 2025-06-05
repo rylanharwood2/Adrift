@@ -30,5 +30,6 @@ func player_detection():
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	health_pack_entered.emit(heal_amount)
-	queue_free()
+	if body.is_in_group("player"):
+		health_pack_entered.emit(heal_amount)
+		queue_free()

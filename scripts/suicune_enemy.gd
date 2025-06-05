@@ -14,10 +14,6 @@ var dead: bool = false
 var targgg = Vector2(0,0)
 var target_angle = Vector2(0,0)
 
-func player_hit():
-	pass
-	#if %Player.is_colliding():
-	#	$AnimatedSprite2D.pause()
 
 func flash():
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)

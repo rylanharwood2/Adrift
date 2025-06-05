@@ -1,7 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://bgr8mv6xl4dam"]
+[gd_scene load_steps=27 format=3 uid="uid://bgr8mv6xl4dam"]
 
 [ext_resource type="Texture2D" uid="uid://df5p2u5s4ccp5" path="res://assets/sprites/enemies/FinalBossAttackSpin.png" id="1_us061"]
 [ext_resource type="Script" uid="uid://bsglw5opydy3e" path="res://scripts/helheim_king_of_slime.gd" id="1_xp4uy"]
+[ext_resource type="Shader" uid="uid://crupfqg5q331r" path="res://scripts/flash.gdshader" id="2_dyj1q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qc34"]
+shader = ExtResource("2_dyj1q")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xp4uy"]
 atlas = ExtResource("1_us061")
@@ -143,10 +149,11 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dyj1q"]
 
-[node name="helheim" type="CharacterBody2D"]
+[node name="helheim" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_xp4uy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_6qc34")
 position = Vector2(0, -1)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7bdla")
@@ -173,3 +180,9 @@ shape = SubResource("CircleShape2D_us061")
 position = Vector2(9, 21)
 scale = Vector2(6, 6)
 shape = SubResource("CircleShape2D_dyj1q")
+
+[node name="flash_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]

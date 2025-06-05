@@ -1,7 +1,6 @@
 extends AnimatedSprite2D
 class_name bullet
 
-signal enemy_killed
 
 @onready var bullet: AnimatedSprite2D = $"."
 @onready var player: CharacterBody2D = get_node("%Player")
@@ -15,7 +14,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		if (body.health == 1):
 			body.play_death()
-			enemy_killed.emit()
 		else:
 			body.health -= 1
 		body.flash()
