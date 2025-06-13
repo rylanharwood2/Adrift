@@ -28,6 +28,9 @@ func _input(event):
 
 	if event is InputEventScreenTouch or event is InputEventMouseButton or event is InputEventScreenDrag or (event is InputEventMouseMotion and dragging):
 		touch_pos = Vector2(event.position.x + 60, event.position.y + 60)
+		var touch_buttons = get_node("../../TouchButtonLayer/Control")
+		if touch_buttons.boost_pressed and touch_buttons.shoot_pressed and dragging:
+			dragging = true
 		if (dragging and "pressed" not in event) or (event.pressed and touch_pos.distance_to(self.position) < base_radius):
 			if self.position.y - 60 > event.position.y and (dragging or event.position.y > self.position.y - 60 - base_radius):
 				var ev := InputEventAction.new()
@@ -71,7 +74,7 @@ func _input(event):
 				ev.pressed = false
 				Input.parse_input_event(ev1)
 			
-		elif not event.pressed:
+		elif not dragging and not event.pressed:
 			var ev := InputEventAction.new()
 			ev.action = "move_left"
 			ev.pressed = false

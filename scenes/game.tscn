@@ -150,11 +150,11 @@ grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("13_kvuet")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="TouchButtonLayer" type="CanvasLayer" parent="."]
 offset = Vector2(80, -50)
 transform = Transform2D(1, 0, 0, 1, 80, -50)
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="TouchButtonLayer"]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0

@@ -31,16 +31,23 @@ func _input(event):
 			var player = get_node("../../Player")
 			if touch_pos.distance_to(self.position) < button_radius:
 				player.shoot("")
+				shoot_pressed = true
+				boost_pressed = false
 			elif touch_pos.distance_to(Vector2(self.position.x + (3 * button_radius), self.position.y)) < button_radius:
 				var ev = InputEventAction.new()
 				ev.action = "boost"
 				ev.pressed = true
 				Input.parse_input_event(ev)
+				shoot_pressed = false
+				boost_pressed = true
+				
 		else:
 			var ev = InputEventAction.new()
 			ev.action = "boost"
 			ev.pressed = false
 			Input.parse_input_event(ev)
+			shoot_pressed = false
+			boost_pressed = false
 				
 			
 	queue_redraw()
@@ -50,6 +57,13 @@ func _draw():
 		return
 	const regular_color = Color(0.3, 0.3, 0.3, 0.6)
 	const pressed_color = Color(0.7, 0.7, 1, 0.8)
+	var shoot_circle = regular_color
+	var boost_circle = regular_color
+	
+	if shoot_pressed:
+		shoot_circle = pressed_color
+	if boost_pressed:
+		boost_circle = pressed_color
 
-	draw_circle(shoot_center, button_radius, regular_color)
-	draw_circle(boost_center, button_radius, pressed_color)
+	draw_circle(shoot_center, button_radius, shoot_circle)
+	draw_circle(boost_center, button_radius, boost_circle)
