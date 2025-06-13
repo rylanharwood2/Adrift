@@ -46,8 +46,6 @@ func _input(event):
 			ev.action = "boost"
 			ev.pressed = false
 			Input.parse_input_event(ev)
-			shoot_pressed = false
-			boost_pressed = false
 				
 			
 	queue_redraw()
