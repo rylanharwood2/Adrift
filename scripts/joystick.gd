@@ -26,32 +26,50 @@ func _input(event):
 	if not visible:
 		return
 
-	if event is InputEventScreenTouch or event is InputEventMouseButton:
-		if event.pressed:
-			print(event.position, " ", self.position)
-			if self.position.y - 60 > event.position.y and event.position.y > self.position.y - 60 - base_radius:
+	if event is InputEventScreenTouch or event is InputEventMouseButton or event is InputEventScreenDrag or (event is InputEventMouseMotion and dragging):
+		touch_pos = Vector2(event.position.x + 60, event.position.y + 60)
+		if (dragging and "pressed" not in event) or (event.pressed and touch_pos.distance_to(self.position) < base_radius):
+			if self.position.y - 60 > event.position.y and (dragging or event.position.y > self.position.y - 60 - base_radius):
 				var ev := InputEventAction.new()
 				ev.action = "move_up"
 				ev.pressed = true
 				Input.parse_input_event(ev)
 				dragging = true
-				direction.y = 30
-			if self.position.x - 60 - 20> event.position.x and event.position.x > self.position.x - 60 - base_radius:
+				direction = (touch_pos - global_position - center)
+				if direction.length() > max_distance:
+					direction = direction.normalized() * max_distance
+			else:
+				var ev := InputEventAction.new()
+				ev.action = "move_up"
+				ev.pressed = false
+				Input.parse_input_event(ev)
+			if self.position.x - 60 - 30 > event.position.x and (dragging or event.position.x > self.position.x - 60 - base_radius):
+				dragging = true
 				var ev := InputEventAction.new()
 				ev.action = "move_left"
 				ev.pressed = true
-				dragging = true
 				Input.parse_input_event(ev)
-				direction.x = -30
-			elif self.position.x - 60 + 20 < event.position.x and event.position.x < self.position.x - 60 + base_radius:
-				print("Moving right")
+				direction = (touch_pos - global_position - center)
+				if direction.length() > max_distance:
+					direction = direction.normalized() * max_distance
+			elif self.position.x - 60 + 30 < event.position.x and (dragging or event.position.x < self.position.x - 60 + base_radius):
+				dragging = true
 				var ev := InputEventAction.new()
 				ev.action = "move_right"
 				ev.pressed = true
-				dragging = true
 				Input.parse_input_event(ev)
-				direction.x = 30
-				
+				direction = (touch_pos - global_position - center)
+				if direction.length() > max_distance:
+					direction = direction.normalized() * max_distance
+			else:
+				var ev := InputEventAction.new()
+				ev.action = "move_right"
+				ev.pressed = false
+				Input.parse_input_event(ev)
+				var ev1 := InputEventAction.new()
+				ev1.action = "move_left"
+				ev.pressed = false
+				Input.parse_input_event(ev1)
 			
 		elif not event.pressed:
 			var ev := InputEventAction.new()
@@ -68,11 +86,6 @@ func _input(event):
 			Input.parse_input_event(ev2)
 			dragging = false
 			direction = Vector2(0, 0)
-	elif event is InputEventScreenDrag or event is InputEventMouseMotion and dragging:
-		touch_pos = event.position
-		direction = (touch_pos - global_position - center)
-		if direction.length() > max_distance:
-			direction = direction.normalized() * max_distance
 			
 	queue_redraw()
 
