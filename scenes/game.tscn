@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=19 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
 [ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
 [ext_resource type="PackedScene" uid="uid://dffvmpbamr3rg" path="res://scenes/health_pack.tscn" id="13_a6ypd"]
+[ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scenes/joystick.gd" id="13_kvuet"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
 _data = {
@@ -130,5 +131,22 @@ position = Vector2(557, 131)
 
 [node name="gray_asteroid" parent="." instance=ExtResource("9_bkh4i")]
 position = Vector2(486, -321)
+
+[node name="JoystickLayer" type="CanvasLayer" parent="."]
+offset = Vector2(-80, -80)
+transform = Transform2D(1, 0, 0, 1, -80, -80)
+
+[node name="Control" type="Control" parent="JoystickLayer"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("13_kvuet")
 
 [connection signal="start_game" from="HUD" to="." method="new_game"]
