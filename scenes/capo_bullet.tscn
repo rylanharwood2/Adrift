@@ -5,3 +5,7 @@
 
 [node name="capo_bullet" instance=ExtResource("1_ot0ro")]
 script = ExtResource("2_0xalb")
+
+[node name="Area2D" parent="." index="0"]
+position = Vector2(-2, 0)
+scale = Vector2(0.627738, 0.671875)

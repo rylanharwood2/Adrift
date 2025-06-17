@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du3p8wavfsjl6"
-path="res://.godot/imported/ice_bullets.png-2a446dc75aa6ae1dbb6bf46bdc4d85e0.ctex"
+uid="uid://c3crhyilqm1j4"
+path="res://.godot/imported/spaceship_frozone_bullets.png-1d99c1bc0e747fb348c921577e22b747.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/ice_bullets.png"
-dest_files=["res://.godot/imported/ice_bullets.png-2a446dc75aa6ae1dbb6bf46bdc4d85e0.ctex"]
+source_file="res://assets/sprites/player/spaceship_frozone_bullets.png"
+dest_files=["res://.godot/imported/spaceship_frozone_bullets.png-1d99c1bc0e747fb348c921577e22b747.ctex"]
 
 [params]
 

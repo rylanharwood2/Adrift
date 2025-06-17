@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal player_died
+signal player_died(message, bool)
 signal healthpack_captured
 signal health_changed(new_health)
 signal ammo_changed(new_ammo)
