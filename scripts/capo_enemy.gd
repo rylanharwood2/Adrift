@@ -36,12 +36,6 @@ func _process(delta: float) -> void:
 	if (!dead and $reload_speed.is_stopped()):
 		shoot("")
 	
-	if dead:
-		velocity = Vector2(0,0)
-		set_collision_layer_value(1, false)
-		set_collision_mask_value(1, false)
-		queue_free()
-	
 	if distance_to_player > 250:
 		move_and_slide()
 	else:
@@ -65,16 +59,15 @@ func flash():
 
 func play_death():
 	dead = true
-	print("hello")
+	velocity = Vector2(0,0)
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
 	$AnimatedSprite2D.play("death")
-	print("hello")
-	await get_tree().create_timer(2).timeout
-	print("hello")
-	if dead:
-		print("goodbye")
-		#queue_free()
-		#$AnimatedSprite2D.play("death")
-
+	#await get_tree().create_timer(2).timeout  - I feel like this should work but we are instead using a timer
+	$death_animation.start(5)
 
 func _on_flash_timer_timeout() -> void:
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+
+func _on_death_animation_timeout() -> void:
+	queue_free()

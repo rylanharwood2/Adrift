@@ -17,4 +17,5 @@ scale = Vector2(0.627738, 0.671875)
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(-13.5407, -4.46508)
-scale = Vector2(1, 1)
+
+[node name="Timer" type="Timer" parent="." index="2"]

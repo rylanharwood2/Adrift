@@ -200,8 +200,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pv0qc")
+}, {
+"duration": 1.0,
+"texture": null
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 16.0
 }, {
@@ -336,4 +339,8 @@ visible = false
 scale = Vector2(-60, -60)
 shape = SubResource("CircleShape2D_4y3sd")
 
+[node name="death_animation" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
+[connection signal="timeout" from="death_animation" to="." method="_on_death_animation_timeout"]
