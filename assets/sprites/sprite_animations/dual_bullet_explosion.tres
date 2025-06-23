@@ -1,0 +1,29 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://b3vmb13kk2v55"]
+
+[ext_resource type="Texture2D" uid="uid://bvmr3lh0msqfl" path="res://assets/sprites/player/default_bullet.png" id="1_a1vik"]
+[ext_resource type="Texture2D" uid="uid://dollkoll5l36" path="res://assets/sprites/player/flame.png" id="2_51mot"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uvfu"]
+atlas = ExtResource("1_a1vik")
+region = Rect2(0, 0, 30, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wj6r"]
+atlas = ExtResource("2_51mot")
+region = Rect2(8, 0, 4, 8)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uvfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uvfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wj6r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,13 +1,62 @@
-[gd_scene load_steps=34 format=3 uid="uid://cyoarbaw7rvhv"]
+[gd_scene load_steps=47 format=3 uid="uid://cyoarbaw7rvhv"]
 
 [ext_resource type="Script" uid="uid://dktmk1gpy1ab0" path="res://scripts/capo_enemy.gd" id="1_m2rrh"]
 [ext_resource type="Texture2D" uid="uid://j3s1w45fkn67" path="res://assets/sprites/enemies/CapoShootingAnimation-8.3fps.png" id="1_yue7r"]
 [ext_resource type="Shader" uid="uid://crupfqg5q331r" path="res://scripts/flash.gdshader" id="2_hwjdu"]
+[ext_resource type="Texture2D" uid="uid://dnldxosajhswy" path="res://assets/sprites/enemies/capo_death.png" id="3_0s4b1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i3d7n"]
 shader = ExtResource("2_hwjdu")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3ldm"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(0, 0, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsikb"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(299, 0, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1knl"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(598, 0, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgl0k"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(897, 0, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nag0h"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(0, 230, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64tmi"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(299, 230, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_082ib"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(598, 230, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beixj"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(897, 230, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm10k"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(0, 460, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtdy1"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(299, 460, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7oxm"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(598, 460, 299, 230)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv0qc"]
+atlas = ExtResource("3_0s4b1")
+region = Rect2(897, 460, 299, 230)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hy6s4"]
 atlas = ExtResource("1_yue7r")
@@ -117,6 +166,50 @@ region = Rect2(1368, 0, 57, 59)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_s3ldm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsikb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1knl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgl0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nag0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64tmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_082ib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beixj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm10k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtdy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7oxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv0qc")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"death",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hy6s4")
 }],
 "loop": true,
@@ -215,8 +308,9 @@ script = ExtResource("1_m2rrh")
 material = SubResource("ShaderMaterial_i3d7n")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_w8g1f")
-animation = &"shoot"
+animation = &"death"
 autoplay = "default"
+frame_progress = 0.884851
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-6, -6.55651e-07)
@@ -245,4 +339,8 @@ visible = false
 scale = Vector2(-60, -60)
 shape = SubResource("CircleShape2D_4y3sd")
 
+[node name="death_animation" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
+[connection signal="timeout" from="death_animation" to="." method="_on_death_animation_timeout"]

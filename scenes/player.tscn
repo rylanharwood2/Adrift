@@ -163,7 +163,7 @@ animations = [{
 rotation = -1.5708
 script = ExtResource("1_wwnok")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="ship" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_4a8iu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_88jfr")
