@@ -32,3 +32,4 @@ func _on_despawn_timer_timeout() -> void:
 
 func _on_ready() -> void:
 	$despawn_timer.start(15)
+	

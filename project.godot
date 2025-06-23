@@ -25,6 +25,7 @@ enemies=""
 player=""
 asteroid=""
 health_packs=""
+bullet=""
 
 [input]
 

@@ -36,6 +36,11 @@ size = Vector2(1619, 0.999969)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_p1si3")
 
+[node name="testing_bullet_despawn" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="star_sky" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -164,4 +169,5 @@ offset_right = 40.0
 grow_vertical = 0
 script = ExtResource("14_trtic")
 
+[connection signal="timeout" from="testing_bullet_despawn" to="." method="_on_testing_bullet_despawn_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]

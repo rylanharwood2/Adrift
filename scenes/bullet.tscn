@@ -19,9 +19,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pa5e"]
-size = Vector2(26.0002, 30.2498)
+size = Vector2(8.93023, 46.1976)
 
-[node name="Bullet" type="AnimatedSprite2D"]
+[node name="Bullet" type="AnimatedSprite2D" groups=["bullet"]]
 sprite_frames = SubResource("SpriteFrames_go2k2")
 autoplay = "default"
 frame_progress = 0.120155

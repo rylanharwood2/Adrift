@@ -127,11 +127,11 @@ func _on_reload_timer_timeout() -> void:
 
 # flash on damage received
 func flash():
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
+	$ship.material.set_shader_parameter("flash_modifier", 0.8)
 	$flash_timer.start()
 
 func _on_flash_timer_timeout() -> void:
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+	$ship.material.set_shader_parameter("flash_modifier", 0)
 
 
 # boooooooooost
@@ -155,13 +155,13 @@ func determine_rotation(directional_input) -> void:
 func play_tilting_animation() -> void:
 	var tilting_direction = Input.get_axis("move_left", "move_right")
 	if tilting_direction == 1 and !is_tilting:
-		$AnimatedSprite2D.play("tilt_right")
+		$ship.play("tilt_right")
 		is_tilting = true
 	elif tilting_direction == -1 and !is_tilting:
-		$AnimatedSprite2D.play("tilt_left")
+		$ship.play("tilt_left")
 		is_tilting = true
 	if tilting_direction == 0:
-		$AnimatedSprite2D.play("idle")
+		$ship.play("idle")
 		is_tilting = false
 
 func play_flame_amimation() -> void:

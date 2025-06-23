@@ -87,3 +87,10 @@ func wave_spawner(waves, wave_spawn_rates):
 			await get_tree().create_timer(2).timeout 
 		else:
 			break
+
+
+func _on_testing_bullet_despawn_timeout() -> void:
+	
+	for bullet in get_tree().get_nodes_in_group("bullet"):
+		print(bullet)
+	

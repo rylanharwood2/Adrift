@@ -65,8 +65,14 @@ func flash():
 
 func play_death():
 	dead = true
+	print("hello")
+	$AnimatedSprite2D.play("death")
+	print("hello")
+	await get_tree().create_timer(2).timeout
+	print("hello")
 	if dead:
-		queue_free()
+		print("goodbye")
+		#queue_free()
 		#$AnimatedSprite2D.play("death")
 
 

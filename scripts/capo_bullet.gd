@@ -2,6 +2,9 @@ extends "res://scripts/bullet.gd"
 
 var bullet_damage = 1
 
+func play_explosion_animation():
+	pass
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.health -= bullet_damage
