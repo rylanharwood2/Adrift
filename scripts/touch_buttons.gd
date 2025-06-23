@@ -30,7 +30,8 @@ func _input(event):
 			touch_pos = Vector2(event.position.x - 80, event.position.y + 40)
 			var player = get_node("../../Player")
 			if touch_pos.distance_to(self.position) < button_radius:
-				player.shoot("")
+				if player.ammo > 0:
+					player.shoot("")
 				shoot_pressed = true
 				boost_pressed = false
 			elif touch_pos.distance_to(Vector2(self.position.x + (3 * button_radius), self.position.y)) < button_radius:
