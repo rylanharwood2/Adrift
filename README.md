@@ -6,10 +6,14 @@
 first player/shooting iteration
 ### nov 4 
 first enemy iteration
-nov 10 enemy sprites exist, flying is smooth, preliminary background is in
-nov 11 wave spawner works! I need to add some varience to the enemy pathing. boost is in early development
-nov 28 basic design pieces are there, boss sprites are in, enemies display a flash shader when shot
-dec 9 pause menu and basic sounds
+### nov 10 
+enemy sprites exist, flying is smooth, preliminary background is in
+### nov 11
+wave spawner works! I need to add some varience to the enemy pathing. boost is in early development
+### nov 28
+basic design pieces are there, boss sprites are in, enemies display a flash shader when shot
+### dec 9
+pause menu and basic sounds
 
 winter break -> end of april  motivation is low oof
 
