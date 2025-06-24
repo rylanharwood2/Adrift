@@ -5,7 +5,7 @@
 ### nov 1 
 first player/shooting iteration  
 ### nov 4 
-first enemy iteration\
+first enemy iteration<br/>
 ### nov 10 
 enemy sprites exist, flying is smooth, preliminary background is in\
 ### nov 11
