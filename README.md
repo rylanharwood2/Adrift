@@ -3,7 +3,7 @@
 ##### Start date: Nov 1, 2024
 
 ### nov 1 
-first player/shooting iteration\
+first player/shooting iteration  
 ### nov 4 
 first enemy iteration\
 ### nov 10 
