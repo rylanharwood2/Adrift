@@ -18,9 +18,13 @@ func _ready() -> void:
 	%Player.ammo_changed.connect($HUD.update_ammo)
 	%Player.boost_changed.connect($HUD.update_boost_meter)
 	%Player.player_died.connect($HUD.show_message)
+	#self.applied_ice.connect(self.apply_slow)
 	
 	for health_pack in get_tree().get_nodes_in_group("health_packs"):
 		health_pack.health_pack_entered.connect(%Player.change_health)
+
+func apply_slow():
+	print("apply_slow")
 
 func _process(_delta: float) -> void:
 	pass
@@ -92,5 +96,6 @@ func wave_spawner(waves, wave_spawn_rates):
 func _on_testing_bullet_despawn_timeout() -> void:
 	
 	for bullet in get_tree().get_nodes_in_group("bullet"):
-		print(bullet)
+		pass
+		#print(bullet)
 	

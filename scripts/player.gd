@@ -137,6 +137,8 @@ func _on_flash_timer_timeout() -> void:
 
 # boooooooooost
 func boost() -> void:
+	print("modulating")
+	$ship.modulate = Color(0.5, 0.5, 1.0)
 	if boost_meter > 0:
 		velocity += (rotation_direction * boost_acceleration)
 		boost_meter -= 0.4
