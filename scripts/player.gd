@@ -39,6 +39,7 @@ var rotation_direction = 0
 var last_health: int = -1
 var last_ammo: int = -1
 var last_boost: int = -1
+var just_hit = false
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -181,18 +182,29 @@ func play_flame_amimation() -> void:
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
 	# TODO allow them to hit you again if they are still attached
 	if ($invulnerability_frames.is_stopped() and body.is_in_group("enemies")):
-		$invulnerability_frames.start()
-		$player_hurt.play()
-		flash()
-		health -= 1
+		hurt_player()
 		
-			#queue_free()
-	
 	if (body.is_in_group("healthpack")):
 		healthpack_captured.emit()
 			
 		#is_colliding = true
 	
+func _on_enemy_detector_body_exited(body: Node2D) -> void:
+	just_hit = false
+	
+func _on_enemy_hit_cooldown_timeout() -> void:
+	if (just_hit):
+		hurt_player()
+		
+func hurt_player():
+	$invulnerability_frames.start()
+	$player_hurt.play()
+	flash()
+	health -= 1
+	$enemy_hit_cooldown.start()
+	just_hit = true
+	
+
 func active_ice_powerup() -> void:
 	print("moan")
 
