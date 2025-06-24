@@ -1,6 +1,6 @@
 # spaceShooterPewPew
 
-#####Start date: Nov 1, 2024
+##### Start date: Nov 1, 2024
 
 nov 1 first player/shooting iteration
 nov 4 first enemy iteration
