@@ -40,6 +40,7 @@ var last_health: int = -1
 var last_ammo: int = -1
 var last_boost: int = -1
 var just_hit = false
+var dead = false
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -47,6 +48,7 @@ var scene = preload("res://scenes/bullet.tscn")
 func _on_ready() -> void:
 	$ship_startup.play()
 	$invulnerability_frames.start()
+	$ship.material.set_shader_parameter("flash_modifier", 0)
 
 # Control Loop
 func _physics_process(delta: float) -> void:
@@ -60,6 +62,7 @@ func _physics_process(delta: float) -> void:
 		update_health_changed(0)
 		if health <= 0:
 			player_died.emit("You Died!\nPress R to Restart", true)
+			dead = true
 	
 	var forward_input = Input.is_action_pressed("move_up")
 	var boost_input = Input.is_action_pressed("boost")
@@ -230,9 +233,9 @@ func change_health(change_amount):
 	health += clamp(change_amount, 0, max_health)
 
 func _on_player_died() -> void:
-	var restart = Input.is_action_pressed("restart")
-	if restart:
-		print("were in")
-		pass
-		
-		# I have no idea how to restart the game lmao
+	dead = true
+	
+func _process(val: float) -> void:
+	if dead:
+		if Input.is_action_pressed("restart"):
+			get_tree().change_scene_to_file("res://scenes/game.tscn")
