@@ -313,13 +313,18 @@ autoplay = "default"
 frame_progress = 0.884851
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-6, -6.55651e-07)
+position = Vector2(-1.99999, -3.09228e-11)
 rotation = 1.5708
 scale = Vector2(2.55206, 2.11413)
 shape = SubResource("CircleShape2D_rx17m")
 
-[node name="muzzle" type="Marker2D" parent="."]
-position = Vector2(31, 0)
+[node name="left_muzzle" type="Marker2D" parent="."]
+position = Vector2(50, -20)
+rotation = 1.5708
+gizmo_extents = 0.0
+
+[node name="right_muzzle" type="Marker2D" parent="."]
+position = Vector2(50, 20)
 rotation = 1.5708
 gizmo_extents = 0.0
 

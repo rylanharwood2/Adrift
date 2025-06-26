@@ -2,9 +2,19 @@ extends "res://scripts/bullet.gd"
 
 var bullet_damage = 1
 
+signal fire_animation_done
+
+func _ready():
+	$".".speed = 0
+	$".".animation_finished.connect(_on_animation_finished)
+	
+func _on_animation_finished():
+	if $".".animation == "fire":
+		fire_animation_done.emit()
+		laser_shoot()
+
 func play_explosion_animation():
 	$".".play("fire")
-	await get_tree().create_timer(2).timeout 
 	"""
 	when shot call this from ready w await
 	play explosion animation
@@ -12,6 +22,7 @@ func play_explosion_animation():
 	"""
 	
 func laser_shoot():
+	$".".speed = 300
 	$".".play("laser")
 	"""
 	give velocity
@@ -27,5 +38,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		queue_free()
 
 func _on_ready():
-	await play_explosion_animation()
-	laser_shoot()
+	play_explosion_animation()

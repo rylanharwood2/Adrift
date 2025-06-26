@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var target = get_tree().current_scene.get_node("Player")
+@onready var game_world := get_tree().root.get_node("Game")
 var scene = preload("res://scenes/capo_bullet.tscn")
 
 var rand = RandomNumberGenerator.new()
@@ -13,6 +14,9 @@ var dead: bool = false
 
 var targgg = Vector2(0,0)
 var target_angle = Vector2(0,0)
+
+var left_bullet = null
+var right_bullet = null
 
 
 func _ready() -> void:
@@ -41,17 +45,31 @@ func _process(delta: float) -> void:
 	else:
 		velocity = -velocity
 		move_and_slide()
-	
+		
+	if left_bullet:
+		left_bullet.global_transform = $left_muzzle.global_transform
+	if right_bullet:
+		right_bullet.global_transform = $right_muzzle.global_transform
 	
 
 func shoot(_bullet_typey):
-	var bullet = scene.instantiate()
-	bullet.speed *= 2
+	left_bullet = scene.instantiate()
+	right_bullet = scene.instantiate()
 	
-	self.add_child(bullet)
-	bullet.global_transform = $muzzle.global_transform
+	game_world.add_child(left_bullet)
+	game_world.add_child(right_bullet)
+	
+	left_bullet.fire_animation_done.connect(_on_left_fire_animation_done)
+	right_bullet.fire_animation_done.connect(_on_right_fire_animation_done)
+	left_bullet.global_transform = $left_muzzle.global_transform
+	right_bullet.global_transform = $right_muzzle.global_transform
 	$reload_speed.start()
 	
+func _on_left_fire_animation_done():
+	left_bullet = null
+
+func _on_right_fire_animation_done():
+	right_bullet = null
 
 func flash():
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
