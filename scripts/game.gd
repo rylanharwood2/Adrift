@@ -20,6 +20,7 @@ func _ready() -> void:
 	%Player.player_died.connect($HUD.show_message)
 	#self.applied_ice.connect(self.apply_slow)
 	
+	
 	for health_pack in get_tree().get_nodes_in_group("health_packs"):
 		health_pack.health_pack_entered.connect(%Player.change_health)
 
@@ -27,7 +28,8 @@ func apply_slow():
 	print("apply_slow")
 
 func _process(_delta: float) -> void:
-	pass
+	for ice_powerup in get_tree().get_nodes_in_group("ice_powerups"):
+		ice_powerup.applied_ice.connect(%Player.active_ice_powerup)
 
 func new_game():
 	$HUD.show_message("")#Welcome to the \nThunderdome!!")

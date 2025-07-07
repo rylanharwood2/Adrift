@@ -6,13 +6,14 @@ var scene = preload("res://scenes/bullet.tscn")
 
 var rand = RandomNumberGenerator.new()
 
-var  SPEED = randf_range(3500.0, 4500.0)
+var  speed = randf_range(3500.0, 4500.0)
 const TURN_SPEED = 2.0 # max turn speed (idk units)
 var health: int = 2
 var dead: bool = false
 
 var targgg = Vector2(0,0)
 var target_angle = Vector2(0,0)
+var speed_mod = 1.0
 
 
 func flash():
@@ -36,11 +37,11 @@ func _process(delta: float) -> void:
 		#velocity = direction * SPEED * delta
 	
 	# limit rotation speed
-		rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta)
+		rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
 	
 	# move in dir the enemy is facing
 	
-		velocity = direction * SPEED * delta
+		velocity = direction * speed * delta * speed_mod
 
 	if dead:
 		velocity = Vector2(0,0)
@@ -73,3 +74,12 @@ func _on_flash_timer_timeout() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "death":
 		queue_free()
+
+func turn_blue():
+	$AnimatedSprite2D.material.set_shader_parameter("blue", true)
+	$ice_timer.start()
+	speed_mod = 0.5
+
+func _on_ice_timer_timeout() -> void:
+	speed_mod = 1.0
+	$AnimatedSprite2D.material.set_shader_parameter("blue", false)

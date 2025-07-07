@@ -41,6 +41,7 @@ var last_ammo: int = -1
 var last_boost: int = -1
 var just_hit = false
 var dead = false
+var iced_up = false
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -107,10 +108,14 @@ func _physics_process(delta: float) -> void:
 func shoot(_bullet_typey):
 	var bullet = scene.instantiate()
 	bullet.speed *= 2
+	if iced_up:
+		bullet.icey = true
 	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
 	$shoot_sound.play()
 	owner.add_child(bullet)
 	bullet.transform = $muzzle.global_transform
+	if iced_up:
+		bullet.play("frozen")
 	ammo -= 1
 	
 func detect_shoot():
@@ -141,7 +146,7 @@ func _on_flash_timer_timeout() -> void:
 # boooooooooost
 func boost() -> void:
 	print("modulating")
-	$ship.modulate = Color(0.5, 0.5, 1.0)
+	$ship.modulate = Color(0.5, 0.5, 1.0, 1.0)
 	if boost_meter > 0:
 		velocity += (rotation_direction * boost_acceleration)
 		boost_meter -= 0.4
@@ -161,13 +166,22 @@ func determine_rotation(directional_input) -> void:
 func play_tilting_animation() -> void:
 	var tilting_direction = Input.get_axis("move_left", "move_right")
 	if tilting_direction == 1 and !is_tilting:
-		$ship.play("tilt_right")
+		if iced_up:
+			$ship.play("ice_tilt_right")
+		else:
+			$ship.play("tilt_right")
 		is_tilting = true
 	elif tilting_direction == -1 and !is_tilting:
-		$ship.play("tilt_left")
+		if iced_up:
+			$ship.play("ice_tilt_left")
+		else:
+			$ship.play("tilt_left")
 		is_tilting = true
 	if tilting_direction == 0:
-		$ship.play("idle")
+		if iced_up:
+			$ship.play("ice_idle")
+		else:
+			$ship.play("idle")
 		is_tilting = false
 
 func play_flame_amimation() -> void:
@@ -211,7 +225,7 @@ func hurt_player():
 	
 
 func active_ice_powerup() -> void:
-	print("moan")
+	iced_up = true
 
 # theres prob a better way of doing this but these set up the signal to change the HUD
 func update_health_changed(updated_health):
@@ -239,3 +253,8 @@ func _process(val: float) -> void:
 	if dead:
 		if Input.is_action_pressed("restart"):
 			get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+
+func _on_ice_timer_timeout() -> void:
+	iced_up = false
+	

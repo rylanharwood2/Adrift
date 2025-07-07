@@ -6,7 +6,7 @@ var scene = preload("res://scenes/capo_bullet.tscn")
 
 var rand = RandomNumberGenerator.new()
 
-var  SPEED = randf_range(2500.0, 3500.0)
+var  speed = randf_range(2500.0, 3500.0)
 const TURN_SPEED = 3.0 # max turn speed (idk units)
 var health: int = 5
 
@@ -17,6 +17,7 @@ var target_angle = Vector2(0,0)
 
 var left_bullet = null
 var right_bullet = null
+var speed_mod = 1.0
 
 
 func _ready() -> void:
@@ -32,10 +33,10 @@ func _process(delta: float) -> void:
 		target_angle = (targgg - position).angle()
 		
 		# limit rotation speed
-		rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta)
+		rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
 	
 		# move in dir the enemy is facing
-		velocity = direction * SPEED * delta
+		velocity = direction * speed * delta * speed_mod
 		
 	if (!dead and $reload_speed.is_stopped()):
 		shoot("")
@@ -62,7 +63,13 @@ func shoot(_bullet_typey):
 	left_bullet.fire_animation_done.connect(_on_left_fire_animation_done)
 	right_bullet.fire_animation_done.connect(_on_right_fire_animation_done)
 	left_bullet.global_transform = $left_muzzle.global_transform
+	left_bullet.speed_mod = speed_mod
 	right_bullet.global_transform = $right_muzzle.global_transform
+	right_bullet.speed_mod = speed_mod
+	print(right_bullet.speed)
+	if speed_mod < 1:
+		left_bullet.material.set_shader_parameter("blue", true)
+		right_bullet.material.set_shader_parameter("blue", true)
 	$reload_speed.start()
 	
 func _on_left_fire_animation_done():
@@ -89,3 +96,14 @@ func _on_flash_timer_timeout() -> void:
 
 func _on_death_animation_timeout() -> void:
 	queue_free()
+
+func turn_blue():
+	$AnimatedSprite2D.material.set_shader_parameter("blue", true)
+	$ice_timer.start()
+	speed_mod = 0.5
+	
+
+
+func _on_ice_timer_timeout() -> void:
+	speed_mod = 1.0
+	$AnimatedSprite2D.material.set_shader_parameter("blue", false)

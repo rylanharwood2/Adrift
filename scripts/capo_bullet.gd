@@ -1,6 +1,7 @@
 extends "res://scripts/bullet.gd"
 
 var bullet_damage = 1
+var speed_mod = 1.0
 
 signal fire_animation_done
 
@@ -22,7 +23,7 @@ func play_explosion_animation():
 	"""
 	
 func laser_shoot():
-	$".".speed = 300
+	$".".speed = 500 * speed_mod
 	$".".play("laser")
 	"""
 	give velocity

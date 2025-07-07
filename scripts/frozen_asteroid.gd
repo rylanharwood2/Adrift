@@ -25,8 +25,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		var ice_powerup = frozen_asteroid_scene.instantiate() 
 		
 		ice_powerup.position = ice_powerup_location
-			
+		
 		game.add_child(ice_powerup)
+		ice_powerup.add_to_group("ice_powerups")
 		
 		queue_free()
 		

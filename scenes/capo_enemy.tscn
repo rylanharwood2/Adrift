@@ -9,6 +9,7 @@
 shader = ExtResource("2_hwjdu")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
+shader_parameter/blue = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3ldm"]
 atlas = ExtResource("3_0s4b1")
@@ -308,9 +309,7 @@ script = ExtResource("1_m2rrh")
 material = SubResource("ShaderMaterial_i3d7n")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_w8g1f")
-animation = &"death"
 autoplay = "default"
-frame_progress = 0.884851
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-1.99999, -3.09228e-11)
@@ -347,5 +346,9 @@ shape = SubResource("CircleShape2D_4y3sd")
 [node name="death_animation" type="Timer" parent="."]
 one_shot = true
 
+[node name="ice_timer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
 [connection signal="timeout" from="death_animation" to="." method="_on_death_animation_timeout"]
+[connection signal="timeout" from="ice_timer" to="." method="_on_ice_timer_timeout"]

@@ -5,7 +5,8 @@ class_name bullet
 @onready var bullet: AnimatedSprite2D = $"."
 @onready var player: CharacterBody2D = get_node("%Player")
 
-var speed = 300
+var speed = 300.0
+var icey = false
 
 func _physics_process(delta):
 	position -= transform.y * speed * delta
@@ -16,6 +17,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			body.play_death()
 		else:
 			body.health -= 1
+			if icey:
+				body.turn_blue()
 		body.flash()
  
 	if body.is_in_group("asteroid"):

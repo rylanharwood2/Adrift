@@ -1,11 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkguwvaq5v04b"]
+[gd_scene load_steps=17 format=3 uid="uid://bkguwvaq5v04b"]
 
 [ext_resource type="Texture2D" uid="uid://bvmr3lh0msqfl" path="res://assets/sprites/player/default_bullet.png" id="1_506iy"]
+[ext_resource type="Shader" uid="uid://b1bh2wboq41y5" path="res://scenes/bullet.gdshader" id="1_l5glv"]
 [ext_resource type="Script" uid="uid://bi2c1i7xufus6" path="res://scripts/bullet.gd" id="1_ram36"]
+[ext_resource type="Texture2D" uid="uid://c3crhyilqm1j4" path="res://assets/sprites/player/spaceship_frozone_bullets.png" id="3_eoqba"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eoqba"]
+shader = ExtResource("1_l5glv")
+shader_parameter/blue = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1uvfu"]
 atlas = ExtResource("1_506iy")
 region = Rect2(0, 0, 30, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qncy5"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(0, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tamys"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(29, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26lx3"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(58, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cfmv"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(87, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k76ql"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(116, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_in4mv"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(145, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s437g"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(174, 0, 29, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqq7w"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(203, 0, 29, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_go2k2"]
 animations = [{
@@ -16,15 +54,45 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qncy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tamys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26lx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cfmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k76ql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_in4mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s437g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqq7w")
+}],
+"loop": false,
+"name": &"frozen",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pa5e"]
 size = Vector2(8.93023, 46.1976)
 
 [node name="Bullet" type="AnimatedSprite2D" groups=["bullet"]]
+material = SubResource("ShaderMaterial_eoqba")
 sprite_frames = SubResource("SpriteFrames_go2k2")
+animation = &"frozen"
 autoplay = "default"
-frame_progress = 0.120155
 script = ExtResource("1_ram36")
 
 [node name="Area2D" type="Area2D" parent="."]
