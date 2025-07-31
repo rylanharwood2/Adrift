@@ -1,0 +1,107 @@
+[gd_scene load_steps=11 format=3 uid="uid://byjy0ftx6mca3"]
+
+[ext_resource type="Texture2D" uid="uid://dghlgmvgyhipd" path="res://assets/sprites/player/powerups/ShieldBubblePowerUp.png" id="1_61kio"]
+[ext_resource type="Script" uid="uid://hcsp7y0btrly" path="res://scripts/forcefield.gd" id="2_spck3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0tat"]
+atlas = ExtResource("1_61kio")
+region = Rect2(240, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8uvi"]
+atlas = ExtResource("1_61kio")
+region = Rect2(192, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pdfu"]
+atlas = ExtResource("1_61kio")
+region = Rect2(144, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oesyl"]
+atlas = ExtResource("1_61kio")
+region = Rect2(96, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3m7o"]
+atlas = ExtResource("1_61kio")
+region = Rect2(48, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spck3"]
+atlas = ExtResource("1_61kio")
+region = Rect2(0, 0, 48, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_omvcc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0tat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8uvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pdfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oesyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3m7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3m7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spck3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spck3")
+}],
+"loop": false,
+"name": &"dexpand",
+"speed": 19.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spck3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spck3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3m7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3m7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oesyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pdfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8uvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0tat")
+}],
+"loop": false,
+"name": &"expand",
+"speed": 26.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hfr23"]
+
+[node name="forcefield" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_omvcc")
+animation = &"expand"
+script = ExtResource("2_spck3")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(2.5, 2.5)
+shape = SubResource("CircleShape2D_hfr23")
+
+[node name="hide_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="hide_timer" to="." method="_on_hide_timer_timeout"]

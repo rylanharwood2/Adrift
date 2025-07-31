@@ -7,6 +7,7 @@ signal ammo_changed(new_ammo)
 signal boost_changed(new_boost)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var forcefield = $forcefield
 
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
@@ -42,6 +43,7 @@ var last_boost: int = -1
 var just_hit = false
 var dead = false
 var iced_up = false
+var can_die = true
 
 var scene = preload("res://scenes/bullet.tscn")
 
@@ -70,6 +72,8 @@ func _physics_process(delta: float) -> void:
 	var directional_input = Input.get_axis("move_left","move_right")
 	
 	rotation_direction = Vector2(1, 0).rotated(rotation)
+	
+	check_forcefield()
 	
 	if forward_input:
 		velocity += (rotation_direction * acceleration)
@@ -216,19 +220,21 @@ func _on_enemy_hit_cooldown_timeout() -> void:
 		hurt_player()
 		
 func hurt_player():
-	$invulnerability_frames.start()
-	$player_hurt.play()
-	flash()
-	health -= 1
-	$enemy_hit_cooldown.start()
-	just_hit = true
-	
+	if can_die:
+		$invulnerability_frames.start()
+		$player_hurt.play()
+		flash()
+		health -= 1
+		$enemy_hit_cooldown.start()
+		just_hit = true
+		
 
 func active_ice_powerup() -> void:
 	iced_up = true
 
 # theres prob a better way of doing this but these set up the signal to change the HUD
 func update_health_changed(updated_health):
+	#if updated_health => last_health or can_die:#
 	if last_health != updated_health:
 		last_health = updated_health
 		health_changed.emit(updated_health)
@@ -258,3 +264,9 @@ func _process(val: float) -> void:
 func _on_ice_timer_timeout() -> void:
 	iced_up = false
 	
+	
+func check_forcefield():
+	if Input.is_action_just_pressed("activate_forcefield"):
+		forcefield.expand()
+		can_die = false
+		$forcefield_invul_timer.start(2)

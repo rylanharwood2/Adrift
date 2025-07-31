@@ -30,6 +30,7 @@ func apply_slow():
 func _process(_delta: float) -> void:
 	for ice_powerup in get_tree().get_nodes_in_group("ice_powerups"):
 		ice_powerup.applied_ice.connect(%Player.active_ice_powerup)
+	
 
 func new_game():
 	$HUD.show_message("")#Welcome to the \nThunderdome!!")
