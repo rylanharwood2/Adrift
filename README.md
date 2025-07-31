@@ -30,6 +30,16 @@ capos bullets work properly for now, can also be spawned like the suicunes in co
 lots of system organisation, bullets are separate now via classes (capo bullet, player bullet, exploding bullet?, etc)
 capo death animation + new laser bullet almost plays animation properly
 enemies can hit you multiple times while attached
-holy crap! we're on the internet, check out pumpkin-gaming.com for a live version
+holy crap! we're on the internet, check out pumpkin-gaming.com(edit: pumpkingames.net) for a live version
 online mobile controls partially integrated
 boss is officially in game w a spin attack, his name is Helheim, he doesn't do much
+
+### july
+tyler got the boss updated!
+he now does the turn and launch, he does not yet spin when he gets to you
+very bull fighting y
+
+### july 31
+went on a backpacking trip - check out our post!
+discussed names for the game including Adrift and Gates of Helheim
+just got the forcefield working visually, still have to make it push enemies back
