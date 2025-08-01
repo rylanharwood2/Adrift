@@ -300,6 +300,11 @@ one_shot = true
 wait_time = 30.0
 
 [node name="forcefield_invul_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="forcefield_cooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [node name="forcefield" parent="." instance=ExtResource("8_smehm")]
 
@@ -312,3 +317,4 @@ wait_time = 30.0
 [connection signal="timeout" from="boost_cooldown_timer" to="." method="_on_boost_cooldown_timer_timeout"]
 [connection signal="timeout" from="enemy_hit_cooldown" to="." method="_on_enemy_hit_cooldown_timeout"]
 [connection signal="timeout" from="ice_timer" to="." method="_on_ice_timer_timeout"]
+[connection signal="timeout" from="forcefield_invul_timer" to="." method="_on_forcefield_invul_timer_timeout"]

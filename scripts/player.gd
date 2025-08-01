@@ -51,6 +51,7 @@ var scene = preload("res://scenes/bullet.tscn")
 func _on_ready() -> void:
 	$ship_startup.play()
 	$invulnerability_frames.start()
+	$forcefield.expand(true)
 	$ship.material.set_shader_parameter("flash_modifier", 0)
 
 # Control Loop
@@ -234,10 +235,11 @@ func active_ice_powerup() -> void:
 
 # theres prob a better way of doing this but these set up the signal to change the HUD
 func update_health_changed(updated_health):
-	#if updated_health => last_health or can_die:#
-	if last_health != updated_health:
-		last_health = updated_health
-		health_changed.emit(updated_health)
+	if updated_health >= last_health or can_die:# edit for forcefield invul
+		if last_health != updated_health:
+			last_health = updated_health
+			health_changed.emit(updated_health)
+
 
 func update_ammo_changed(updated_ammo):
 	if last_ammo != updated_ammo:
@@ -264,9 +266,13 @@ func _process(val: float) -> void:
 func _on_ice_timer_timeout() -> void:
 	iced_up = false
 	
-	
+
 func check_forcefield():
-	if Input.is_action_just_pressed("activate_forcefield"):
-		forcefield.expand()
+	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
+		$forcefield_invul_timer.start(forcefield.expand(false))
 		can_die = false
-		$forcefield_invul_timer.start(2)
+	
+
+func _on_forcefield_invul_timer_timeout() -> void:
+	$forcefield_cooldown.start(2)
+	can_die = true
