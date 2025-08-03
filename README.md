@@ -43,3 +43,7 @@ very bull fighting y
 went on a backpacking trip - check out our post!
 discussed names for the game including Adrift and Gates of Helheim
 just got the forcefield working visually, still have to make it push enemies back
+
+### aug 2
+began work on highscore menu and in game time
+looking into storing leaderboard info in a file kept between runs locally
