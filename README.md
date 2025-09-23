@@ -47,3 +47,7 @@ just got the forcefield working visually, still have to make it push enemies bac
 ### aug 2
 began work on highscore menu and in game time
 looking into storing leaderboard info in a file kept between runs locally
+
+### sep 23
+changed project name to Adrift
+looked into using Atono for project management
