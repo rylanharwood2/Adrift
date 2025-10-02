@@ -4,6 +4,7 @@ extends CanvasLayer
 
 signal start_game
 
+
 func show_message(text, dead: bool = false):	
 	$start_message.text = text
 	$start_message.show()
@@ -23,10 +24,16 @@ func update_boost_meter(boost_update:float):
 func _ready() -> void:
 	start_game.emit()
 
+func _init() -> void:
+	hide()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if get_tree().paused == true:
+		hide()
+	else:
+		show()
 
 
 

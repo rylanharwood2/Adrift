@@ -45,14 +45,15 @@ var dead = false
 var iced_up = false
 var can_die = true
 
-var scene = preload("res://scenes/bullet.tscn")
+var scene = preload("res://scenes/player_bullet.tscn")
 
 
-func _on_ready() -> void:
+func _ready() -> void:
 	$ship_startup.play()
 	$invulnerability_frames.start()
 	$forcefield.expand(true)
 	$ship.material.set_shader_parameter("flash_modifier", 0)
+
 
 # Control Loop
 func _physics_process(delta: float) -> void:

@@ -12,14 +12,8 @@ var current_player_ammo : int = -1
 
 func _ready() -> void:
 	new_game()
-	wave_controller()
 	
-	%Player.health_changed.connect($HUD.update_health)
-	%Player.ammo_changed.connect($HUD.update_ammo)
-	%Player.boost_changed.connect($HUD.update_boost_meter)
-	%Player.player_died.connect($HUD.show_message)
 	#self.applied_ice.connect(self.apply_slow)
-	
 	
 	for health_pack in get_tree().get_nodes_in_group("health_packs"):
 		health_pack.health_pack_entered.connect(%Player.change_health)
@@ -33,21 +27,31 @@ func _process(_delta: float) -> void:
 	
 
 func new_game():
-	$HUD.show_message("")#Welcome to the \nThunderdome!!")
+	await get_tree().create_timer(0.1).timeout
+	$menus/main_menu_ui.display_menu()
+	#$menus/HUD.show_message("")#Welcome to the \nThunderdome!!")
+	
+	wave_controller()
+	
+	%Player.health_changed.connect($menus/HUD.update_health)
+	%Player.ammo_changed.connect($menus/HUD.update_ammo)
+	%Player.boost_changed.connect($menus/HUD.update_boost_meter)
+	%Player.player_died.connect($menus/HUD.show_message)
+
 
 
 # control enemy spawn waves
 func wave_controller():
 	#[[waves, numsuicune, numcapos],[]]
 	#var wave_spawn_rates = [[1,3,1,0], [1,4,2,0], [1,5,2,1], [1,100,10,0]]
-	var wave_spawn_rates = [[1, 5, 0, 0]]
+	var wave_spawn_rates = [[1, 2, 3, 0]]
 	var waves : int = len(wave_spawn_rates)
 	var waves_done : bool = false
 	var timeout : float = 0
 	
 	for i in waves:
 		var wave_message = str("Wave ",i+1)
-		$HUD.show_message(wave_message)
+		$menus/HUD.show_message(wave_message)
 		
 		await wave_spawner(waves, wave_spawn_rates[i])
 		

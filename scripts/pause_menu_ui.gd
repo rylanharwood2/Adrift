@@ -1,19 +1,35 @@
 extends CanvasLayer
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# TODO fix the logic so you can press esc again to close the pause menu
-	if Input.is_action_just_pressed("pause"):
-		show()
-		get_tree().paused = true
-		$blur_layer.material.set_shader_parameter("amount", 1)
-	elif $VBoxContainer/start_button.is_pressed():
-		get_tree().paused = false
-		hide()
-	elif $VBoxContainer/quit_button.is_pressed():
-		get_tree().quit()
-		
+	pass
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		match GameManager.current_state:
+			GameManager.GameState.PLAYING:
+				open_pause_menu()
+			GameManager.GameState.PAUSED:
+				close_pause_menu()
+			GameManager.GameState.MAIN_MENU:
+				pass
+
+func open_pause_menu():
+	show()
+	get_tree().paused = true
+	GameManager.set_state(GameManager.GameState.PAUSED)
+	$blur_layer.material.set_shader_parameter("amount", 1)
+
+func close_pause_menu():
+	get_tree().paused = false
+	hide()
+	GameManager.set_state(GameManager.GameState.PLAYING)
+
+
+func _on_start_button_pressed() -> void:
+	close_pause_menu()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()

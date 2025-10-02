@@ -4,6 +4,8 @@
 [ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="1_aowct"]
 
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
+visible = false
 script = ExtResource("1_7tx1p")
 
 [node name="message_timer" type="Timer" parent="."]
