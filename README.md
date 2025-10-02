@@ -54,3 +54,7 @@ looked into using Atono for project management
 
 ### oct 1
 seperated bullet classes better, found several bugs with capos being connected to each other (flash shader going off in unison etc)
+
+### oct 2
+main menu is in yay
+implemented a state machine (pause menu, playing, or main menu) to handle race conditions and keep codebase more organized
