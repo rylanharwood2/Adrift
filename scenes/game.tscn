@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=22 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dffvmpbamr3rg" path="res://scenes/health_pack.tscn" id="13_a6ypd"]
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://scripts/touch_buttons.gd" id="14_trtic"]
+[ext_resource type="PackedScene" uid="uid://b71bxsh7scdyh" path="res://scenes/proxy_mine.tscn" id="16_ca42v"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
 _data = {
@@ -173,6 +174,12 @@ offset_top = -40.0
 offset_right = 40.0
 grow_vertical = 0
 script = ExtResource("14_trtic")
+
+[node name="proxy_mine" parent="." instance=ExtResource("16_ca42v")]
+position = Vector2(-105, 133)
+arming_delay = 3.0
+explosion_damage = 2
+lifetime_after_armed = 100.0
 
 [connection signal="timeout" from="testing_bullet_despawn" to="." method="_on_testing_bullet_despawn_timeout"]
 [connection signal="start_game" from="menus/HUD" to="." method="new_game"]

@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		play_tilting_animation()
 		play_flame_amimation()
 		determine_rotation(directional_input)
-		move_and_slide()	
+		move_and_slide()
 
 
 ## Weapon Mechanics

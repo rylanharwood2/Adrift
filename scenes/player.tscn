@@ -249,6 +249,8 @@ frame_progress = 1.0
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ar50a")
 
+[node name="forcefield" parent="." instance=ExtResource("8_smehm")]
+
 [node name="muzzle" type="Marker2D" parent="."]
 position = Vector2(17, -6.15398e-05)
 rotation = 1.5708
@@ -305,8 +307,6 @@ one_shot = true
 [node name="forcefield_cooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-
-[node name="forcefield" parent="." instance=ExtResource("8_smehm")]
 
 [connection signal="player_died" from="." to="." method="_on_player_died"]
 [connection signal="ready" from="." to="." method="_on_ready"]

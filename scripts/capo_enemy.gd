@@ -66,7 +66,7 @@ func shoot(_bullet_typey):
 	left_bullet.speed_mod = speed_mod
 	right_bullet.global_transform = $right_muzzle.global_transform
 	right_bullet.speed_mod = speed_mod
-	print(right_bullet.speed)
+	
 	if speed_mod < 1:
 		left_bullet.material.set_shader_parameter("blue", true)
 		right_bullet.material.set_shader_parameter("blue", true)
