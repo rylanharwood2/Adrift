@@ -24,3 +24,7 @@ func dexpand():
 func _on_hide_timer_timeout() -> void:
 	await dexpand()
 	hide()
+
+func _on_forcefield_hitbox_area_entered(area: Area2D) -> void: # launch enemies away
+	if area.is_in_group("enemies"):
+		pass

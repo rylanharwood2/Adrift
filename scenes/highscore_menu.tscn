@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3epp5wxoh4mn"]
+
+[ext_resource type="Script" uid="uid://dsh37x0ywf5h" path="res://scripts/highscore_menu.gd" id="1_bebeb"]
+[ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="2_afqkp"]
+
+[node name="highscore_menu" type="CanvasLayer"]
+script = ExtResource("1_bebeb")
+
+[node name="background" type="Sprite2D" parent="."]
+
+[node name="title" type="Label" parent="."]
+offset_left = 458.0
+offset_top = 51.0
+offset_right = 671.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("2_afqkp")
+theme_override_font_sizes/font_size = 18
+text = "Bam"
+horizontal_alignment = 1
+
+[node name="scores" type="Label" parent="."]
+offset_left = 256.0
+offset_top = 155.0
+offset_right = 469.0
+offset_bottom = 256.0
+text = "1:12.55
+4:53.31
+7:31.12
+2:53.57"
+
+[node name="show_timer_button" type="Label" parent="."]
+offset_left = 246.0
+offset_top = 580.0
+offset_right = 459.0
+offset_bottom = 603.0
+text = "Always Show Elapsed Time?"
+
+[node name="show_timer" type="Button" parent="."]
+offset_left = 490.0
+offset_top = 588.0
+offset_right = 703.0
+offset_bottom = 596.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="ready" from="." to="." method="_on_ready"]

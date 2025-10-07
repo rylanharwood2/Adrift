@@ -95,13 +95,14 @@ sprite_frames = SubResource("SpriteFrames_omvcc")
 animation = &"expand"
 script = ExtResource("2_spck3")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="forcefield_hitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="forcefield_hitbox"]
 scale = Vector2(2.5, 2.5)
 shape = SubResource("CircleShape2D_hfr23")
 
 [node name="hide_timer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="area_entered" from="forcefield_hitbox" to="." method="_on_forcefield_hitbox_area_entered"]
 [connection signal="timeout" from="hide_timer" to="." method="_on_hide_timer_timeout"]
