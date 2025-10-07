@@ -12,6 +12,7 @@ var current_player_ammo : int = -1
 
 func _ready() -> void:
 	new_game()
+	wave_controller()
 	
 	#self.applied_ice.connect(self.apply_slow)
 	
@@ -38,6 +39,8 @@ func new_game():
 	%Player.boost_changed.connect($menus/HUD.update_boost_meter)
 	%Player.player_died.connect($menus/HUD.show_message)
 
+	$HUD.show_message("")#Welcome to the \nThunderdome!!")
+	$highscore_menu.start_timer(Time.get_ticks_msec())
 
 
 # control enemy spawn waves
@@ -107,3 +110,6 @@ func _on_testing_bullet_despawn_timeout() -> void:
 		pass
 		#print(bullet)
 	
+
+func healthpack_generation(): # TODO randomly spawn healthpacks around the world every so often - or based on killing enemies or somethin
+	pass

@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/enemies/testboss1.png" id="7_1i7vf"]
 [ext_resource type="PackedScene" uid="uid://chtfsxrptqxc" path="res://scenes/main_menu_ui.tscn" id="7_ir15t"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
+[ext_resource type="PackedScene" uid="uid://d3epp5wxoh4mn" path="res://scenes/highscore_menu.tscn" id="7_trtic"]
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
 [ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
 [ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
@@ -75,6 +76,8 @@ unique_name_in_owner = true
 [node name="HUD" parent="menus" instance=ExtResource("7_sxbnq")]
 
 [node name="main_menu_ui" parent="menus" instance=ExtResource("7_ir15t")]
+
+[node name="highscore_menu" parent="." instance=ExtResource("7_trtic")]
 
 [node name="enemy_spawn_points" type="Node" parent="."]
 
