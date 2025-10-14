@@ -79,17 +79,19 @@ func apply_explosion_damage():
 	params.shape = shape
 	params.transform = Transform2D(0, global_position)
 
-	print("hello")
+	
 	# Query overlapping bodies
 	for res in space_state.intersect_shape(params, 64):
 		var obj = res.collider
 		if obj and obj.is_in_group("enemies"):
-			if obj.has_method("hit"):
-				obj.hit(explosion_damage)
-			elif "health" in obj:
+			#if obj.has_method("hit"):
+			#	obj.hit(explosion_damage)
+			#obj.health -= explosion_damage
+			if "health" in obj:
+				print("yep")
 				obj.health -= explosion_damage
-				if obj.health <= 0 and obj.has_method("play_death"):
-					obj.play_death()
+			if obj.health <= 0 and obj.has_method("play_death"):
+				obj.play_death()
 
 
 

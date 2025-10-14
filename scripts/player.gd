@@ -6,7 +6,7 @@ signal health_changed(new_health)
 signal ammo_changed(new_ammo)
 signal boost_changed(new_boost)
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+#@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var forcefield = $forcefield
 
 # TODO universal random number seed?
@@ -255,7 +255,7 @@ func update_boost_changed(updated_boost):
 func change_health(change_amount):
 	health += clamp(change_amount, 0, max_health)
 
-func _on_player_died() -> void:
+func _on_player_died(nothing, also_nothing) -> void: # the player died signal is dumb the way I did it, its used in main with HUD to display the message
 	dead = true
 	
 func _process(val: float) -> void:
