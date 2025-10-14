@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	milliseconds = Time.get_ticks_msec()
 	#minutes = seconds
 	display()
-	show_scores(true)
+	show_scores(false)
 
 func display():
 	$scores.text = ticks_to_clock(milliseconds - time_start)
@@ -42,7 +42,7 @@ func ticks_to_clock(milliseconds: int) -> String:
 	seconds = total_seconds % 60
 	hours = total_seconds / 3600
 	minutes = ( total_seconds / 60 ) % 60
-	print(minutes)
+	#`print(minutes)
 	if hours / 10 == 0:
 		hours = "0" + str(hours)
 	if minutes / 10 == 0:

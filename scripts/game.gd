@@ -11,8 +11,9 @@ var current_player_ammo : int = -1
 
 
 func _ready() -> void:
+	
 	new_game()
-	wave_controller()
+	
 	
 	#self.applied_ice.connect(self.apply_slow)
 	
@@ -28,10 +29,11 @@ func _process(_delta: float) -> void:
 	
 
 func new_game():
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.01).timeout
 	$menus/main_menu_ui.display_menu()
 	#$menus/HUD.show_message("")#Welcome to the \nThunderdome!!")
 	
+	# TODO somehow wave_controller is getting looped through twice, spawning twice the enemies as asked for
 	wave_controller()
 	
 	%Player.health_changed.connect($menus/HUD.update_health)
@@ -39,18 +41,18 @@ func new_game():
 	%Player.boost_changed.connect($menus/HUD.update_boost_meter)
 	%Player.player_died.connect($menus/HUD.show_message)
 
-	$HUD.show_message("")#Welcome to the \nThunderdome!!")
 	$highscore_menu.start_timer(Time.get_ticks_msec())
 
 
 # control enemy spawn waves
 func wave_controller():
 	#[[waves, numsuicune, numcapos],[]]
-	#var wave_spawn_rates = [[1,3,1,0], [1,4,2,0], [1,5,2,1], [1,100,10,0]]
-	var wave_spawn_rates = [[1, 2, 3, 0]]
+	var wave_spawn_rates = [[1,1,1,0]]#[[1,3,1,0], [1,4,2,0], [1,5,2,1], [1,100,10,0]]
+	#var wave_spawn_rates = [[1, 2, 3, 0]]
 	var waves : int = len(wave_spawn_rates)
 	var waves_done : bool = false
 	var timeout : float = 0
+	print(waves)
 	
 	for i in waves:
 		var wave_message = str("Wave ",i+1)
@@ -64,9 +66,9 @@ func wave_controller():
 	"""
 
 func wave_spawner(waves, wave_spawn_rates):
-	
+	print("we're here")
 	for sub_wave in range(0, wave_spawn_rates[0]):
-			
+		
 		rand.randomize()
 		for individual_enemy in range(0, wave_spawn_rates[1] + wave_spawn_rates[2] + wave_spawn_rates[3]):
 			if wave_spawn_rates[1] > 0: # Spawn Suicunes

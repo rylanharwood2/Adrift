@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="2_afqkp"]
 
 [node name="highscore_menu" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_bebeb")
 
 [node name="background" type="Sprite2D" parent="."]
