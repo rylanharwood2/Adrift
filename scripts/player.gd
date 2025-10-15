@@ -239,7 +239,7 @@ func update_health_changed(updated_health):
 	if updated_health >= last_health or can_die:# edit for forcefield invul
 		if last_health != updated_health:
 			last_health = updated_health
-			health_changed.emit(updated_health)
+			SignalBus.health_changed.emit(updated_health)
 
 
 func update_ammo_changed(updated_ammo):

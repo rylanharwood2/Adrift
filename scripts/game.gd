@@ -11,7 +11,8 @@ var current_player_ammo : int = -1
 
 
 func _ready() -> void:
-	
+	print("ready")
+	#await get_tree().create_timer(0.2).timeout
 	new_game()
 	
 	
@@ -27,12 +28,12 @@ func _process(_delta: float) -> void:
 	for ice_powerup in get_tree().get_nodes_in_group("ice_powerups"):
 		ice_powerup.applied_ice.connect(%Player.active_ice_powerup)
 	
-
+# TODO signal bus
 func new_game():
-	await get_tree().create_timer(0.01).timeout
+	
 	$menus/main_menu_ui.display_menu()
 	#$menus/HUD.show_message("")#Welcome to the \nThunderdome!!")
-	
+	print("new game")
 	# TODO somehow wave_controller is getting looped through twice, spawning twice the enemies as asked for
 	wave_controller()
 	
@@ -44,29 +45,48 @@ func new_game():
 	$highscore_menu.start_timer(Time.get_ticks_msec())
 
 
+
+
+# Helper function to load and parse the file
+func load_json(path: String) -> Dictionary:
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_error("Failed to open JSON file at " + path)
+		return {}
+		
+	var text = file.get_as_text()
+	file.close()
+	
+	var result = JSON.parse_string(text)
+	if result == null:
+		push_error("Failed to parse JSON: " + path)
+		return {}
+	
+	return result
+
+
 # control enemy spawn waves
 func wave_controller():
-	#[[waves, numsuicune, numcapos],[]]
-	var wave_spawn_rates = [[1,1,1,0]]#[[1,3,1,0], [1,4,2,0], [1,5,2,1], [1,100,10,0]]
-	#var wave_spawn_rates = [[1, 2, 3, 0]]
-	var waves : int = len(wave_spawn_rates)
-	var waves_done : bool = false
-	var timeout : float = 0
-	print(waves)
+	var wave_message = str("Wave ",1)
+	$menus/HUD.show_message(wave_message)
 	
-	for i in waves:
-		var wave_message = str("Wave ",i+1)
-		$menus/HUD.show_message(wave_message)
-		
-		await wave_spawner(waves, wave_spawn_rates[i])
-		
+	var json_path = "res://data/waves.json"  # adjust path as needed
+	var wave_data = load_json(json_path)
+	
+	# Access example data
+	for wave in wave_data["waves"]:
+		print("Wave:", wave["wave"])
+		for subwave in wave["subwaves"]:
+			for enemy in subwave["enemies"]:
+				print("  Enemy type:", enemy["type"], "Count:", enemy["count"])
+	
 	"""
 	at start of game floats a single asteroid across the screen leaking green light from within
 	once asteroid is destroyed, enemies spill out
 	"""
 
 func wave_spawner(waves, wave_spawn_rates):
-	print("we're here")
+	
 	for sub_wave in range(0, wave_spawn_rates[0]):
 		
 		rand.randomize()

@@ -234,7 +234,8 @@ script = ExtResource("1_wwnok")
 material = SubResource("ShaderMaterial_4a8iu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_88jfr")
-animation = &"ice_tilt_left"
+animation = &"idle"
+autoplay = "idle"
 
 [node name="flame_on" type="AnimatedSprite2D" parent="."]
 z_index = -1

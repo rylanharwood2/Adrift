@@ -1,0 +1,54 @@
+{
+  "waves": [
+	{
+	  "wave": 1,
+	  "subwaves": [
+		{
+		  "enemies": [
+			{
+			  "type": "suicune",
+			  "count": 2
+			}
+		  ]
+		},
+		{
+		  "enemies": [
+			{
+			  "type": "suicune",
+			  "count": 2
+			},
+			{
+			  "type": "capo",
+			  "count": 1
+			}
+		  ]
+		}
+	  ]
+	},
+	{
+	  "wave": 2,
+	  "subwaves": [
+		{
+		  "enemies": [
+			{
+			  "type": "suicune",
+			  "count": 2
+			}
+		  ]
+		},
+		{
+		  "enemies": [
+			{
+			  "type": "suicune",
+			  "count": 2
+			},
+			{
+			  "type": "capo",
+			  "count": 1
+			}
+		  ]
+		}
+	  ]
+	}
+  ]
+}
