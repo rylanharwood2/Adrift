@@ -82,6 +82,7 @@ func apply_explosion_damage():
 	
 	# Query overlapping bodies
 	for res in space_state.intersect_shape(params, 64):
+		print("hi")
 		var obj = res.collider
 		if obj and obj.is_in_group("enemies"):
 			#if obj.has_method("hit"):

@@ -2,9 +2,6 @@ extends CanvasLayer
 
 #@onready var player: CharacterBody2D = %Player
 
-signal start_game
-
-
 func show_message(text, dead: bool = false):	
 	$start_message.text = text
 	$start_message.show()
@@ -22,7 +19,11 @@ func update_boost_meter(boost_update:float):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	start_game.emit()
+	SignalBus.player_died.connect(show_message)
+	SignalBus.health_changed.connect(update_health)
+	SignalBus.ammo_changed.connect(update_ammo)
+	SignalBus.boost_changed.connect(update_boost_meter)
+	pass
 
 func _init() -> void:
 	hide()

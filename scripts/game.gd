@@ -8,10 +8,11 @@ var helheim_scene = load("res://scenes/helheim_king_of_slime.tscn")
 
 var current_player_health : int = -1
 var current_player_ammo : int = -1
-
+var has_started_game : bool
 
 func _ready() -> void:
-	print("ready")
+	SignalBus.gamestate_changed.connect(_on_state_changed)
+	has_started_game = false
 	#await get_tree().create_timer(0.2).timeout
 	new_game()
 	
@@ -21,26 +22,27 @@ func _ready() -> void:
 	for health_pack in get_tree().get_nodes_in_group("health_packs"):
 		health_pack.health_pack_entered.connect(%Player.change_health)
 
+func _on_state_changed(new_state):
+	if has_started_game == false and GameManager.current_state != GameManager.GameState.MAIN_MENU:
+		has_started_game = true
+		wave_controller()
+
 func apply_slow():
 	print("apply_slow")
 
 func _process(_delta: float) -> void:
-	for ice_powerup in get_tree().get_nodes_in_group("ice_powerups"):
-		ice_powerup.applied_ice.connect(%Player.active_ice_powerup)
+	pass
 	
-# TODO signal bus
+
 func new_game():
 	
 	$menus/main_menu_ui.display_menu()
 	#$menus/HUD.show_message("")#Welcome to the \nThunderdome!!")
-	print("new game")
-	# TODO somehow wave_controller is getting looped through twice, spawning twice the enemies as asked for
-	wave_controller()
 	
-	%Player.health_changed.connect($menus/HUD.update_health)
-	%Player.ammo_changed.connect($menus/HUD.update_ammo)
-	%Player.boost_changed.connect($menus/HUD.update_boost_meter)
-	%Player.player_died.connect($menus/HUD.show_message)
+	# while true: # this has to be a dumb way of doing this     # im leaving this here as a reminder of the time 
+	# I hung the game for a day and so to never put while true without using all your braincells
+	
+		
 
 	$highscore_menu.start_timer(Time.get_ticks_msec())
 
@@ -79,6 +81,8 @@ func wave_controller():
 		for subwave in wave["subwaves"]:
 			for enemy in subwave["enemies"]:
 				print("  Enemy type:", enemy["type"], "Count:", enemy["count"])
+	
+	
 	
 	"""
 	at start of game floats a single asteroid across the screen leaking green light from within

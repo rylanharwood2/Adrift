@@ -15,7 +15,9 @@ basic design pieces are there, boss sprites are in, enemies display a flash shad
 ### dec 9
 pause menu and basic sounds
 
-winter break -> end of april  motivation is low oof
+*2024*
+winter break  -> end of april  motivation is low oof
+*2025*
 
 ### may 1 -> may 24  
 enemy spawn waves are working, improved music, lots of bug fixing, beginning to reorganise scripts. 
@@ -58,3 +60,27 @@ seperated bullet classes better, found several bugs with capos being connected t
 ### oct 2
 main menu is in yay
 implemented a state machine (pause menu, playing, or main menu) to handle race conditions and keep codebase more organized
+
+### oct 17
+motivation is at nearly an all time high
+* Spaget*
+proxy mine is nearly done, current trying to call on the physics engine to see whos in the blast radius (also uses a state machine!)
+transitioned to using a signal bus as a central point to connect signals to and from, it vastly cleaned up my code and I feel like
+im making cracks in the spaghetti code
+also transitioning from the old wave spawner to a new one based in a JSON format that I can change easily and is also easier to read
+* Style / Fun*
+Thinking about reworking the enemies AI, tyler suggested a state machine based behavior system where they could either move towards
+the player, run away, find cover?, play from range, etc  just brainstorming for now but I do feel the enemies are a tad boring
+we are going to need to spice them up a bit and figure out how to make the weapons and tools I want to give to the player seem 
+necassary and fun to use rather than just wiping through entire suicune populations
+* Jira*
+we started using Jira for project managment, Atono wasn't really what I was looking for, Jira is a little complicated but I am enjoying
+it much more than a giant bullet point google doc so thats fun, I have set up a giant list of most of the things I still want to implement
+incl subtasks for many of them and jobs for art team
+we got in a discord call for a few hours and ironed out some of the remaining features, thinking about what powerups would be cool,
+working list is : forcefield, proxy mine (both already partially in), tbd on rocket launcher (homing missiles?), piercing laser / railgun, 
+movement ability (ghost or something else tbd), spreader (contra style) / shotgun
+honestly should kinda rework the main gun
+* Having Fun :)*
+im watching a lot of godot and gamedev tutorials, I cannot overstate how high motivation is rn, I would love to do a gamejam in 2026,
+also want to start a youtube channel, I dont know if this could be a sustainable form of income but it would be a dream come true

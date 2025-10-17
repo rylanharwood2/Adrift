@@ -25,11 +25,10 @@ func player_detection():
 	pass
 	#player.connect("healthpack_captured", self, "add_health")#"pressed", self, "_start_game")
 	
-	
 #if body.is_in_group("player"):
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		health_pack_entered.emit(heal_amount)
+		SignalBus.health_pack_entered.emit(heal_amount)
 		queue_free()

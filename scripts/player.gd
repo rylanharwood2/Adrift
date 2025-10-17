@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal player_died(message, bool)
+
 signal healthpack_captured
 signal health_changed(new_health)
 signal ammo_changed(new_ammo)
@@ -53,6 +53,8 @@ func _ready() -> void:
 	$invulnerability_frames.start()
 	$forcefield.expand(true)
 	$ship.material.set_shader_parameter("flash_modifier", 0)
+	SignalBus.applied_ice.connect(activate_ice_powerup)
+	
 
 
 # Control Loop
@@ -66,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		update_health_changed(0)
 		if health <= 0:
-			player_died.emit("You Died!\nPress R to Restart", true)
+			SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
 			dead = true
 	
 	var forward_input = Input.is_action_pressed("move_up")
@@ -151,8 +153,8 @@ func _on_flash_timer_timeout() -> void:
 
 # boooooooooost
 func boost() -> void:
-	print("modulating")
-	$ship.modulate = Color(0.5, 0.5, 1.0, 1.0)
+	#print("modulating")
+	# TODO figure out how modulate works lol $ship.modulate = Color(0.5, 0.5, 1.0, 1.0)
 	if boost_meter > 0:
 		velocity += (rotation_direction * boost_acceleration)
 		boost_meter -= 0.4
@@ -168,7 +170,8 @@ func determine_rotation(directional_input) -> void:
 	if directional_input == 1:
 		rotation_degrees += rotation_speed
 	
-
+# TODO small logic error bug here, the ice powerup wont activate the idle animation if the player is
+# holding turn so they can pick up the ice powerup but it wont turn them blue until they stop turning
 func play_tilting_animation() -> void:
 	var tilting_direction = Input.get_axis("move_left", "move_right")
 	if tilting_direction == 1 and !is_tilting:
@@ -231,7 +234,7 @@ func hurt_player():
 		just_hit = true
 		
 
-func active_ice_powerup() -> void:
+func activate_ice_powerup() -> void:
 	iced_up = true
 
 # theres prob a better way of doing this but these set up the signal to change the HUD
@@ -245,12 +248,12 @@ func update_health_changed(updated_health):
 func update_ammo_changed(updated_ammo):
 	if last_ammo != updated_ammo:
 		last_ammo = updated_ammo
-		ammo_changed.emit(updated_ammo)
+		SignalBus.ammo_changed.emit(updated_ammo)
 
 func update_boost_changed(updated_boost):
 	if last_boost != updated_boost:
 		last_boost = updated_boost
-		boost_changed.emit(updated_boost)
+		SignalBus.boost_changed.emit(updated_boost)
 
 func change_health(change_amount):
 	health += clamp(change_amount, 0, max_health)

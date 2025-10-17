@@ -1,6 +1,8 @@
 extends Node
 
 # Global Signals
+signal gamestate_changed(new_state)
+
 signal applied_ice
 signal start_game
 signal health_pack_entered(int)
