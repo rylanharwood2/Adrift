@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=23 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -10,14 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 [ext_resource type="PackedScene" uid="uid://d3epp5wxoh4mn" path="res://scenes/highscore_menu.tscn" id="7_trtic"]
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
-[ext_resource type="PackedScene" uid="uid://3kj1b73888bu" path="res://scenes/suicune_enemy.tscn" id="8_ssvqc"]
-[ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/gray_asteroid.tscn" id="9_bkh4i"]
 [ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
 [ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
 [ext_resource type="PackedScene" uid="uid://dffvmpbamr3rg" path="res://scenes/health_pack.tscn" id="13_a6ypd"]
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://scripts/touch_buttons.gd" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://b71bxsh7scdyh" path="res://scenes/proxy_mine.tscn" id="16_ca42v"]
+[ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/asteroid.tscn" id="18_ssvqc"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
 _data = {
@@ -39,6 +38,8 @@ size = Vector2(1619, 0.999969)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_p1si3")
+startup_pause_sec = 6
+wave_cooldown_sec = 2
 
 [node name="testing_bullet_despawn" type="Timer" parent="."]
 wait_time = 10.0
@@ -145,9 +146,6 @@ position = Vector2(42, 364)
 [node name="health_pack2" parent="." instance=ExtResource("13_a6ypd")]
 position = Vector2(557, 131)
 
-[node name="gray_asteroid" parent="." instance=ExtResource("9_bkh4i")]
-position = Vector2(486, -321)
-
 [node name="JoystickLayer" type="CanvasLayer" parent="."]
 offset = Vector2(-80, -80)
 transform = Transform2D(1, 0, 0, 1, -80, -80)
@@ -179,10 +177,10 @@ offset_right = 40.0
 grow_vertical = 0
 script = ExtResource("14_trtic")
 
-[node name="proxy_mine" parent="." instance=ExtResource("16_ca42v")]
-position = Vector2(-105, 133)
+[node name="asteroid" parent="." instance=ExtResource("18_ssvqc")]
+position = Vector2(556, -213)
 
-[node name="suicune_enemy" parent="." instance=ExtResource("8_ssvqc")]
-position = Vector2(-651, -122)
+[node name="proxy_mine" parent="." instance=ExtResource("16_ca42v")]
+position = Vector2(-243, 189)
 
 [connection signal="timeout" from="testing_bullet_despawn" to="." method="_on_testing_bullet_despawn_timeout"]

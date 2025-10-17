@@ -2,37 +2,41 @@ extends Node2D
 var animation: String
 
 var rand = RandomNumberGenerator.new()
-var suicune_enemy_scene = load("res://scenes/suicune_enemy.tscn")
-var capo_enemy_scene = load("res://scenes/capo_enemy.tscn")
-var helheim_scene = load("res://scenes/helheim_king_of_slime.tscn")
+var suicune_enemy_scene = preload("res://scenes/suicune_enemy.tscn")
+var capo_enemy_scene = preload("res://scenes/capo_enemy.tscn")
+var helheim_scene = preload("res://scenes/helheim_king_of_slime.tscn")
 
 var current_player_health : int = -1
 var current_player_ammo : int = -1
 var has_started_game : bool
+@export_group("Wave Timers")
+@export var startup_pause_sec : int # init ~5
+@export var wave_cooldown_sec : int # init ~2
+
+func _process(_delta: float) -> void:
+	pass
+	
 
 func _ready() -> void:
 	SignalBus.gamestate_changed.connect(_on_state_changed)
 	has_started_game = false
-	#await get_tree().create_timer(0.2).timeout
+	
 	new_game()
-	
-	
 	#self.applied_ice.connect(self.apply_slow)
 	
 	for health_pack in get_tree().get_nodes_in_group("health_packs"):
 		health_pack.health_pack_entered.connect(%Player.change_health)
 
 func _on_state_changed(new_state):
+	await get_tree().create_timer(startup_pause_sec).timeout
 	if has_started_game == false and GameManager.current_state != GameManager.GameState.MAIN_MENU:
 		has_started_game = true
 		wave_controller()
 
+
 func apply_slow():
 	print("apply_slow")
 
-func _process(_delta: float) -> void:
-	pass
-	
 
 func new_game():
 	
@@ -42,10 +46,7 @@ func new_game():
 	# while true: # this has to be a dumb way of doing this     # im leaving this here as a reminder of the time 
 	# I hung the game for a day and so to never put while true without using all your braincells
 	
-		
-
 	$highscore_menu.start_timer(Time.get_ticks_msec())
-
 
 
 
@@ -69,65 +70,62 @@ func load_json(path: String) -> Dictionary:
 
 # control enemy spawn waves
 func wave_controller():
-	var wave_message = str("Wave ",1)
-	$menus/HUD.show_message(wave_message)
-	
-	var json_path = "res://data/waves.json"  # adjust path as needed
-	var wave_data = load_json(json_path)
-	
-	# Access example data
+	var wave_data = load_json("res://data/waves.json")
+	if wave_data.is_empty():
+		push_error("Wave data is empty!")
+		return
+
 	for wave in wave_data["waves"]:
-		print("Wave:", wave["wave"])
+		var wave_number : int = wave["wave"]
+		#print("Starting wave:", wave_number)
+		$menus/HUD.show_message("Wave " + str(wave_number))
+
 		for subwave in wave["subwaves"]:
-			for enemy in subwave["enemies"]:
-				print("  Enemy type:", enemy["type"], "Count:", enemy["count"])
-	
-	
+			for enemy_data in subwave["enemies"]:
+				var enemy_type = enemy_data["type"]
+				var count = enemy_data["count"]
+
+				for i in range(count):
+					spawn_enemy(enemy_type)
+					await get_tree().create_timer(0.3).timeout  # small delay between spawns
+
+			# wait for subwave completion
+			while get_tree().get_nodes_in_group("enemies").size() > 0:
+				await get_tree().create_timer(wave_cooldown_sec).timeout
+
+		print("Wave", wave_number, "cleared!")
+
+	print("All waves complete!")
 	
 	"""
 	at start of game floats a single asteroid across the screen leaking green light from within
 	once asteroid is destroyed, enemies spill out
 	"""
 
-func wave_spawner(waves, wave_spawn_rates):
-	
-	for sub_wave in range(0, wave_spawn_rates[0]):
-		
-		rand.randomize()
-		for individual_enemy in range(0, wave_spawn_rates[1] + wave_spawn_rates[2] + wave_spawn_rates[3]):
-			if wave_spawn_rates[1] > 0: # Spawn Suicunes
-				wave_spawn_rates[1] -= 1
-				var suicune_enemy = suicune_enemy_scene.instantiate()
-				
-				var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
-				$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
-				
-				suicune_enemy.position = mob_spawn_location.position
-				add_child(suicune_enemy)
-				
-			elif wave_spawn_rates[2] > 0: # Spawn Capos
-				wave_spawn_rates[2] -= 1
-				var capo_enemy = capo_enemy_scene.instantiate()
-				
-				var mob_spawn_location = $enemy_spawn_points/suicune_spawn_path/spawn_location
-				$enemy_spawn_points/suicune_spawn_path/spawn_location.progress_ratio = randf()
-				
-				capo_enemy.position = mob_spawn_location.position
-				add_child(capo_enemy)
+
+func spawn_enemy(enemy_type: String):
+	rand.randomize()
+
+	match enemy_type:
+		"suicune":
+			var enemy = suicune_enemy_scene.instantiate()
+			var spawn_path = $enemy_spawn_points/suicune_spawn_path/spawn_location
+			spawn_path.progress_ratio = randf()
+			enemy.position = spawn_path.position
+			add_child(enemy)
+
+		"capo":
+			var enemy = capo_enemy_scene.instantiate()
+			var spawn_path = $enemy_spawn_points/suicune_spawn_path/spawn_location
+			spawn_path.progress_ratio = randf()
+			enemy.position = spawn_path.position
+			add_child(enemy)
+
+		"boss", "helheim":
+			var enemy = helheim_scene.instantiate()
+			enemy.position = Vector2(0, 0)
+			add_child(enemy)
 			
-			elif wave_spawn_rates[3] > 0: # Spawn boss
-				wave_spawn_rates[3] -= 1
-				var helheim = helheim_scene.instantiate()
-				
-				helheim.position = Vector2(0, 0)
-				add_child(helheim)
-				print("added")
-	
-	while true:
-		if get_tree().get_first_node_in_group("enemies") != null:
-			await get_tree().create_timer(2).timeout 
-		else:
-			break
 
 
 func _on_testing_bullet_despawn_timeout() -> void:
