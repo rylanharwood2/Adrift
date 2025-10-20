@@ -5,7 +5,7 @@ var current_state : MineState = MineState.SPAWNING
 
 @export var arming_delay : float = 2
 @export var explosion_damage : int = 2
-@export var explosion_radius : int = 500
+@export var explosion_radius : int = 125
 @export var lifetime_after_armed : float = 100.
 
 var who_boom : Node2D
@@ -13,9 +13,10 @@ var who_boom : Node2D
 func _ready():
 	change_state(MineState.ARMING)
 
-func _process(float) -> void:
-	pass
-	#queue_redraw() # delete
+func _process(delta: float) -> void:
+	rotation_degrees += 15 * delta
+	queue_redraw()
+	
 
 
 func change_state(new_state : MineState):
@@ -71,27 +72,19 @@ func apply_explosion_damage():
 	shape.radius = explosion_radius
 
 	params.shape = shape
-	params.transform = Transform2D(0, global_position)
+	params.transform = global_transform
 
 	print("hi")
 	# Query overlapping bodies
 	for res in space_state.intersect_shape(params, 64):
-		print("inside")
 		var obj = res.collider
-		if obj and obj.is_in_group("enemies"):
-			#if obj.has_method("hit"):
-			#	obj.hit(explosion_damage)
-			#obj.health -= explosion_damage
-			if "health" in obj:
+		if obj:
+			if obj.has_method("get_health"):
 				print("yep")
-				obj.health -= explosion_damage
-			if obj.health <= 0 and obj.has_method("play_death"):
-				obj.play_death()
+				obj.adjust_health(explosion_damage)
 
 func _draw():
-	pass
-	#draw_circle(Vector2.ZERO, 100, Color.RED)
-
+	draw_circle(Vector2.ZERO, explosion_radius, Color.RED, false)
 
 
 

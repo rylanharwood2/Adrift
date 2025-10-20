@@ -1,38 +1,38 @@
 [gd_scene load_steps=9 format=3 uid="uid://b71bxsh7scdyh"]
 
-[ext_resource type="Texture2D" uid="uid://c47bytwy5cnt2" path="res://assets/sprites/player/powerups/Mine.png" id="1_5hwcm"]
 [ext_resource type="Script" uid="uid://dqawjhav8cttw" path="res://scripts/proxy_mine.gd" id="2_a0fo6"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a0fo6"]
-atlas = ExtResource("1_5hwcm")
-region = Rect2(0, 0, 11, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pqrf2"]
-atlas = ExtResource("1_5hwcm")
-region = Rect2(11, 0, 11, 16)
+[ext_resource type="Texture2D" uid="uid://5iwg8i6f7spx" path="res://assets/sprites/player/powerups/Mine-arming.png" id="2_pqrf2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ddoco"]
-atlas = ExtResource("1_5hwcm")
-region = Rect2(22, 0, 11, 16)
+atlas = ExtResource("2_pqrf2")
+region = Rect2(0, 0, 33, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7tiqx"]
-atlas = ExtResource("1_5hwcm")
-region = Rect2(33, 0, 11, 16)
+atlas = ExtResource("2_pqrf2")
+region = Rect2(33, 0, 33, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofdw5"]
+atlas = ExtResource("2_pqrf2")
+region = Rect2(66, 0, 33, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adyft"]
+atlas = ExtResource("2_pqrf2")
+region = Rect2(99, 0, 33, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ofdw5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a0fo6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pqrf2")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ddoco")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7tiqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofdw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adyft")
 }],
 "loop": true,
 "name": &"flashing",
@@ -40,7 +40,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5hwcm"]
-radius = 24.0
+radius = 32.0
 
 [node name="proxy_mine" type="Area2D"]
 script = ExtResource("2_a0fo6")

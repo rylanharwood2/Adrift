@@ -31,6 +31,7 @@ player=""
 asteroid=""
 health_packs=""
 bullet=""
+capo_bullet=""
 
 [input]
 

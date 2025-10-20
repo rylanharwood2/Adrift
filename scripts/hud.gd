@@ -23,7 +23,7 @@ func _ready() -> void:
 	SignalBus.health_changed.connect(update_health)
 	SignalBus.ammo_changed.connect(update_ammo)
 	SignalBus.boost_changed.connect(update_boost_meter)
-	pass
+	
 
 func _init() -> void:
 	hide()

@@ -29,7 +29,7 @@ position = Vector2(0.999989, -3)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_1pa5e")
 
-[node name="despawn_timer" type="Timer" parent="."]
+[node name="despawn_timer" type="Timer" parent="." groups=["capo_bullet"]]
 one_shot = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
