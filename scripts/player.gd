@@ -55,6 +55,7 @@ func _ready() -> void:
 	$invulnerability_frames.start()
 	$forcefield.expand(true)
 	SignalBus.applied_ice.connect(activate_ice_powerup)
+	SignalBus.healthpack_captured.connect(adjust_health)
 	
 
 
@@ -200,14 +201,6 @@ func play_flame_amimation() -> void:
 		flame_on_counter = 0
 		idle_couter += 1
 
-
-# detect collisions
-func _on_enemy_detector_body_entered(body: Node2D) -> void:
-		
-	if (body.is_in_group("healthpack")):
-		SignalBus.healthpack_captured.emit()
-		#is_colliding = true
-	
 
 func hurt_player(dmg : int):
 	if not forcefield_active:

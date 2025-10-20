@@ -13,22 +13,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	player_detection()
-	#queue_free()
+	pass
 
 func add_health():
-	if (player.health < player.max_health):
-		player.health += 5
+	if (player.get_health() < player.max_health):
+		player.adjust_health(-heal_amount)
 
-func player_detection():
-	pass
-	#player.connect("healthpack_captured", self, "add_health")#"pressed", self, "_start_game")
-	
-#if body.is_in_group("player"):
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("healthpack nabbed")
 	if body.is_in_group("player"):
-		SignalBus.health_pack_entered.emit(heal_amount)
-		queue_free()
+		SignalBus.healthpack_captured.emit(-heal_amount) # negative bc this is the only time the health goes up
+		queue_free()                                     # so the func is built to count down
