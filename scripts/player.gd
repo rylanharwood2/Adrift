@@ -211,12 +211,12 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		healthpack_captured.emit()
 		#is_colliding = true
 	
-func _on_enemy_detector_body_exited(body: Node2D) -> void:
-	just_hit = false
+#func _on_enemy_detector_body_exited(body: Node2D) -> void:
+	#just_hit = false
 	
-func _on_enemy_hit_cooldown_timeout() -> void:
-	if (just_hit):
-		hurt_player()
+#func _on_enemy_hit_cooldown_timeout() -> void:
+	#if (just_hit):
+		#hurt_player()
 		
 func hurt_player():
 	print("lol")
@@ -225,8 +225,8 @@ func hurt_player():
 		$player_hurt.play()
 		flash() # maybe remove?
 		adjust_health(1)
-		$enemy_hit_cooldown.start()
-		just_hit = true
+		#$enemy_hit_cooldown.start()
+		#just_hit = true
 		
 
 func activate_ice_powerup() -> void:

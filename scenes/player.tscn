@@ -243,7 +243,7 @@ rotation = -1.5708
 script = ExtResource("1_wwnok")
 health = 8
 
-[node name="ship" type="AnimatedSprite2D" parent="."]
+[node name="ship" type="AnimatedSprite2D" parent="." groups=["player"]]
 material = SubResource("ShaderMaterial_4a8iu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_88jfr")
@@ -277,11 +277,11 @@ rotation = 1.5708
 wait_time = 0.5
 one_shot = true
 
-[node name="enemy_detector" type="Area2D" parent="."]
+[node name="enemy_detector" type="Area2D" parent="." groups=["player"]]
 visible = false
 collision_mask = 129
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detector" groups=["player"]]
 rotation = -1.5708
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CapsuleShape2D_nnutb")

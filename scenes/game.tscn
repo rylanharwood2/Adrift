@@ -73,16 +73,6 @@ limit_bottom = 464
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 unique_name_in_owner = true
-max_health = 50
-ammo_cap = 10
-ammo = 10
-flame_on_counter = 0
-idle_couter = 0
-acceleration = 9.0
-max_speed = 200.0
-friction = 0.982
-rotation_speed = 2.0
-boost_meter = 100.0
 
 [node name="menus" type="Node" parent="."]
 
