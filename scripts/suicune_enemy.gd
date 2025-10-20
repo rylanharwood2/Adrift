@@ -10,11 +10,12 @@ var rand = RandomNumberGenerator.new()
 var  speed = randf_range(3500.0, 4500.0)
 const TURN_SPEED = 2.0 # max turn speed (idk units)
 # var health = 2
+var player_node = null
 
 var targgg = Vector2(0,0)
 var target_angle = Vector2(0,0)
 
-var player = null
+
 
 
 func _process(delta: float) -> void:
@@ -34,9 +35,24 @@ func _process(delta: float) -> void:
 
 	move_and_slide()
 
+# enemy on hit damage {
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.hurt_player(1)
+		player_node = body
+		$hit_cooldown.start(1.0)
 
 
- 
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	player_node = null
+
+
+func _on_hit_cooldown_timeout() -> void:
+	if player_node:
+		player_node.hurt_player(1)
+		$hit_cooldown.start(1.0)
+# }
+
 func _ready() -> void:
 	pass
 	#$ProgressBar.value = health
@@ -45,21 +61,3 @@ func _ready() -> void:
 func _on_ship_animation_finished() -> void:
 	if $ship.animation == "death":
 		queue_free()
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("HHHHHHHHHHHHHHHHHHH")
-	if body.is_in_group("player"):
-		body.hurt_player()
-		player = body
-		$hit_cooldown.start(1.0)
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	player = null
-
-
-func _on_hit_cooldown_timeout() -> void:
-	if player:
-		print("Attempting to killllll")
-		player.hurt_player()
-		$hit_cooldown.start(1.0)

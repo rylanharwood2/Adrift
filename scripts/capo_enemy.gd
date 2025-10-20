@@ -21,6 +21,8 @@ var distance_to_player = (0)
 var left_bullet = null
 var right_bullet = null
 
+var player_node = null
+
 
 func _ready() -> void:
 	flash()
@@ -95,3 +97,22 @@ func _on_ice_timer_timeout() -> void:
 func _on_ship_animation_finished() -> void:
 	if $ship.animation == "death":
 		queue_free()
+
+
+# enemy on hit damage {
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.hurt_player(1)
+		player_node = body
+		$hit_cooldown.start(1.0)
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	player_node = null
+
+
+func _on_hit_cooldown_timeout() -> void:
+	if player_node:
+		player_node.hurt_player(1)
+		$hit_cooldown.start(1.0)
+# }

@@ -24,6 +24,6 @@ func laser_shoot() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.hurt_player()
+		body.hurt_player(1)
 	if body.is_in_group("player") or body.is_in_group("asteroid"):
 		queue_free()

@@ -43,13 +43,14 @@ var last_ammo: int = -1
 var last_boost: int = -1
 var just_hit = false
 var iced_up = false
-var can_die = true
+var forcefield_active = false
 
 var scene = preload("res://scenes/player_bullet.tscn")
 
 
 func _ready() -> void:
 	#super()
+	$ship.material.set_shader_parameter("flash_modifier", 0)
 	$ship_startup.play()
 	$invulnerability_frames.start()
 	$forcefield.expand(true)
@@ -202,42 +203,26 @@ func play_flame_amimation() -> void:
 
 # detect collisions
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
-	# TODO allow them to hit you again if they are still attached
-	if $invulnerability_frames.is_stopped() and (body.is_in_group("enemies") or body.is_in_group("capo_bullet")):
-		hurt_player()
-		
 		
 	if (body.is_in_group("healthpack")):
-		healthpack_captured.emit()
+		SignalBus.healthpack_captured.emit()
 		#is_colliding = true
 	
-#func _on_enemy_detector_body_exited(body: Node2D) -> void:
-	#just_hit = false
-	
-#func _on_enemy_hit_cooldown_timeout() -> void:
-	#if (just_hit):
-		#hurt_player()
-		
-func hurt_player():
-	print("lol")
-	if can_die:
-		$invulnerability_frames.start()
-		$player_hurt.play()
+
+func hurt_player(dmg : int):
+	if not forcefield_active:
 		flash() # maybe remove?
-		adjust_health(1)
-		#$enemy_hit_cooldown.start()
-		#just_hit = true
-		
+		adjust_health(dmg)
+	
 
 func activate_ice_powerup() -> void:
 	iced_up = true
 
 # theres prob a better way of doing this but these set up the signal to change the HUD
 func update_health_changed(updated_health):
-	if updated_health >= last_health or can_die:# edit for forcefield invul
-		if last_health != updated_health:
-			last_health = updated_health
-			SignalBus.health_changed.emit(updated_health)
+	if last_health != updated_health:
+		last_health = updated_health
+		SignalBus.health_changed.emit(updated_health)
 
 
 func update_ammo_changed(updated_ammo):
@@ -269,9 +254,9 @@ func _on_ice_timer_timeout() -> void:
 func check_forcefield():
 	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
 		$forcefield_invul_timer.start(forcefield.expand(false))
-		can_die = false
+		forcefield_active = true
 	
 
 func _on_forcefield_invul_timer_timeout() -> void:
 	$forcefield_cooldown.start(2)
-	can_die = true
+	forcefield_active = false

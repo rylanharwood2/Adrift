@@ -9,6 +9,8 @@ var speed_mod : float = 1.0
 var dead = false
 var icey = false
 
+#var player_node = null
+
 
 func _ready():
 	pass
@@ -39,13 +41,15 @@ func _on_ice_timer_timeout() -> void:
 
 
 # takin damage
-# capo, suicune, and boss have no current system for this
-func adjust_health(health_modifier):
+
+
+func adjust_health(health_modifier) -> int:
 	health -= health_modifier
 	if health_modifier > 0:
 		flash()
 	if health <= 0:
 		play_death()
+	return health
 
 # dyin
 func play_death():
