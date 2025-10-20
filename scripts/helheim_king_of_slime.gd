@@ -1,16 +1,15 @@
 @icon("res://assets/sprites/enemies/testboss2.png")
-extends CharacterBody2D
+extends Creature
 
 @onready var player = get_tree().get_first_node_in_group("player")
 
-var health = 8
+# var health = 8
 
 
 const MOVE_SPEED : int = 20000
 const SPIN_SPEED : int = 300
 const TURN_SPEED : float = 3.0
 
-var speed_mod = 1.0
 var player_position = Vector2(0, 0)
 var player_angle = Vector2(0, 0)
 var move_speed_mod = 0
@@ -21,8 +20,7 @@ var locked = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	flash()
-	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
+	$ship.animation_finished.connect(_on_animation_finished)
 	add_to_group("boss")
 
 
@@ -33,6 +31,8 @@ func _process(delta: float) -> void:
 	# if you wanna be really cool start a timer as long as the player is not 
 	# within a raduius and only if they leave it for x time he switches to 
 	# move mode or vice versa
+	if dead:
+		return
 	var direction = Vector2(cos(rotation), sin(rotation))
 	if searching:
 		var distance_to_player = (0)
@@ -53,17 +53,7 @@ func _process(delta: float) -> void:
 	
 	move_and_slide()
 
-func play_death():
-	queue_free()
 
-
-func flash():
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
-	$flash_timer.start()
-
-func _on_flash_timer_timeout() -> void:
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
-	
 func turn_blue():
 	speed_mod = 0.75
 
@@ -73,16 +63,21 @@ func _on_charge_timer_timeout() -> void:
 
 func begin_charge() -> void:
 	if !locked:
-		$AnimatedSprite2D.play("charging charge attack")
+		$ship.play("charging charge attack")
 		locked = true
 	
 func _on_animation_finished():
-	if $AnimatedSprite2D.animation == "charging charge attack":
-		$AnimatedSprite2D.play("charge attack")
+	if $ship.animation == "charging charge attack":
+		$ship.play("charge attack")
 		move_speed_mod = 1
-	elif $AnimatedSprite2D.animation == "charge attack":
+	elif $ship.animation == "charge attack":
 		move_speed_mod = 0
 		searching = true
 		locked = false
 	else:
-		$AnimatedSprite2D.play("default")
+		$ship.play("default")
+
+
+func _on_ship_animation_finished() -> void:
+	if $ship.animation == "death":
+		queue_free()

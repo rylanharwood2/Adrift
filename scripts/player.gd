@@ -1,4 +1,5 @@
-extends CharacterBody2D
+extends Creature
+#extends CharacterBody2D
 
 
 signal healthpack_captured
@@ -12,7 +13,7 @@ signal boost_changed(new_boost)
 # TODO universal random number seed?
 var rng = RandomNumberGenerator.new()
 
-@export var health: int = 8
+#@export var health: int = 8
 @export var max_health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
@@ -41,7 +42,6 @@ var last_health: int = -1
 var last_ammo: int = -1
 var last_boost: int = -1
 var just_hit = false
-var dead = false
 var iced_up = false
 var can_die = true
 
@@ -49,10 +49,10 @@ var scene = preload("res://scenes/player_bullet.tscn")
 
 
 func _ready() -> void:
+	#super()
 	$ship_startup.play()
 	$invulnerability_frames.start()
 	$forcefield.expand(true)
-	$ship.material.set_shader_parameter("flash_modifier", 0)
 	SignalBus.applied_ice.connect(activate_ice_powerup)
 	
 
@@ -61,15 +61,15 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# TODO  comically this way of using signals is still prolly wrong, the enemy should send a signal 
 	# that tells us to update the player health only on a collision instead of running this check every frame
+	if dead:
+		return
+	
 	if health > 0:
 		update_health_changed(health) 
 		update_ammo_changed(ammo)
 		update_boost_changed(boost_meter)
 	else:
-		update_health_changed(0)
-		if health <= 0:
-			SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
-			dead = true
+		play_death()
 	
 	var forward_input = Input.is_action_pressed("move_up")
 	var boost_input = Input.is_action_pressed("boost")
@@ -103,14 +103,17 @@ func _physics_process(delta: float) -> void:
 		rotation_speed = 4
 	elif !Input.is_action_pressed("drift(ebrake)"):
 		rotation_speed = 2
-	
-	if health > 0:
-		detect_shoot()
-		play_tilting_animation()
-		play_flame_amimation()
-		determine_rotation(directional_input)
-		move_and_slide()
+		
+	detect_shoot()
+	play_tilting_animation()
+	play_flame_amimation()
+	determine_rotation(directional_input)
+	move_and_slide()
 
+func play_death():
+	super()
+	update_health_changed(0)
+	SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
 
 ## Weapon Mechanics
 func shoot(_bullet_typey):
@@ -140,15 +143,6 @@ func reload():
 
 func _on_reload_timer_timeout() -> void:
 	ammo += 1
-
-
-# flash on damage received
-func flash():
-	$ship.material.set_shader_parameter("flash_modifier", 0.8)
-	$flash_timer.start()
-
-func _on_flash_timer_timeout() -> void:
-	$ship.material.set_shader_parameter("flash_modifier", 0)
 
 
 # boooooooooost
@@ -209,12 +203,12 @@ func play_flame_amimation() -> void:
 # detect collisions
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
 	# TODO allow them to hit you again if they are still attached
-	if ($invulnerability_frames.is_stopped() and body.is_in_group("enemies")):
+	if $invulnerability_frames.is_stopped() and (body.is_in_group("enemies") or body.is_in_group("capo_bullet")):
 		hurt_player()
+		
 		
 	if (body.is_in_group("healthpack")):
 		healthpack_captured.emit()
-			
 		#is_colliding = true
 	
 func _on_enemy_detector_body_exited(body: Node2D) -> void:
@@ -225,11 +219,12 @@ func _on_enemy_hit_cooldown_timeout() -> void:
 		hurt_player()
 		
 func hurt_player():
+	print("lol")
 	if can_die:
 		$invulnerability_frames.start()
 		$player_hurt.play()
-		flash()
-		health -= 1
+		flash() # maybe remove?
+		adjust_health(1)
 		$enemy_hit_cooldown.start()
 		just_hit = true
 		

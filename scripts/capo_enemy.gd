@@ -1,5 +1,7 @@
-extends CharacterBody2D
+#extends CharacterBody2D
+extends Creature
 
+# TODO do finding the player with a signal instead
 @onready var target = get_tree().current_scene.get_node("Player")
 @onready var game_world := get_tree().root.get_node("Game")
 var scene = preload("res://scenes/capo_bullet.tscn")
@@ -8,16 +10,16 @@ var rand = RandomNumberGenerator.new()
 
 var  speed = randf_range(2500.0, 3500.0)
 const TURN_SPEED = 3.0 # max turn speed (idk units)
-var health: int = 5
-
-var dead: bool = false
+# health: int = 4
 
 var target_position = Vector2(0,0)
 var target_angle = Vector2(0,0)
 
+var direction = Vector2(cos(rotation), sin(rotation))
+var distance_to_player = (0)
+
 var left_bullet = null
 var right_bullet = null
-var speed_mod = 1.0
 
 
 func _ready() -> void:
@@ -25,20 +27,20 @@ func _ready() -> void:
 	
 
 func _process(delta: float) -> void:
-	var direction = Vector2(cos(rotation), sin(rotation))
-	var distance_to_player = (0)
-	if !dead: 
-		target_position = target.position
-		distance_to_player = self.position.distance_to(target_position)
-		target_angle = (target_position - position).angle()
-		
-		# limit rotation speed
-		rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
+	if dead:
+		return
 	
-		# move in dir the enemy is facing
-		velocity = direction * speed * delta * speed_mod
+	target_position = target.position
+	distance_to_player = self.position.distance_to(target_position)
+	target_angle = (target_position - position).angle()
+	
+	# limit rotation speed
+	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
+
+	# move in dir the enemy is facing
+	velocity = direction * speed * delta * speed_mod
 		
-	if (!dead and $reload_speed.is_stopped()):
+	if $reload_speed.is_stopped():
 		shoot("")
 	
 	if distance_to_player > 250:
@@ -78,31 +80,18 @@ func _on_left_fire_animation_done():
 func _on_right_fire_animation_done():
 	right_bullet = null
 
-func flash():
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
-	$flash_timer.start()
-
-func play_death():
-	dead = true
-	velocity = Vector2(0,0)
-	set_collision_layer_value(1, false)
-	set_collision_mask_value(1, false)
-	$AnimatedSprite2D.play("death")
-	#await get_tree().create_timer(2).timeout  - I feel like this should work but we are instead using a timer
-	$death_animation.start(5)
-
-func _on_flash_timer_timeout() -> void:
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
-
-func _on_death_animation_timeout() -> void:
-	queue_free()
 
 func turn_blue():
-	$AnimatedSprite2D.material.set_shader_parameter("blue", true)
+	$ship.material.set_shader_parameter("blue", true)
 	$ice_timer.start()
 	speed_mod = 0.5
 
 
 func _on_ice_timer_timeout() -> void:
 	speed_mod = 1.0
-	$AnimatedSprite2D.material.set_shader_parameter("blue", false)
+	$ship.material.set_shader_parameter("blue", false)
+
+
+func _on_ship_animation_finished() -> void:
+	if $ship.animation == "death":
+		queue_free()

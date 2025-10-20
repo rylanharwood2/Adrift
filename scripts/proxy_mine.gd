@@ -5,7 +5,7 @@ var current_state : MineState = MineState.SPAWNING
 
 @export var arming_delay : float = 2
 @export var explosion_damage : int = 2
-@export var explosion_radius : int = 5
+@export var explosion_radius : int = 500
 @export var lifetime_after_armed : float = 100.
 
 var who_boom : Node2D

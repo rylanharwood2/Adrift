@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=24 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://scripts/touch_buttons.gd" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://b71bxsh7scdyh" path="res://scenes/proxy_mine.tscn" id="16_ca42v"]
+[ext_resource type="PackedScene" uid="uid://3kj1b73888bu" path="res://scenes/suicune_enemy.tscn" id="18_264po"]
 [ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/asteroid.tscn" id="18_ssvqc"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
@@ -72,6 +73,16 @@ limit_bottom = 464
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 unique_name_in_owner = true
+max_health = 50
+ammo_cap = 10
+ammo = 10
+flame_on_counter = 0
+idle_couter = 0
+acceleration = 9.0
+max_speed = 200.0
+friction = 0.982
+rotation_speed = 2.0
+boost_meter = 100.0
 
 [node name="menus" type="Node" parent="."]
 
@@ -182,5 +193,8 @@ position = Vector2(556, -213)
 
 [node name="proxy_mine" parent="." instance=ExtResource("16_ca42v")]
 position = Vector2(-243, 189)
+
+[node name="suicune_enemy" parent="." instance=ExtResource("18_264po")]
+position = Vector2(-65, -72)
 
 [connection signal="timeout" from="testing_bullet_despawn" to="." method="_on_testing_bullet_despawn_timeout"]

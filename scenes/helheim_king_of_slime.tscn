@@ -214,6 +214,11 @@ animations = [{
 "name": &"charging charge attack",
 "speed": 5.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tuch5")
@@ -293,13 +298,15 @@ animations = [{
 
 [node name="helheim" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_xp4uy")
+health = 8
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="ship" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_6qc34")
 position = Vector2(0, -1)
 rotation = 1.5708
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_7bdla")
+animation = &"death"
 autoplay = "default"
 
 [node name="spin_hitbox" type="Area2D" parent="."]
@@ -328,5 +335,6 @@ one_shot = true
 [node name="charge_timer" type="Timer" parent="."]
 wait_time = 3.0
 
+[connection signal="animation_finished" from="ship" to="." method="_on_ship_animation_finished"]
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
 [connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]

@@ -304,8 +304,9 @@ animations = [{
 
 [node name="capo_enemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_m2rrh")
+health = 4
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="ship" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_i3d7n")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_w8g1f")
@@ -343,12 +344,9 @@ visible = false
 scale = Vector2(-60, -60)
 shape = SubResource("CircleShape2D_4y3sd")
 
-[node name="death_animation" type="Timer" parent="."]
-one_shot = true
-
 [node name="ice_timer" type="Timer" parent="."]
 wait_time = 5.0
 
+[connection signal="animation_finished" from="ship" to="." method="_on_ship_animation_finished"]
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
-[connection signal="timeout" from="death_animation" to="." method="_on_death_animation_timeout"]
 [connection signal="timeout" from="ice_timer" to="." method="_on_ice_timer_timeout"]

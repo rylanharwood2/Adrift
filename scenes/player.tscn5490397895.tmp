@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b327nj58ktob7"]
+[gd_scene load_steps=37 format=3 uid="uid://b327nj58ktob7"]
 
 [ext_resource type="Script" uid="uid://ccx2bwj2s8i3m" path="res://scripts/player.gd" id="1_wwnok"]
 [ext_resource type="Texture2D" uid="uid://dor3rojyhsgbu" path="res://assets/sprites/player/PlaneTurn.png" id="2_qovok"]
@@ -14,10 +14,6 @@ shader = ExtResource("2_xlifc")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 shader_parameter/blue = false
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
-atlas = ExtResource("2_qovok")
-region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
 atlas = ExtResource("3_fjrip")
@@ -77,14 +73,6 @@ region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_88jfr"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oprun")
-}],
-"loop": true,
-"name": &"death",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_smehm")
@@ -247,7 +235,7 @@ health = 8
 material = SubResource("ShaderMaterial_4a8iu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_88jfr")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="flame_on" type="AnimatedSprite2D" parent="."]
