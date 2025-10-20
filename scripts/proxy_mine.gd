@@ -17,6 +17,8 @@ func _process(delta: float) -> void:
 	rotation_degrees += 15 * delta
 	queue_redraw()
 	
+func _draw():
+	draw_circle(Vector2.ZERO, explosion_radius, Color.RED, false)
 
 
 func change_state(new_state : MineState):
@@ -83,8 +85,6 @@ func apply_explosion_damage():
 				print("yep")
 				obj.adjust_health(explosion_damage)
 
-func _draw():
-	draw_circle(Vector2.ZERO, explosion_radius, Color.RED, false)
 
 
 

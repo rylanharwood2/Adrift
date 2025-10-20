@@ -90,3 +90,18 @@ honestly should kinda rework the main gun
  *Having Fun :)*  
 im watching a lot of godot and gamedev tutorials, I cannot overstate how high motivation is rn, I would love to do a gamejam in 2026,  
 also want to start a youtube channel, I dont know if this could be a sustainable form of income but it would be a dream come true  
+
+### oct 20
+*Creature Base Class*  
+Enemies and the Player are now in a larger Creature class that holds methods like flash() and play_death(), this was because I realized  
+I found a bug in the forcefield logic and decided to just finally fix the damage logic for all of my entities. There are still some  
+kinks, I need to figure out how to have the capos collision damage work properly but it works correctly for the suicunes.  
+*Collision System*  
+I fully revamped the collision system, its a work in progress but the new system has enemies detect the player and call its adjust_health()  
+method inheritied from the Creature class. This shift from the player detecting enemy collisions has smoothed some issues I was having with  
+the player being overly complicated and the enemies kind of just walking towards it. Additionally, it meant that I had to directly go edit  
+the enemies health values when creating the proxy mine which I felt a little weird about. Now the proxy mine can use a public facing setter.  
+*Proxy Mine*  
+That segways us nicely into the finished proxy mine! It's not actually quite finished but once we get a new sprite and an explosion animation  
+it will be very close. I was using a red circle to signify where the proxy mines "damage" field could see, I made it just a ring and now it  
+looks good enough to leave for now as a signifier of how far away you should be. I plan on updating this to a radar-like ping animation.  
