@@ -11,6 +11,7 @@ var current_state : MineState = MineState.SPAWNING
 var who_boom : Node2D
 
 func _ready():
+	show()
 	change_state(MineState.ARMING)
 
 func _process(delta: float) -> void:

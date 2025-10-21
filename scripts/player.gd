@@ -45,8 +45,9 @@ var just_hit = false
 var iced_up = false
 var forcefield_active = false
 
-var scene = preload("res://scenes/player_bullet.tscn")
-
+var player_bullet_scene = preload("res://scenes/player_bullet.tscn")
+var proxy_mine_scene = preload("res://scenes/proxy_mine.tscn")
+@onready var game_world := get_tree().root.get_node("Game")
 
 func _ready() -> void:
 	#super()
@@ -119,7 +120,7 @@ func play_death():
 
 ## Weapon Mechanics
 func shoot(_bullet_typey):
-	var bullet = scene.instantiate()
+	var bullet = player_bullet_scene.instantiate()
 	bullet.speed *= 2
 	if iced_up:
 		bullet.icey = true
@@ -146,6 +147,27 @@ func reload():
 func _on_reload_timer_timeout() -> void:
 	ammo += 1
 
+# powerups
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("activate_proxy_mine"):
+		var proxy_mine = proxy_mine_scene.instantiate()
+		proxy_mine.position = position
+		
+		game_world.add_child(proxy_mine) # TODO this needs a cooldown and also too much visual clutter
+
+func check_forcefield():
+	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
+		$forcefield_invul_timer.start(forcefield.expand(false))
+		forcefield_active = true
+	
+
+func _on_forcefield_invul_timer_timeout() -> void:
+	$forcefield_cooldown.start(2)
+	forcefield_active = false
+
+
+func _on_ice_timer_timeout() -> void:
+	iced_up = false
 
 # boooooooooost
 func boost() -> void:
@@ -240,16 +262,5 @@ func _process(val: float) -> void:
 			get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 
-func _on_ice_timer_timeout() -> void:
-	iced_up = false
-	
 
-func check_forcefield():
-	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
-		$forcefield_invul_timer.start(forcefield.expand(false))
-		forcefield_active = true
 	
-
-func _on_forcefield_invul_timer_timeout() -> void:
-	$forcefield_cooldown.start(2)
-	forcefield_active = false

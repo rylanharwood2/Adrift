@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b327nj58ktob7"]
+[gd_scene load_steps=39 format=3 uid="uid://b327nj58ktob7"]
 
 [ext_resource type="Script" uid="uid://ccx2bwj2s8i3m" path="res://scripts/player.gd" id="1_wwnok"]
 [ext_resource type="Texture2D" uid="uid://dor3rojyhsgbu" path="res://assets/sprites/player/PlaneTurn.png" id="2_qovok"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://xisikqweswut" path="res://assets/sprites/player/spaceship_frozone.png" id="3_fjrip"]
 [ext_resource type="AudioStream" uid="uid://cc7ky0ml6gshb" path="res://assets/sfx/ship_sounds.wav" id="4_80fm8"]
 [ext_resource type="AudioStream" uid="uid://y5oasx7yajya" path="res://assets/sfx/single_shot_2.wav" id="4_pabxg"]
+[ext_resource type="PackedScene" uid="uid://b71bxsh7scdyh" path="res://scenes/proxy_mine.tscn" id="6_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://byjy0ftx6mca3" path="res://scenes/forcefield.tscn" id="8_smehm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4a8iu"]
@@ -264,8 +265,6 @@ frame_progress = 1.0
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ar50a")
 
-[node name="forcefield" parent="." instance=ExtResource("8_smehm")]
-
 [node name="muzzle" type="Marker2D" parent="."]
 position = Vector2(17, -6.15398e-05)
 rotation = 1.5708
@@ -286,6 +285,11 @@ collision_mask = 129
 rotation = -1.5708
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CapsuleShape2D_nnutb")
+
+[node name="proxy_mine" parent="." instance=ExtResource("6_ur7pv")]
+visible = false
+
+[node name="forcefield" parent="." instance=ExtResource("8_smehm")]
 
 [node name="shoot_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_pabxg")
@@ -325,7 +329,6 @@ one_shot = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="reload_timer" to="." method="_on_reload_timer_timeout"]
-[connection signal="body_entered" from="enemy_detector" to="." method="_on_enemy_detector_body_entered"]
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
 [connection signal="timeout" from="boost_cooldown_timer" to="." method="_on_boost_cooldown_timer_timeout"]
 [connection signal="timeout" from="enemy_hit_cooldown" to="." method="_on_enemy_hit_cooldown_timeout"]
