@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=22 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://scripts/touch_buttons.gd" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://3kj1b73888bu" path="res://scenes/suicune_enemy.tscn" id="18_264po"]
-[ext_resource type="PackedScene" uid="uid://cepyg8irkh4ah" path="res://scenes/asteroid.tscn" id="18_ssvqc"]
 
 [sub_resource type="Curve2D" id="Curve2D_e5dhq"]
 _data = {
@@ -177,10 +176,10 @@ offset_right = 40.0
 grow_vertical = 0
 script = ExtResource("14_trtic")
 
-[node name="asteroid" parent="." instance=ExtResource("18_ssvqc")]
-position = Vector2(556, -213)
-
 [node name="suicune_enemy" parent="." instance=ExtResource("18_264po")]
 position = Vector2(-188, -178)
+
+[node name="asteroid_spawn_location" type="Marker2D" parent="."]
+position = Vector2(-949, 570)
 
 [connection signal="timeout" from="testing_bullet_despawn" to="." method="_on_testing_bullet_despawn_timeout"]

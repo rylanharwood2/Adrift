@@ -1,7 +1,10 @@
 class_name Asteroid
-extends Node
+extends StaticBody2D
 
-
+func _ready() -> void:
+	position = Vector2(9,9)
+	
+	
 func play_death() -> void:
 	$AnimatedSprite2D.play("death")
 	#$CollisionShape2D.disabled = true    # Does not work

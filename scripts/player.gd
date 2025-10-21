@@ -149,11 +149,13 @@ func _on_reload_timer_timeout() -> void:
 
 # powerups
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("activate_proxy_mine"):
+	if event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
 		var proxy_mine = proxy_mine_scene.instantiate()
 		proxy_mine.position = position
 		
 		game_world.add_child(proxy_mine) # TODO this needs a cooldown and also too much visual clutter
+		$proxy_mine_cooldown.start(10)
+		
 
 func check_forcefield():
 	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():

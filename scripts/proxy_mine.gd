@@ -6,7 +6,7 @@ var current_state : MineState = MineState.SPAWNING
 @export var arming_delay : float = 2
 @export var explosion_damage : int = 2
 @export var explosion_radius : int = 125
-@export var lifetime_after_armed : float = 100.
+@export var lifetime_after_armed : float = 25.
 
 var who_boom : Node2D
 
@@ -34,7 +34,6 @@ func change_state(new_state : MineState):
 			$CollisionShape2D.disabled = false
 			$despawn_timer.start(lifetime_after_armed)
 		MineState.TRIGGERED:
-			print("triggered")
 			explode()
 		MineState.DEAD:
 			queue_free()
@@ -46,10 +45,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 func explode():
 	#$sprite.play("explode")
-	print("explode")
 	apply_explosion_damage()
 	
-	await get_tree().create_timer(3).timeout# handle explosion countdown (0.3 sec?)
+	await get_tree().create_timer(1).timeout# handle explosion countdown (0.3 sec?)
 	change_state(MineState.DEAD)
 	
 	#if who_boom.is_in_group("enemies"):
@@ -66,7 +64,6 @@ func explode():
 
 
 func apply_explosion_damage():
-	print("apply")
 	var space_state = get_world_2d().direct_space_state
 
 	# Create query parameters
@@ -77,14 +74,14 @@ func apply_explosion_damage():
 	params.shape = shape
 	params.transform = global_transform
 
-	print("hi")
 	# Query overlapping bodies
 	for res in space_state.intersect_shape(params, 64):
 		var obj = res.collider
 		if obj:
-			if obj.has_method("get_health"):
-				print("yep")
+			if obj.has_method("adjust_health"):
 				obj.adjust_health(explosion_damage)
+			if obj.is_in_group("asteroid"):
+				obj.play_death()
 
 
 

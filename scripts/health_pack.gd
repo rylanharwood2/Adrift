@@ -22,7 +22,6 @@ func add_health():
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("healthpack nabbed")
 	if body.is_in_group("player"):
 		SignalBus.healthpack_captured.emit(-heal_amount) # negative bc this is the only time the health goes up
 		queue_free()                                     # so the func is built to count down

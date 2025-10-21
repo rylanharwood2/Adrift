@@ -5,6 +5,7 @@ var rand = RandomNumberGenerator.new()
 var suicune_enemy_scene = preload("res://scenes/suicune_enemy.tscn")
 var capo_enemy_scene = preload("res://scenes/capo_enemy.tscn")
 var helheim_scene = preload("res://scenes/helheim_king_of_slime.tscn")
+var asteroid_scene = preload("res://scenes/asteroid.tscn")
 
 var current_player_health : int = -1
 var current_player_ammo : int = -1
@@ -26,6 +27,8 @@ func _ready() -> void:
 	
 	for health_pack in get_tree().get_nodes_in_group("health_packs"):
 		health_pack.health_pack_entered.connect(%Player.change_health)
+		
+	asteroid_generation()
 
 func _on_state_changed(new_state):
 	await get_tree().create_timer(startup_pause_sec).timeout
@@ -137,3 +140,10 @@ func _on_testing_bullet_despawn_timeout() -> void:
 
 func healthpack_generation(): # TODO randomly spawn healthpacks around the world every so often - or based on killing enemies or somethin
 	pass
+
+func asteroid_generation():
+	var asteroid = asteroid_scene.instantiate()
+	asteroid.position = $asteroid_spawn_location.position
+	
+	add_child(asteroid)
+	
