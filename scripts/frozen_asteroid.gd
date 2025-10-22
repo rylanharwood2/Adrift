@@ -12,3 +12,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		ice_powerup.add_to_group("ice_powerups")
 		
 		queue_free()
+
+
+func drop_healthpack():
+	pass

@@ -5,14 +5,12 @@
 	  "subwaves": [
 		{
 		  "enemies": [
-			{ "type": "suicune", "count": 2 },
-			{ "type": "capo", "count": 1 }
+			{ "type": "suicune", "count": 1 }
 		  ]
 		},
 		{
 		  "enemies": [
-			{ "type": "suicune", "count": 2 },
-			{ "type": "capo", "count": 1 }
+			{ "type": "suicune", "count": 3 }
 		  ]
 		}
 	  ]
@@ -22,13 +20,12 @@
 	  "subwaves": [
 		{
 		  "enemies": [
-			{ "type": "suicune", "count": 2 }
+			{ "type": "suicune", "count": 5 }
 		  ]
 		},
 		{
 		  "enemies": [
-			{ "type": "suicune", "count": 2 },
-			{ "type": "capo", "count": 1 }
+			{ "type": "suicune", "count": 5 }
 		  ]
 		}
 	  ]
@@ -38,7 +35,46 @@
 	  "subwaves": [
 		{
 		  "enemies": [
-			{ "type": "helheim", "count": 1 }
+			{ "type": "capo", "count": 1 }
+		  ]
+		},
+		{
+		  "enemies": [
+			{ "type": "capo", "count": 1 },
+			{ "type": "suicune", "count": 2 }
+		  ]
+		}
+	  ]
+	},
+	{
+	  "wave": 4,
+	  "subwaves": [
+		{
+		  "enemies": [
+			{ "type": "capo", "count": 2 }
+		  ]
+		},
+		{
+		  "enemies": [
+			{ "type": "capo", "count": 2 },
+			{ "type": "suicune", "count": 3 }
+		  ]
+		}
+	  ]
+	},
+	{
+	  "wave": 5,
+	  "subwaves": [
+		{
+		  "enemies": [
+			{ "type": "capo", "count": 3 },
+			{ "type": "suicune", "count": 5 }
+		  ]
+		},
+		{
+		  "enemies": [
+			{ "type": "capo", "count": 2 },
+			{ "type": "suicune", "count": 10 }
 		  ]
 		}
 	  ]

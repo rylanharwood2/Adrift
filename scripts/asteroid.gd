@@ -4,9 +4,12 @@ extends StaticBody2D
 @export var speed: float = 150.0
 @export var rotation_speed_range: Vector2 = Vector2(-3.0, 3.0) # radians/sec
 @export var despawn_margin: float = 400.0  # how far offscreen before despawning
+@export var healthpack_drop_threshold_percent : int = 100#20 # percentage of the time that it spawns
 
 var velocity: Vector2
 var rotation_speed: float
+var healthpack_scene = preload("res://scenes/health_pack.tscn")
+var healthpack = null
 
 func _ready() -> void:
 	randomize()
@@ -34,6 +37,7 @@ func _ready() -> void:
 	
 
 func _process(delta):
+	
 	position += velocity * delta
 	rotation += rotation_speed * delta
 
@@ -48,6 +52,10 @@ func _process(delta):
 
 	if not despawn_rect.has_point(position):
 		queue_free()
+		
+	
+	if healthpack != null:
+		healthpack.global_transform = global_transform
 
 
 func _get_random_edge_point(half_size: Vector2, margin: float) -> Vector2:
@@ -64,10 +72,12 @@ func play_death() -> void:
 	$AnimatedSprite2D.play("death")
 	#$CollisionShape2D.disabled = true    # Does not work
 	$CollisionShape2D.set_deferred("disabled", true) # Works
+	drop_healthpack()
 	
-	
+
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "death":
+		
 		queue_free()
 
 
@@ -75,3 +85,11 @@ func _on_asteroid_collision_detector_area_entered(area: Area2D) -> void:
 	
 	if area.is_in_group("asteroid"):
 		play_death()
+
+func drop_healthpack():
+	var drop_chance = randi_range(1,101)
+	if drop_chance > healthpack_drop_threshold_percent:
+		return
+	healthpack = healthpack_scene.instantiate()
+	
+	get_tree().get_first_node_in_group("game").add_child(healthpack)

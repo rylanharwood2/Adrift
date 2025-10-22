@@ -44,6 +44,7 @@ var last_boost: int = -1
 var just_hit = false
 var iced_up = false
 var forcefield_active = false
+var ice_powerup_duration : int = 15
 
 var player_bullet_scene = preload("res://scenes/player_bullet.tscn")
 var proxy_mine_scene = preload("res://scenes/proxy_mine.tscn")
@@ -113,10 +114,7 @@ func _physics_process(delta: float) -> void:
 	determine_rotation(directional_input)
 	move_and_slide()
 
-func play_death():
-	super()
-	update_health_changed(0)
-	SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
+
 
 ## Weapon Mechanics
 func shoot(_bullet_typey):
@@ -161,15 +159,53 @@ func check_forcefield():
 	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
 		$forcefield_invul_timer.start(forcefield.expand(false))
 		forcefield_active = true
-	
 
 func _on_forcefield_invul_timer_timeout() -> void:
 	$forcefield_cooldown.start(2)
 	forcefield_active = false
+	
 
+func activate_ice_powerup() -> void:
+	iced_up = true
+	$ice_timer.start(ice_powerup_duration)
+	
+	if $ship.animation == "tilt_left":
+		var current_frame = $ship.frame
+		$ship.play("ice_tilt_left")
+		$ship.frame = current_frame
+	if $ship.animation == "tilt_right":
+		var current_frame = $ship.frame
+		$ship.play("ice_tilt_right")
+		$ship.frame = current_frame
+	
 
 func _on_ice_timer_timeout() -> void:
 	iced_up = false
+	
+
+func play_tilting_animation() -> void:
+	var tilting_direction = Input.get_axis("move_left", "move_right")
+	
+	if tilting_direction == 1 and !is_tilting:
+		if iced_up:
+			$ship.play("ice_tilt_right")
+		else:
+			$ship.play("tilt_right")
+		is_tilting = true
+	elif tilting_direction == -1 and !is_tilting:
+		if iced_up:
+			$ship.play("ice_tilt_left")
+		else:
+			$ship.play("tilt_left")
+		is_tilting = true
+		
+	if tilting_direction == 0:
+		if iced_up:
+			$ship.play("ice_idle")
+		else:
+			$ship.play("idle")
+		is_tilting = false
+
 
 # boooooooooost
 func boost() -> void:
@@ -190,28 +226,6 @@ func determine_rotation(directional_input) -> void:
 	if directional_input == 1:
 		rotation_degrees += rotation_speed
 	
-# TODO small logic error bug here, the ice powerup wont activate the idle animation if the player is
-# holding turn so they can pick up the ice powerup but it wont turn them blue until they stop turning
-func play_tilting_animation() -> void:
-	var tilting_direction = Input.get_axis("move_left", "move_right")
-	if tilting_direction == 1 and !is_tilting:
-		if iced_up:
-			$ship.play("ice_tilt_right")
-		else:
-			$ship.play("tilt_right")
-		is_tilting = true
-	elif tilting_direction == -1 and !is_tilting:
-		if iced_up:
-			$ship.play("ice_tilt_left")
-		else:
-			$ship.play("tilt_left")
-		is_tilting = true
-	if tilting_direction == 0:
-		if iced_up:
-			$ship.play("ice_idle")
-		else:
-			$ship.play("idle")
-		is_tilting = false
 
 func play_flame_amimation() -> void:
 	# TODO make flame_on_counter / idle_counter into one variable
@@ -226,14 +240,8 @@ func play_flame_amimation() -> void:
 		idle_couter += 1
 
 
-func hurt_player(dmg : int):
-	if not forcefield_active:
-		flash() # maybe remove?
-		adjust_health(dmg)
-	
 
-func activate_ice_powerup() -> void:
-	iced_up = true
+
 
 # theres prob a better way of doing this but these set up the signal to change the HUD
 func update_health_changed(updated_health):
@@ -254,15 +262,25 @@ func update_boost_changed(updated_boost):
 
 func change_health(change_amount):
 	health += clamp(change_amount, 0, max_health)
+	
+
+
+func hurt_player(dmg : int):
+	if not forcefield_active:
+		flash() # maybe remove?
+		adjust_health(dmg)
 
 func _on_player_died(nothing, also_nothing) -> void: # the player died signal is dumb the way I did it, its used in main with HUD to display the message
 	dead = true
 	
+
+func play_death():
+	super()
+	update_health_changed(0)
+	SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
+
+# restart game - should probs be in game
 func _process(val: float) -> void:
 	if dead:
 		if Input.is_action_pressed("restart"):
 			get_tree().change_scene_to_file("res://scenes/game.tscn")
-
-
-
-	

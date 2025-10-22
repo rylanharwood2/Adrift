@@ -311,6 +311,8 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rrwbv"]
 
 [node name="suicune_enemy" type="CharacterBody2D" groups=["enemies"]]
+z_index = 1
+z_as_relative = false
 rotation = 1.5708
 collision_mask = 129
 script = ExtResource("1_m5566")

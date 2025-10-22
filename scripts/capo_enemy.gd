@@ -15,7 +15,6 @@ const TURN_SPEED = 3.0 # max turn speed (idk units)
 var target_position = Vector2(0,0)
 var target_angle = Vector2(0,0)
 
-var direction = Vector2(cos(rotation), sin(rotation))
 var distance_to_player = (0)
 
 var left_bullet = null
@@ -32,13 +31,14 @@ func _process(delta: float) -> void:
 	if dead:
 		return
 	
+	
 	target_position = target.position
 	distance_to_player = self.position.distance_to(target_position)
 	target_angle = (target_position - position).angle()
 	
 	# limit rotation speed
 	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
-
+	var direction = Vector2(cos(rotation), sin(rotation))
 	# move in dir the enemy is facing
 	velocity = direction * speed * delta * speed_mod
 		
@@ -74,6 +74,9 @@ func shoot(_bullet_typey):
 	if speed_mod < 1:
 		left_bullet.material.set_shader_parameter("blue", true)
 		right_bullet.material.set_shader_parameter("blue", true)
+	else:
+		left_bullet.material.set_shader_parameter("blue", false)
+		right_bullet.material.set_shader_parameter("blue", false)
 	$reload_speed.start()
 	
 func _on_left_fire_animation_done():

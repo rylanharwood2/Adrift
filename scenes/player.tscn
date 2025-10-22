@@ -239,7 +239,8 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnutb"]
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
-z_index = 6
+z_index = 10
+z_as_relative = false
 rotation = -1.5708
 script = ExtResource("1_wwnok")
 health = 8
@@ -314,7 +315,7 @@ one_shot = true
 one_shot = true
 
 [node name="ice_timer" type="Timer" parent="."]
-wait_time = 30.0
+one_shot = true
 
 [node name="forcefield_invul_timer" type="Timer" parent="."]
 one_shot = true

@@ -22,6 +22,7 @@ animations = [{
 size = Vector2(37, 44)
 
 [node name="health_pack" type="Node2D" groups=["health_packs"]]
+z_as_relative = false
 script = ExtResource("1_ejyjs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
