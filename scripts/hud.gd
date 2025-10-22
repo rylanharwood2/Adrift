@@ -8,6 +8,13 @@ func show_message(text, dead: bool = false):
 	if !dead:
 		$message_timer.start()
 
+func display_healthbar(new_health : int):
+	
+	print(new_health)
+	var healthbar_ratio = new_health / 8. # max health at the moment
+	healthbar_ratio = (floor(healthbar_ratio*10))
+	$healthbar_sprite.frame = healthbar_ratio
+
 func update_health(health_update:int):
 	$health.text = "Health [ " + str(health_update) + " ]"#%Player.health) + " ]"
 
@@ -20,7 +27,7 @@ func update_boost_meter(boost_update:float):
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.player_died.connect(show_message)
-	SignalBus.health_changed.connect(update_health)
+	SignalBus.health_changed.connect(display_healthbar)
 	SignalBus.ammo_changed.connect(update_ammo)
 	SignalBus.boost_changed.connect(update_boost_meter)
 	

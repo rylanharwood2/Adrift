@@ -1,11 +1,96 @@
-[gd_scene load_steps=3 format=3 uid="uid://baf7exhdloebg"]
+[gd_scene load_steps=16 format=3 uid="uid://baf7exhdloebg"]
 
 [ext_resource type="Script" uid="uid://drk25wqunotfg" path="res://scripts/hud.gd" id="1_7tx1p"]
 [ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="1_aowct"]
+[ext_resource type="Texture2D" uid="uid://bb6ua8o8palvx" path="res://assets/sprites/player/healthbar.png" id="3_xi2ed"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12sgn"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(1890, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovkku"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(1701, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyeum"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(1512, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqcvi"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(1323, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10c6b"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(1134, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1o6x"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(945, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaqaf"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(756, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpu5c"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(567, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8j8kc"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(378, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wasia"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(189, 0, 189, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mesk"]
+atlas = ExtResource("3_xi2ed")
+region = Rect2(0, 0, 189, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ltnow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12sgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovkku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyeum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqcvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10c6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1o6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaqaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpu5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8j8kc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wasia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mesk")
+}],
+"loop": false,
+"name": &"display_health",
+"speed": 5.0
+}]
 
 [node name="HUD" type="CanvasLayer"]
 process_mode = 3
-visible = false
 script = ExtResource("1_7tx1p")
 
 [node name="message_timer" type="Timer" parent="."]
@@ -32,25 +117,29 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="health" type="Label" parent="."]
-offset_right = 101.0
-offset_bottom = 23.0
+visible = false
+offset_left = 4.0
+offset_top = 31.0
+offset_right = 206.0
+offset_bottom = 54.0
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 16
 text = "Health [           ]"
-metadata/_edit_use_anchors_ = true
 
 [node name="ammo" type="Label" parent="."]
-offset_top = 20.0
-offset_right = 204.0
-offset_bottom = 43.0
+offset_left = 4.0
+offset_top = 51.0
+offset_right = 208.0
+offset_bottom = 74.0
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 16
 text = "Ammo   [           ]"
 
 [node name="boost" type="Label" parent="."]
-offset_top = 40.0
-offset_right = 184.0
-offset_bottom = 63.0
+offset_left = 4.0
+offset_top = 71.0
+offset_right = 188.0
+offset_bottom = 94.0
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 16
 text = "Boost [          ]"
@@ -64,5 +153,12 @@ theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 12
 text = "WASD move, SPACE shoot, SHIFT boost, CTRL turn harder, 2 forcefield, 3 proximity mine"
 vertical_alignment = 2
+
+[node name="healthbar_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(99, 24)
+sprite_frames = SubResource("SpriteFrames_ltnow")
+animation = &"display_health"
+frame = 9
+frame_progress = 1.0
 
 [connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]
