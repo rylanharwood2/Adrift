@@ -6,6 +6,7 @@ var suicune_enemy_scene = preload("res://scenes/suicune_enemy.tscn")
 var capo_enemy_scene = preload("res://scenes/capo_enemy.tscn")
 var helheim_scene = preload("res://scenes/helheim_king_of_slime.tscn")
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
+var frozen_asteroid_scene = preload("res://scenes/frozen_asteroid.tscn")
 
 var current_player_health : int = -1
 var current_player_ammo : int = -1
@@ -142,8 +143,31 @@ func healthpack_generation(): # TODO randomly spawn healthpacks around the world
 	pass
 
 func asteroid_generation():
-	var asteroid = asteroid_scene.instantiate()
-	asteroid.position = $asteroid_spawn_location.position
+	while get_tree().get_first_node_in_group("boss") == null and $asteroid_cooldown.is_stopped():
+		var random_asteroid_cooldown_range = randi_range(7,18)
+		var asteroid_quantity = randi_range(1,3) # (inclusive, exclusive)
+		
+		for i in range(0,asteroid_quantity):
+			var asteroid = pick_random_asteroid().instantiate()
+			
+			add_child(asteroid)
+			$asteroid_cooldown.start(random_asteroid_cooldown_range)
 	
-	add_child(asteroid)
+
+func pick_random_asteroid() -> PackedScene:
+	var asteroid_options = [asteroid_scene, frozen_asteroid_scene]
+	var rand_percent = randi_range(1,101)
+	var choice = -1
 	
+	# hard coded yuck
+	# but this just creates a 70% chance to spawn a regular asteroid
+	# and a 30% chance to spawn a frozen asteroid
+	if rand_percent >= 70:
+		choice = 1
+	elif rand_percent < 70:
+		choice = 0
+	
+	return asteroid_options[choice]
+
+func _on_asteroid_cooldown_timeout() -> void:
+	asteroid_generation()

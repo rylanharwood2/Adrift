@@ -2,12 +2,12 @@ extends AnimatedSprite2D
 
 signal applied_ice
 @onready var player = get_node("%Player")
+@export var despawn_time_sec : int = 10
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-	for ice_powerup in get_tree().get_nodes_in_group("ice_powerups"):
-		ice_powerup.applied_ice.connect(%Player.active_ice_powerup)
+	$despawn_timer.start(despawn_time_sec)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,3 +21,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	#player.activate_ice_powerup()
 		SignalBus.applied_ice.emit()
 		queue_free()
+		
+
+
+func _on_despawn_timer_timeout() -> void:
+	queue_free()
+	print(get_tree().get_node_count_in_group("asteroid"))
+	print(get_tree().get_node_count_in_group("ice_powerups"))

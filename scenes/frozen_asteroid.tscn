@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1y4vwf7h4jbg"]
+[gd_scene load_steps=12 format=3 uid="uid://d1y4vwf7h4jbg"]
 
 [ext_resource type="Script" uid="uid://dnuj0tgk0ngco" path="res://scripts/frozen_asteroid.gd" id="1_t45jo"]
 [ext_resource type="Texture2D" uid="uid://dapujo60xltqt" path="res://assets/sprites/environment/AsteroidFrozen.png" id="2_xkxg0"]
@@ -58,6 +58,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4phru"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8wh06"]
+radius = 39.0512
+
 [node name="FrozenAsteroid" type="StaticBody2D" groups=["asteroid"]]
 script = ExtResource("1_t45jo")
 
@@ -69,4 +72,10 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4phru")
 
+[node name="asteroid_collision_detector" type="Area2D" parent="." groups=["asteroid"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="asteroid_collision_detector"]
+shape = SubResource("CircleShape2D_8wh06")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="asteroid_collision_detector" to="." method="_on_asteroid_collision_detector_area_entered"]

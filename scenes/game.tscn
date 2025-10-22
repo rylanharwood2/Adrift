@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=21 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 [ext_resource type="PackedScene" uid="uid://d3epp5wxoh4mn" path="res://scenes/highscore_menu.tscn" id="7_trtic"]
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
-[ext_resource type="PackedScene" uid="uid://d1y4vwf7h4jbg" path="res://scenes/frozen_asteroid.tscn" id="10_3u7ti"]
 [ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
 [ext_resource type="PackedScene" uid="uid://dffvmpbamr3rg" path="res://scenes/health_pack.tscn" id="13_a6ypd"]
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
@@ -35,7 +34,7 @@ size = Vector2(100010, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxjjc"]
 size = Vector2(1619, 0.999969)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" groups=["game"]]
 script = ExtResource("1_p1si3")
 startup_pause_sec = 6
 wave_cooldown_sec = 2
@@ -66,8 +65,7 @@ texture = ExtResource("4_x4fr3")
 centered = false
 
 [node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
-limit_top = -486
-limit_bottom = 464
+zoom = Vector2(1.2, 1.2)
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 unique_name_in_owner = true
@@ -131,9 +129,6 @@ visible = false
 position = Vector2(-166, 180)
 texture = ExtResource("8_mbx16")
 
-[node name="FrozenAsteroid" parent="physics_bodies" instance=ExtResource("10_3u7ti")]
-position = Vector2(-379, -73)
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_cg0uc")
 autoplay = true
@@ -179,7 +174,8 @@ script = ExtResource("14_trtic")
 [node name="suicune_enemy" parent="." instance=ExtResource("18_264po")]
 position = Vector2(-188, -178)
 
-[node name="asteroid_spawn_location" type="Marker2D" parent="."]
-position = Vector2(-949, 570)
+[node name="asteroid_cooldown" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="testing_bullet_despawn" to="." method="_on_testing_bullet_despawn_timeout"]
+[connection signal="timeout" from="asteroid_cooldown" to="." method="_on_asteroid_cooldown_timeout"]

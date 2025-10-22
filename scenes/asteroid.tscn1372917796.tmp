@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cepyg8irkh4ah"]
+[gd_scene load_steps=12 format=3 uid="uid://cepyg8irkh4ah"]
 
 [ext_resource type="Script" uid="uid://cgy0gwat5fbg6" path="res://scripts/asteroid.gd" id="1_t4se3"]
 [ext_resource type="Texture2D" uid="uid://bnajwj7sfx5gi" path="res://assets/sprites/environment/Asteroid Explosionsplosion.png" id="2_pnq5b"]
@@ -62,9 +62,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_0mk8i"]
 radius = 30.28
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_t4se3"]
-radius = 36.0139
-
 [node name="asteroid" type="StaticBody2D" groups=["asteroid"]]
 script = ExtResource("1_t4se3")
 
@@ -74,12 +71,7 @@ autoplay = "default"
 speed_scale = 1.11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_0mk8i")
 
-[node name="asteroid_collision_detector" type="Area2D" parent="." groups=["asteroid"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="asteroid_collision_detector"]
-shape = SubResource("CircleShape2D_t4se3")
-
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="asteroid_collision_detector" to="." method="_on_asteroid_collision_detector_area_entered"]

@@ -149,7 +149,7 @@ func _on_reload_timer_timeout() -> void:
 
 # powerups
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
+	if not dead and event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
 		var proxy_mine = proxy_mine_scene.instantiate()
 		proxy_mine.position = position
 		
