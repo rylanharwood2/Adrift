@@ -25,9 +25,6 @@ func _ready() -> void:
 	
 	new_game()
 	#self.applied_ice.connect(self.apply_slow)
-	
-	for health_pack in get_tree().get_nodes_in_group("health_packs"):
-		health_pack.health_pack_entered.connect(%Player.change_health)
 		
 	asteroid_generation()
 
