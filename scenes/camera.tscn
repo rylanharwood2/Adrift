@@ -6,7 +6,7 @@
 
 [node name="camera" type="Camera2D"]
 z_index = 10
-zoom = Vector2(1.2, 1.2)
+zoom = Vector2(5, 5)
 process_callback = 0
 limit_left = -791
 limit_top = -463

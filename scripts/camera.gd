@@ -12,3 +12,6 @@ func _process(delta: float) -> void:
 	position = lerp(position, player.position, SPEED * delta)
 	#else:
 	#	position = lerp(position, enemy.position, SPEED*delta)
+
+# camera right : 809
+# camera top : -463

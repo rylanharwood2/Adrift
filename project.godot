@@ -32,6 +32,7 @@ asteroid=""
 health_packs=""
 bullet=""
 capo_bullet=""
+game=""
 
 [input]
 
