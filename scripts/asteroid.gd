@@ -4,16 +4,19 @@ extends StaticBody2D
 @export var speed: float = 150.0
 @export var rotation_speed_range: Vector2 = Vector2(-3.0, 3.0) # radians/sec
 @export var despawn_margin: float = 400.0  # how far offscreen before despawning
-@export var healthpack_drop_threshold_percent : int = 100#20 # percentage of the time that it spawns
+@export var healthpack_drop_threshold_percent : int = 20 # percentage of the time that it spawns
 
 var velocity: Vector2
 var rotation_speed: float
-var healthpack_scene = preload("res://scenes/health_pack.tscn")
-var healthpack = null
+var loot_scene = preload("res://scenes/health_pack.tscn")
+#var frozen_asteroid_scene = preload("res://scenes/ice_powerup.tscn")
+var droppable = null
+var drop_chance = randi_range(1,101)
+var asteroid_type = "gray_asteroid"
 
 func _ready() -> void:
 	randomize()
-
+	
 	# Get the viewport size and half-size (world is centered at 0,0)
 	var screen_size = get_viewport_rect().size
 	var half_size = screen_size / 2
@@ -28,12 +31,11 @@ func _ready() -> void:
 
 	position = start_pos
 
-	# Compute velocity
 	velocity = (end_pos - start_pos).normalized() * speed
 
-	# Random rotation speed
 	rotation_speed = randf_range(rotation_speed_range.x, rotation_speed_range.y)
 
+	
 	
 
 func _process(delta):
@@ -54,8 +56,9 @@ func _process(delta):
 		queue_free()
 		
 	
-	if healthpack != null:
-		healthpack.global_transform = global_transform
+	if droppable != null:
+		droppable.global_transform = global_transform
+		#print(droppable)
 
 
 func _get_random_edge_point(half_size: Vector2, margin: float) -> Vector2:
@@ -72,7 +75,7 @@ func play_death() -> void:
 	$AnimatedSprite2D.play("death")
 	#$CollisionShape2D.disabled = true    # Does not work
 	$CollisionShape2D.set_deferred("disabled", true) # Works
-	drop_healthpack()
+	drop_loot()
 	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -86,10 +89,22 @@ func _on_asteroid_collision_detector_area_entered(area: Area2D) -> void:
 	if area.is_in_group("asteroid"):
 		play_death()
 
-func drop_healthpack():
-	var drop_chance = randi_range(1,101)
+func drop_loot():
+	# TODO frozen no drops
+	#var chosen_loot = choose_loot()
+	print("trying to spawn")
 	if drop_chance > healthpack_drop_threshold_percent:
 		return
-	healthpack = healthpack_scene.instantiate()
 	
-	get_tree().get_first_node_in_group("game").add_child(healthpack)
+	droppable = loot_scene.instantiate()#chosen_loot.instantiate()
+	
+	get_tree().get_first_node_in_group("game").add_child(droppable)
+
+
+#func choose_loot() -> PackedScene:
+	#match asteroid_type:
+		#"frozen_asteroid":
+			#return frozen_asteroid_scene
+		#"gray_asteroid":
+			#return healthpack_scene
+	#return null

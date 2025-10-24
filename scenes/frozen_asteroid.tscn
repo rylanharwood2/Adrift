@@ -62,6 +62,8 @@ radius = 32.0
 radius = 39.0512
 
 [node name="FrozenAsteroid" type="StaticBody2D" groups=["asteroid"]]
+z_index = 1
+z_as_relative = false
 script = ExtResource("1_t45jo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

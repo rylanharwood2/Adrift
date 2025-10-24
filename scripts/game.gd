@@ -24,7 +24,6 @@ func _ready() -> void:
 	has_started_game = false
 	
 	new_game()
-	#self.applied_ice.connect(self.apply_slow)
 		
 	asteroid_generation()
 
@@ -78,7 +77,6 @@ func wave_controller():
 
 	for wave in wave_data["waves"]:
 		var wave_number : int = wave["wave"]
-		#print("Starting wave:", wave_number)
 		$menus/HUD.show_message("Wave " + str(wave_number))
 
 		for subwave in wave["subwaves"]:
@@ -129,13 +127,6 @@ func spawn_enemy(enemy_type: String):
 			
 
 
-func _on_testing_bullet_despawn_timeout() -> void:
-	
-	for bullet in get_tree().get_nodes_in_group("bullet"):
-		pass
-		#print(bullet)
-	
-
 func healthpack_generation(): # TODO randomly spawn healthpacks around the world every so often - or based on killing enemies or somethin
 	pass
 
@@ -162,7 +153,7 @@ func pick_random_asteroid() -> PackedScene:
 	if rand_percent >= 70:
 		choice = 1
 	elif rand_percent < 70:
-		choice = 0
+		choice = 1
 	
 	return asteroid_options[choice]
 
