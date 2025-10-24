@@ -19,21 +19,34 @@ var target_angle = Vector2(0,0)
 
 
 func _process(delta: float) -> void:
-	var direction = Vector2(cos(rotation), sin(rotation))
+	
+	
 	if dead:
 		return
 	
 	targgg = target.position
+	if global_position.distance_to(target.global_position) > 130:
+		targgg = target.position + offset
+	
+	
+	
 	target_angle = (targgg - position).angle()
 
 	# limit rotation speed
-	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
+	
 
 	# move in dir the enemy is facing
-
+	var direction = Vector2(cos(rotation), sin(rotation))
+	
+	if retreat_direction != null:
+		#direction = retreat_direction
+		target_angle = retreat_direction.angle()
+		
+	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
 	velocity = direction * speed * delta * speed_mod
 
 	move_and_slide()
+
 
 # enemy on hit damage {
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -52,11 +65,6 @@ func _on_hit_cooldown_timeout() -> void:
 		player_node.hurt_player(1)
 		$hit_cooldown.start(1.0)
 # }
-
-func _ready() -> void:
-	pass
-	#$ProgressBar.value = health
-
 
 func _on_ship_animation_finished() -> void:
 	if $ship.animation == "death":

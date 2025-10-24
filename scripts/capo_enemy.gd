@@ -86,17 +86,6 @@ func _on_right_fire_animation_done():
 	right_bullet = null
 
 
-func turn_blue():
-	$ship.material.set_shader_parameter("blue", true)
-	$ice_timer.start()
-	speed_mod = 0.5
-
-
-func _on_ice_timer_timeout() -> void:
-	speed_mod = 1.0
-	$ship.material.set_shader_parameter("blue", false)
-
-
 func _on_ship_animation_finished() -> void:
 	if $ship.animation == "death":
 		queue_free()

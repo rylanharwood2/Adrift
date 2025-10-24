@@ -11,6 +11,7 @@ var current_state : MineState = MineState.SPAWNING
 var who_boom : Node2D
 
 func _ready():
+	
 	show()
 	change_state(MineState.ARMING)
 
@@ -34,7 +35,9 @@ func change_state(new_state : MineState):
 			$CollisionShape2D.disabled = false
 			$despawn_timer.start(lifetime_after_armed)
 		MineState.TRIGGERED:
+			SignalBus.mine_boom.emit(global_position)
 			explode()
+			
 		MineState.DEAD:
 			queue_free()
 
