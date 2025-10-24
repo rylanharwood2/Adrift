@@ -97,8 +97,8 @@ Enemies and the Player are now in a larger Creature class that holds methods lik
 I found a bug in the forcefield logic and decided to just finally fix the damage logic for all of my entities. There are still some  
 kinks, I need to figure out how to have the capos collision damage work properly but it works correctly for the suicunes.  
 
-*Collision System*  
-I fully revamped the collision system, its a work in progress but the new system has enemies detect the player and call its adjust_health()  
+*Collision Damage System*  
+I fully revamped the on-contact damage system, its a work in progress but the new system has enemies detect the player and call its adjust_health()  
 method inheritied from the Creature class. This shift from the player detecting enemy collisions has smoothed some issues I was having with  
 the player being overly complicated and the enemies kind of just walking towards it. Additionally, it meant that I had to directly go edit  
 the enemies health values when creating the proxy mine which I felt a little weird about. Now the proxy mine can use a public facing setter.  
@@ -112,3 +112,27 @@ radar-like ping animation.
 *Health Packs*
 In the process of creating the signal bus and changing the way we are using signals, healthpacks broke. I have now fixed them and updated them
 to use the new health updating system for our player.
+
+### oct 23  
+*Enemy AI*  
+Alright this is a big one! Personally, I think the root goal of games should be being fun, and right now, this game is not. Sooooo, Tyler got  
+on a call with me today and we started to overhaul the enemy ai behaviors. A lot of my progress has been focused on making controlling the  
+player more enjoyable while the enemies remained stagnent. But we are moving in a straight line no longer, we built out a state machine that  
+contained all of the different things the enemies could do (attack, move towards the player, dash, retreat, etc etc) and built out the unique  
+behavior for each for the suicunes specifically. Going forwards the capos will also use this system but at the moment melee enemy patterns are  
+easier to get started with.  
+Every few seconds each enemy will choose a new random action to use. I'm hoping this will solve a few of the main issues I was having with the  
+combat; the enemies group up too tightly, they all get in sync, and their behavior is boring and predictable. Right now, we are using a circle  
+around the player to have the enemies pathfind to until they get within range to go for the attack, this already helps with the grouping. We also  
+created a dash so they don't all move identically and sync up. And lastly, we built a retreat behavior that has them run away at times, including  
+when a mine goes off near them.  
+I haven't started the system to dynamically change states yet to pick new actions but maybe tomorrow :) I'm also going to have to figure out how  
+to fit the capos slightly different playstyle into this system I've built, but already the gameplay is feeling a lot more dynamic.  
+
+*Visual Tweaks*  
+Ok, these are just small things but I added screen shake that I plan on connecting in differing strengths when a mine goes off, when the player  
+is hurt, or when the boss does things.  
+I also turned off the forcefield rotating while the player is rotating, I think it looks a little better than the pixels rotating with the player,  
+and I'm somewhat trying to avoid pixel rotations where it makes sense.  
+Lastly, just a small visual improvement, the asteroids spawn their drops while they're still breaking so they don't just look like they appear  
+at the end of the animation. This works great for the healthpacks from gray asteroids, and almost works for the ice powerup, I'll fix that bug tomorrow.  
