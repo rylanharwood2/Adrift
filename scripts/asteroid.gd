@@ -92,10 +92,9 @@ func _on_asteroid_collision_detector_area_entered(area: Area2D) -> void:
 func drop_loot():
 	# TODO frozen no drops
 	#var chosen_loot = choose_loot()
-	print("trying to spawn")
-	if drop_chance > healthpack_drop_threshold_percent:
-		return
 	
+	if drop_chance > healthpack_drop_threshold_percent and asteroid_type == "gray_asteroid":
+		return
 	droppable = loot_scene.instantiate()#chosen_loot.instantiate()
 	
 	get_tree().get_first_node_in_group("game").add_child(droppable)
