@@ -1,11 +1,5 @@
 extends Creature
-#extends CharacterBody2D
 
-
-signal healthpack_captured
-signal health_changed(new_health)
-signal ammo_changed(new_ammo)
-signal boost_changed(new_boost)
 
 #@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var forcefield = $forcefield
@@ -76,7 +70,6 @@ func _physics_process(delta: float) -> void:
 		play_death()
 	
 	var forward_input = Input.is_action_pressed("move_up")
-	var boost_input = Input.is_action_pressed("boost")
 	var directional_input = Input.get_axis("move_left","move_right")
 	
 	rotation_direction = Vector2(1, 0).rotated(rotation)
@@ -119,7 +112,7 @@ func _physics_process(delta: float) -> void:
 ## Weapon Mechanics
 func shoot(_bullet_typey):
 	var bullet = player_bullet_scene.instantiate()
-	bullet.speed *= 2
+	#bullet.speed *= 2
 	if iced_up:
 		bullet.icey = true
 	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
@@ -281,7 +274,7 @@ func play_death():
 	SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
 
 # restart game - should probs be in game
-func _process(val: float) -> void:
+func _process(_delta: float) -> void:
 	if dead:
 		if Input.is_action_pressed("restart"):
 			get_tree().change_scene_to_file("res://scenes/game.tscn")

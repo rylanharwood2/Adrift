@@ -78,7 +78,7 @@ func wave_controller():
 	for wave in wave_data["waves"]:
 		var wave_number : int = wave["wave"]
 		$menus/HUD.show_message("Wave " + str(wave_number))
-
+		
 		for subwave in wave["subwaves"]:
 			for enemy_data in subwave["enemies"]:
 				var enemy_type = enemy_data["type"]

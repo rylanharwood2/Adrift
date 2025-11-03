@@ -1,15 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=17 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
 [ext_resource type="Texture2D" uid="uid://cu2f12nna4e61" path="res://assets/sprites/environment/stary_sky.png" id="3_vb2cv"]
 [ext_resource type="Texture2D" uid="uid://iofww4h8ovh8" path="res://assets/sprites/environment/planets.png" id="4_x4fr3"]
 [ext_resource type="PackedScene" uid="uid://nsua5t72inru" path="res://scenes/camera.tscn" id="6_uo2vg"]
-[ext_resource type="Texture2D" uid="uid://c7h87itjqjsrq" path="res://assets/sprites/enemies/testboss1.png" id="7_1i7vf"]
 [ext_resource type="PackedScene" uid="uid://chtfsxrptqxc" path="res://scenes/main_menu_ui.tscn" id="7_ir15t"]
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/health_overlay_ui.tscn" id="7_sxbnq"]
 [ext_resource type="PackedScene" uid="uid://d3epp5wxoh4mn" path="res://scenes/highscore_menu.tscn" id="7_trtic"]
-[ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="8_mbx16"]
 [ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://scripts/touch_buttons.gd" id="14_trtic"]
@@ -109,18 +107,6 @@ position = Vector2(5.5, -485.5)
 rotation = 3.14159
 shape = SubResource("RectangleShape2D_kxjjc")
 one_way_collision = true
-
-[node name="physics_bodies" type="Node" parent="."]
-
-[node name="Testboss1" type="Sprite2D" parent="physics_bodies"]
-visible = false
-position = Vector2(619, -97)
-texture = ExtResource("7_1i7vf")
-
-[node name="Testboss2" type="Sprite2D" parent="physics_bodies"]
-visible = false
-position = Vector2(-166, 180)
-texture = ExtResource("8_mbx16")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_cg0uc")
