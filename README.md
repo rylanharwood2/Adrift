@@ -135,4 +135,26 @@ is hurt, or when the boss does things.
 I also turned off the forcefield rotating while the player is rotating, I think it looks a little better than the pixels rotating with the player,  
 and I'm somewhat trying to avoid pixel rotations where it makes sense.  
 Lastly, just a small visual improvement, the asteroids spawn their drops while they're still breaking so they don't just look like they appear  
-at the end of the animation. This works great for the healthpacks from gray asteroids, and almost works for the ice powerup, I'll fix that bug tomorrow.  
+at the end of the animation. This works great for the healthpacks from gray asteroids, and almost works for the ice powerup, I'll fix that bug  
+tomorrow.  
+
+### oct 27  
+*Item Philosophy*  
+Famous last words but I came back last friday (its secretly 11/3 rn) and redesigned my reward system on a call with Tyler to the following:  
+I plan on having hotkey bound items, currently the forcefield, the proxy mine, and the ice powerup?. Those will all be attained incrementally,  
+through the wave end reward system I'll discuss below. The second half of the system will be weapons. These will be attained by shooting  
+asteroids as they fly accross the screen. This would allow for the each run to feel unique. I also plan on using a durability system, this  
+would force the use of the base gun which would get quickly ignored if the weapons were on a hotkey for example. I currently imagine having  
+a homing missile type weapon, a chargable railgun, a shotgun or spreader type weapon, and perhaps something that shoots very quickly?  
+In any case, the system still needs some finalization and scope permitting, a rarity system giving each individual gun randomized stats or  
+something. My goal is to make getting new weapons and fighting off waves with the different equipment you get each new playthrough to be fun  
+and rewarding.
+
+*Wave End Reward System*  
+On a wave end I created a pop up menu that you can choose an upgrade from. Currently there are two working reward options as a template. You can  
+increase your max health (by 2), though there is currently no way of seeing this value increase in game. Alternatively, you can gain a new ability,  
+I set that to the proxy mine which is now locked until you get that upgrade, in the future I need a more modular system for setting flags to access  
+those types of hotkey bound abilities. I plan on also implementing a system to upgrade abilities through this reward system, for example increasing  
+the forcefield active time, or lowering a cooldown. The details are not finalized, nor is the systems existance a guarentee.
+
+Also the upgrades screen is very ugly.  
