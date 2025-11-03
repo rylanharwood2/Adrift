@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhut7f841sb8a"]
+
+[ext_resource type="Script" uid="uid://bnpeduqamsj54" path="res://scripts/upgrade_button.gd" id="1_qmoge"]
+
+[node name="upgrades_button" type="Button"]
+text = "Max Health Increase"
+script = ExtResource("1_qmoge")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

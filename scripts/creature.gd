@@ -5,6 +5,7 @@ extends CharacterBody2D
 # incl suicunes, capos, and Helheim
 
 @export var health : int
+var max_health : int = 1000#health
 var speed_mod : float = 1.0
 var dead = false
 var icey = false
@@ -49,6 +50,7 @@ func _on_ice_timer_timeout() -> void:
 
 func adjust_health(health_modifier) -> int:
 	health -= health_modifier
+	health = clampi(health, 0, max_health)
 	if health_modifier > 0:
 		flash()
 	if health <= 0:

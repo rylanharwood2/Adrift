@@ -8,7 +8,6 @@ extends Creature
 var rng = RandomNumberGenerator.new()
 
 #@export var health: int = 8
-@export var max_health: int = 50
 @export var ammo_cap: int = 10
 @export var ammo: int = 10
 
@@ -40,6 +39,10 @@ var iced_up = false
 var forcefield_active = false
 var ice_powerup_duration : int = 15
 
+# powerup enabled flags
+var proxy_mine_enabled : bool = false
+
+
 var player_bullet_scene = preload("res://scenes/player_bullet.tscn")
 var proxy_mine_scene = preload("res://scenes/proxy_mine.tscn")
 @onready var game_world := get_tree().root.get_node("Game")
@@ -52,6 +55,9 @@ func _ready() -> void:
 	$forcefield.expand(true)
 	SignalBus.applied_ice.connect(activate_ice_powerup)
 	SignalBus.healthpack_captured.connect(adjust_health)
+	SignalBus.change_max_health.connect(change_max_health)
+	SignalBus.add_new_ability.connect(enable_ability)
+	max_health = health
 	
 
 
@@ -139,12 +145,19 @@ func _on_reload_timer_timeout() -> void:
 	ammo += 1
 
 # powerups
+func enable_ability(ability : String):
+	print("enable")
+	if ability == "proxy_mine":
+		proxy_mine_enabled = true
+		print("proxy")
+
+
 func _input(event: InputEvent) -> void:
-	if not dead and event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
+	if not dead and proxy_mine_enabled and event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
 		var proxy_mine = proxy_mine_scene.instantiate()
 		proxy_mine.position = position
 		
-		game_world.add_child(proxy_mine) # TODO this needs a cooldown and also too much visual clutter
+		game_world.add_child(proxy_mine)
 		$proxy_mine_cooldown.start(10)
 		
 
@@ -253,10 +266,9 @@ func update_boost_changed(updated_boost):
 		last_boost = updated_boost
 		SignalBus.boost_changed.emit(updated_boost)
 
-func change_health(change_amount):
-	health += clamp(change_amount, 0, max_health)
 	
-
+func change_max_health(added_amount):
+	max_health += added_amount
 
 func hurt_player(dmg : int):
 	if not forcefield_active:

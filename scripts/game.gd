@@ -93,6 +93,8 @@ func wave_controller():
 				await get_tree().create_timer(wave_cooldown_sec).timeout
 
 		print("Wave", wave_number, "cleared!")
+		SignalBus.display_reward_menu.emit()
+		await SignalBus.select_upgrade_reward
 
 	print("All waves complete!")
 	
