@@ -1,6 +1,5 @@
 extends AnimatedSprite2D
 
-signal applied_ice
 @onready var player = get_node("%Player")
 @export var despawn_time_sec : int = 10
 

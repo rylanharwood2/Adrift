@@ -3,7 +3,7 @@ extends AnimatedSprite2D
 var active := false
 var invul_time = 2
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if visible:
 		global_rotation = 0
 

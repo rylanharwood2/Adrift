@@ -9,8 +9,6 @@ func show_message(text, dead: bool = false):
 		$message_timer.start()
 
 func display_healthbar(new_health : int):
-	
-	print(new_health)
 	var healthbar_ratio = new_health / 8. # max health at the moment
 	healthbar_ratio = (floor(healthbar_ratio*10))
 	$healthbar_sprite.frame = healthbar_ratio

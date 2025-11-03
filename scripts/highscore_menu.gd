@@ -55,8 +55,8 @@ func ticks_to_clock(milliseconds: int) -> String:
 func start_timer(start_time_milliseconds: int):
 	time_start = start_time_milliseconds
 	
-func show_scores(visible):
-	if visible:
+func show_scores(currently_visible):
+	if currently_visible:
 		show()
 	else:
 		hide()
