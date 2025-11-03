@@ -267,8 +267,9 @@ func change_health(change_amount):
 
 func hurt_player(dmg : int):
 	if not forcefield_active:
-		flash() # maybe remove?
 		adjust_health(dmg)
+		SignalBus.apply_camera_shake.emit(1)
+
 
 func _on_player_died(nothing, also_nothing) -> void: # the player died signal is dumb the way I did it, its used in main with HUD to display the message
 	dead = true

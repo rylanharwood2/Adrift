@@ -10,13 +10,15 @@ extends Camera2D
 
 var shake_strength : float = 0.0
 
-func apply_shake():
-	shake_strength = random_strength
+func _ready() -> void:
+	SignalBus.apply_camera_shake.connect(apply_shake)
+
+
+func apply_shake(incoming_strength : float):
+	shake_strength = random_strength * incoming_strength
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("activate_forcefield"):
-		apply_shake()
 		
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength, 0, shake_fade * delta)
