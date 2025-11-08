@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=17 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://scenes/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://scripts/game.gd" id="1_p1si3"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://scenes/hud_ui.tscn" id="7_sxbnq"]
 [ext_resource type="PackedScene" uid="uid://d3epp5wxoh4mn" path="res://scenes/highscore_menu.tscn" id="7_trtic"]
 [ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
-[ext_resource type="PackedScene" uid="uid://b71bxsh7scdyh" path="res://scenes/proxy_mine.tscn" id="12_dinhu"]
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://scripts/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://scripts/touch_buttons.gd" id="14_trtic"]
 
@@ -147,8 +146,5 @@ script = ExtResource("14_trtic")
 
 [node name="asteroid_cooldown" type="Timer" parent="."]
 one_shot = true
-
-[node name="proxy_mine" parent="." instance=ExtResource("12_dinhu")]
-position = Vector2(-313, -129)
 
 [connection signal="timeout" from="asteroid_cooldown" to="." method="_on_asteroid_cooldown_timeout"]

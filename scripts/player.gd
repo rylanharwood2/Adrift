@@ -240,19 +240,25 @@ func _input(event: InputEvent) -> void:
 		
 		game_world.add_child(proxy_mine)
 		$proxy_mine_cooldown.start(10)
+		SignalBus.ability_used.emit("proxy_mine")
 		
 		
 	if forcefield_enabled and not forcefield_active and event.is_action_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
+		print(forcefield.expand(false))
 		$forcefield_invul_timer.start(forcefield.expand(false))
+		
 		forcefield_active = true
+		SignalBus.ability_used.emit("forcefield")
+		
 		
 	if ice_powerup_enabled and event.is_action_pressed("activate_ice_powerup") and $ice_timer.is_stopped():
 		activate_ice_powerup()
+		SignalBus.ability_used.emit("ice_powerup")
 		
 
 
 func _on_forcefield_invul_timer_timeout() -> void:
-	$forcefield_cooldown.start(2)
+	$forcefield_cooldown.start(3)
 	forcefield_active = false
 	
 

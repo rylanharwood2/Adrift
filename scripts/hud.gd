@@ -26,12 +26,20 @@ func _ready() -> void:
 	SignalBus.health_changed.connect(display_healthbar)
 	SignalBus.ammo_changed.connect(update_ammo)
 	SignalBus.boost_changed.connect(update_boost_meter)
+	SignalBus.ability_used.connect(start_powerup_cooldown)
 	
 
 func _init() -> void:
 	hide()
 
-
+func start_powerup_cooldown(powerup):
+	if powerup == "proxy_mine":
+		$proxy_mine_icon/AnimationPlayer.play("cooldown")
+	elif powerup == "forcefield":
+		$forcefield_icon/AnimationPlayer.play("cooldown")
+	elif powerup == "ice_powerup":
+		$ice_powerup_icon/AnimationPlayer.play("cooldown")
+	
 
 func _process(_delta: float) -> void:
 	if get_tree().paused == true:

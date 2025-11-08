@@ -1,10 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://baf7exhdloebg"]
+[gd_scene load_steps=30 format=3 uid="uid://baf7exhdloebg"]
 
 [ext_resource type="Script" uid="uid://drk25wqunotfg" path="res://scripts/hud.gd" id="1_7tx1p"]
 [ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="1_aowct"]
 [ext_resource type="Texture2D" uid="uid://brcffsluj5uh5" path="res://assets/sprites/player/healthbar.png" id="3_xi2ed"]
 [ext_resource type="PackedScene" uid="uid://c8b54giv5xw34" path="res://scenes/upgrades_popup.tscn" id="4_4mesk"]
-[ext_resource type="Texture2D" uid="uid://cqc6bvqop0bt0" path="res://assets/sprites/GameLogoTest.webp" id="5_dh3a3"]
+[ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="5_dh3a3"]
+[ext_resource type="Texture2D" uid="uid://c0rb8geot7o55" path="res://assets/sprites/player/powerups/ShieldPowerUpIcon-4fps.png" id="5_n3kp7"]
+[ext_resource type="Texture2D" uid="uid://rvexaq6t41u4" path="res://assets/white.png" id="6_47rti"]
+[ext_resource type="Texture2D" uid="uid://iofww4h8ovh8" path="res://assets/sprites/environment/planets.png" id="7_cq5av"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi2ed"]
 atlas = ExtResource("3_xi2ed")
@@ -91,6 +94,117 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_n3kp7"]
+resource_name = "cooldown"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5gbug"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cq5av"]
+_data = {
+&"RESET": SubResource("Animation_5gbug"),
+&"cooldown": SubResource("Animation_n3kp7")
+}
+
+[sub_resource type="Animation" id="Animation_cq5av"]
+resource_name = "cooldown"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ml6tl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gbug"]
+_data = {
+&"RESET": SubResource("Animation_ml6tl"),
+&"cooldown": SubResource("Animation_cq5av")
+}
+
+[sub_resource type="Animation" id="Animation_kkiei"]
+resource_name = "cooldown"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_47rti"]
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n3kp7"]
+_data = {
+&"RESET": SubResource("Animation_47rti"),
+&"cooldown": SubResource("Animation_kkiei")
+}
+
 [node name="HUD" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_7tx1p")
@@ -166,9 +280,101 @@ frame_progress = 1.0
 
 [node name="upgrades_popup" parent="." instance=ExtResource("4_4mesk")]
 
+[node name="ice_powerup_icon" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(393, 566)
+scale = Vector2(2.1340032, 2.1340032)
+texture = ExtResource("5_n3kp7")
+
+[node name="Label" type="Label" parent="ice_powerup_icon"]
+z_index = 1
+offset_left = -26.710363
+offset_top = -27.178967
+offset_right = 121.289635
+offset_bottom = -4.1789665
+scale = Vector2(0.398804, 0.398804)
+theme_override_fonts/font = ExtResource("1_aowct")
+text = "Ice Powerup"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="ice_powerup_icon"]
+self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
+offset_left = -29.990587
+offset_top = -15.932499
+offset_right = 10.009413
+offset_bottom = 24.067501
+scale = Vector2(1.7020652, 0.7926634)
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("6_47rti")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ice_powerup_icon"]
+libraries = {
+&"": SubResource("AnimationLibrary_cq5av")
+}
+
+[node name="forcefield_icon" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(59.000008, 593)
+scale = Vector2(0.21496533, 0.21496533)
+texture = ExtResource("7_cq5av")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="forcefield_icon"]
+self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
+offset_left = -125.60157
+offset_top = -269.81137
+offset_right = -85.60157
+offset_bottom = -229.81137
+scale = Vector2(12.201328, 7.1403637)
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("6_47rti")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="forcefield_icon"]
+libraries = {
+&"": SubResource("AnimationLibrary_5gbug")
+}
+
+[node name="Label" type="Label" parent="forcefield_icon"]
+z_index = 1
+offset_left = -88.38638
+offset_top = -432.62793
+offset_right = -11.386383
+offset_bottom = -409.62793
+scale = Vector2(3.7866323, 3.7866323)
+theme_override_fonts/font = ExtResource("1_aowct")
+text = "Forcefield"
+
 [node name="proxy_mine_icon" type="Sprite2D" parent="."]
-position = Vector2(49, 587)
-scale = Vector2(0.40492314, 0.40492314)
+clip_children = 2
+texture_filter = 3
+position = Vector2(231, 572)
+scale = Vector2(0.32152852, 0.32152852)
 texture = ExtResource("5_dh3a3")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="proxy_mine_icon"]
+self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
+offset_left = -227.73782
+offset_top = -177.12943
+offset_right = -187.73782
+offset_bottom = -137.12943
+scale = Vector2(12.201328, 7.1403637)
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("6_47rti")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="proxy_mine_icon"]
+libraries = {
+&"": SubResource("AnimationLibrary_n3kp7")
+}
+
+[node name="Label" type="Label" parent="proxy_mine_icon"]
+z_index = 1
+offset_left = -115.075325
+offset_top = -223.93044
+offset_right = 18.924675
+offset_bottom = -200.93044
+scale = Vector2(2.325377, 2.325377)
+theme_override_fonts/font = ExtResource("1_aowct")
+text = "Proxy Mine"
 
 [connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]
