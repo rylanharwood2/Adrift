@@ -166,7 +166,7 @@ frame_progress = 1.0
 
 [node name="upgrades_popup" parent="." instance=ExtResource("4_4mesk")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="proxy_mine_icon" type="Sprite2D" parent="."]
 position = Vector2(49, 587)
 scale = Vector2(0.40492314, 0.40492314)
 texture = ExtResource("5_dh3a3")
