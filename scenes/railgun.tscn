@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://e8inac05em8u"]
+
+[ext_resource type="Script" uid="uid://drvyjw3mynit0" path="res://scripts/railgun.gd" id="1_du38f"]
+
+[node name="railgun" type="Node2D"]
+script = ExtResource("1_du38f")

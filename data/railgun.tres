@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://bo1jgw7su5p2u"]
+
+[ext_resource type="Script" uid="uid://uv8ghjm4bt1o" path="res://data/WeaponData.gd" id="1_lnjlq"]
+
+[resource]
+script = ExtResource("1_lnjlq")
+weapon_name = "railgun"
+damage = 2.0
+fire_rate = 1.2
+durability = 4
+metadata/_custom_type_script = "uid://uv8ghjm4bt1o"

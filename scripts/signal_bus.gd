@@ -6,7 +6,6 @@ signal select_upgrade_reward
 signal display_reward_menu
 signal add_new_ability(String)
 
-signal applied_ice
 signal start_game
 
 signal player_died(message, bool)
@@ -18,3 +17,6 @@ signal change_max_health(added_value)
 signal apply_camera_shake(shake_strength : float)
 
 signal mine_boom(explosion_location)
+
+# Weapon logic
+signal weapon_broken

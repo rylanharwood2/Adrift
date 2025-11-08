@@ -134,7 +134,7 @@ func healthpack_generation(): # TODO randomly spawn healthpacks around the world
 
 func asteroid_generation():
 	while get_tree().get_first_node_in_group("boss") == null and $asteroid_cooldown.is_stopped():
-		var random_asteroid_cooldown_range = randi_range(7,18)
+		var random_asteroid_cooldown_range = randi_range(3,5)#7,18)
 		var asteroid_quantity = randi_range(1,3) # (inclusive, exclusive)
 		
 		for i in range(0,asteroid_quantity):
@@ -155,7 +155,7 @@ func pick_random_asteroid() -> PackedScene:
 	if rand_percent >= 70:
 		choice = 1
 	elif rand_percent < 70:
-		choice = 0
+		choice = 1
 	
 	return asteroid_options[choice]
 

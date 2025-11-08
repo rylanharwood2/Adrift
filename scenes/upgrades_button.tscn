@@ -5,5 +5,3 @@
 [node name="upgrades_button" type="Button"]
 text = "Max Health Increase"
 script = ExtResource("1_qmoge")
-
-[connection signal="pressed" from="." to="." method="_on_pressed"]

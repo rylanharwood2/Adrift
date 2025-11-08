@@ -14,6 +14,10 @@ var droppable = null
 var drop_chance = randi_range(1,101)
 var asteroid_type = "gray_asteroid"
 
+
+
+
+
 func _ready() -> void:
 	randomize()
 	

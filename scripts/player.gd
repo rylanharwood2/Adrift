@@ -36,11 +36,21 @@ var last_ammo: int = -1
 var last_boost: int = -1
 var just_hit = false
 var iced_up = false
-var forcefield_active = false
+
 var ice_powerup_duration : int = 15
 
+
+## Powerups
 # powerup enabled flags
-var proxy_mine_enabled : bool = false
+var proxy_mine_enabled  : bool = false
+var forcefield_enabled  : bool = false
+var ice_powerup_enabled : bool = false
+
+var forcefield_active   : bool = false
+
+
+# weapon system TODO
+var current_weapon = null
 
 
 var player_bullet_scene = preload("res://scenes/player_bullet.tscn")
@@ -53,7 +63,6 @@ func _ready() -> void:
 	$ship_startup.play()
 	$invulnerability_frames.start()
 	$forcefield.expand(true)
-	SignalBus.applied_ice.connect(activate_ice_powerup)
 	SignalBus.healthpack_captured.connect(adjust_health)
 	SignalBus.change_max_health.connect(change_max_health)
 	SignalBus.add_new_ability.connect(enable_ability)
@@ -79,8 +88,6 @@ func _physics_process(delta: float) -> void:
 	var directional_input = Input.get_axis("move_left","move_right")
 	
 	rotation_direction = Vector2(1, 0).rotated(rotation)
-	
-	check_forcefield()
 	
 	if forward_input:
 		velocity += (rotation_direction * acceleration)
@@ -116,6 +123,17 @@ func _physics_process(delta: float) -> void:
 
 
 ## Weapon Mechanics
+func equip_weapon(data: WeaponData):
+	print("hello")
+	if current_weapon:
+		current_weapon.queue_free()
+		
+	var new_weapon = load("res://scenes/railgun.tscn").instantiate()
+	new_weapon.weapon_data = data
+	add_child(new_weapon)
+	current_weapon = new_weapon
+
+
 func shoot(_bullet_typey):
 	var bullet = player_bullet_scene.instantiate()
 	#bullet.speed *= 2
@@ -143,74 +161,6 @@ func reload():
 
 func _on_reload_timer_timeout() -> void:
 	ammo += 1
-
-# powerups
-func enable_ability(ability : String):
-	print("enable")
-	if ability == "proxy_mine":
-		proxy_mine_enabled = true
-		print("proxy")
-
-
-func _input(event: InputEvent) -> void:
-	if not dead and proxy_mine_enabled and event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
-		var proxy_mine = proxy_mine_scene.instantiate()
-		proxy_mine.position = position
-		
-		game_world.add_child(proxy_mine)
-		$proxy_mine_cooldown.start(10)
-		
-
-func check_forcefield():
-	if Input.is_action_just_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
-		$forcefield_invul_timer.start(forcefield.expand(false))
-		forcefield_active = true
-
-func _on_forcefield_invul_timer_timeout() -> void:
-	$forcefield_cooldown.start(2)
-	forcefield_active = false
-	
-
-func activate_ice_powerup() -> void:
-	iced_up = true
-	$ice_timer.start(ice_powerup_duration)
-	
-	if $ship.animation == "tilt_left":
-		var current_frame = $ship.frame
-		$ship.play("ice_tilt_left")
-		$ship.frame = current_frame
-	if $ship.animation == "tilt_right":
-		var current_frame = $ship.frame
-		$ship.play("ice_tilt_right")
-		$ship.frame = current_frame
-	
-
-func _on_ice_timer_timeout() -> void:
-	iced_up = false
-	
-
-func play_tilting_animation() -> void:
-	var tilting_direction = Input.get_axis("move_left", "move_right")
-	
-	if tilting_direction == 1 and !is_tilting:
-		if iced_up:
-			$ship.play("ice_tilt_right")
-		else:
-			$ship.play("tilt_right")
-		is_tilting = true
-	elif tilting_direction == -1 and !is_tilting:
-		if iced_up:
-			$ship.play("ice_tilt_left")
-		else:
-			$ship.play("tilt_left")
-		is_tilting = true
-		
-	if tilting_direction == 0:
-		if iced_up:
-			$ship.play("ice_idle")
-		else:
-			$ship.play("idle")
-		is_tilting = false
 
 
 # boooooooooost
@@ -245,8 +195,84 @@ func play_flame_amimation() -> void:
 		flame_on_counter = 0
 		idle_couter += 1
 
+func play_tilting_animation() -> void:
+	var tilting_direction = Input.get_axis("move_left", "move_right")
+	
+	if tilting_direction == 1 and !is_tilting:
+		if iced_up:
+			$ship.play("ice_tilt_right")
+		else:
+			$ship.play("tilt_right")
+		is_tilting = true
+	elif tilting_direction == -1 and !is_tilting:
+		if iced_up:
+			$ship.play("ice_tilt_left")
+		else:
+			$ship.play("tilt_left")
+		is_tilting = true
+		
+	if tilting_direction == 0:
+		if iced_up:
+			$ship.play("ice_idle")
+		else:
+			$ship.play("idle")
+		is_tilting = false
 
 
+
+## Powerups
+func enable_ability(ability : String):
+	if ability == "proxy_mine":
+		proxy_mine_enabled = true
+	if ability == "ice_powerup":
+		ice_powerup_enabled = true
+	if ability == "forcefield":
+		forcefield_enabled = true
+
+
+func _input(event: InputEvent) -> void:
+	if dead:
+		return
+		
+	if proxy_mine_enabled and event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
+		var proxy_mine = proxy_mine_scene.instantiate()
+		proxy_mine.position = position
+		
+		game_world.add_child(proxy_mine)
+		$proxy_mine_cooldown.start(10)
+		
+		
+	if forcefield_enabled and not forcefield_active and event.is_action_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
+		$forcefield_invul_timer.start(forcefield.expand(false))
+		forcefield_active = true
+		
+	if ice_powerup_enabled and event.is_action_pressed("activate_ice_powerup") and $ice_timer.is_stopped():
+		activate_ice_powerup()
+		
+
+
+func _on_forcefield_invul_timer_timeout() -> void:
+	$forcefield_cooldown.start(2)
+	forcefield_active = false
+	
+
+func activate_ice_powerup() -> void:
+	iced_up = true
+	$ice_timer.start(ice_powerup_duration)
+	
+	if $ship.animation == "tilt_left":
+		var current_frame = $ship.frame
+		$ship.play("ice_tilt_left")
+		$ship.frame = current_frame
+	if $ship.animation == "tilt_right":
+		var current_frame = $ship.frame
+		$ship.play("ice_tilt_right")
+		$ship.frame = current_frame
+	
+
+func _on_ice_timer_timeout() -> void:
+	iced_up = false
+	
 
 
 # theres prob a better way of doing this but these set up the signal to change the HUD

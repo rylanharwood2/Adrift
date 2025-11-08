@@ -1,5 +1,10 @@
 extends Asteroid
 
+var weapon_drops = [
+	preload("res://data/spreader.tres"),
+	preload("res://data/homing_launcher.tres"),
+	preload("res://data/railgun.tres")
+]
 
 func _ready() -> void:
 	super()

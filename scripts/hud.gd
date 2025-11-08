@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-#@onready var player: CharacterBody2D = %Player
-
 func show_message(text, dead: bool = false):	
 	$start_message.text = text
 	$start_message.show()
@@ -14,7 +12,7 @@ func display_healthbar(new_health : int):
 	$healthbar_sprite.frame = healthbar_ratio
 
 func update_health(health_update:int):
-	$health.text = "Health [ " + str(health_update) + " ]"#%Player.health) + " ]"
+	$health.text = "Health [ " + str(health_update) + " ]"
 
 func update_ammo(ammo_update:int):
 	$ammo.text = "Ammo [ " + str(ammo_update) + " ]"
@@ -22,7 +20,7 @@ func update_ammo(ammo_update:int):
 func update_boost_meter(boost_update:float):
 	$boost.text = "Boost [ " + str(int(boost_update)) + " ]"
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	SignalBus.player_died.connect(show_message)
 	SignalBus.health_changed.connect(display_healthbar)
@@ -34,7 +32,7 @@ func _init() -> void:
 	hide()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
 	if get_tree().paused == true:
 		hide()
