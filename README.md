@@ -158,3 +158,18 @@ those types of hotkey bound abilities. I plan on also implementing a system to u
 the forcefield active time, or lowering a cooldown. The details are not finalized, nor is the systems existance a guarentee.
 
 Also the upgrades screen is very ugly.  
+
+### nov 7
+*Updated to Godot 4.5.x*
+Yeah that's all actually. Not a ton of impactful changes for us on that end.  
+
+*Cooldown Animations*  
+I added some placeholder icons and used a progress bar / animation player combo to create a grayed out icon that becomes normal as the cooldown ticks  
+down. Hopfully putting some pressure on the art team, the icons suck haha.  
+
+*Item Philosophy pt 2*  
+I started the new powerup and weapon system. There is a new clean way to enable powerups as you unlock them, and it is attached to the wave end reward  
+screen. I also created some of the weapon system, the base Weapon class and WeaponData resource are in place. Currently in the process of shifting the  
+ice powerup logic to apply to generating a random weapon.
+
+Addison made an early railgun animation that I'll look at after the weekend.
