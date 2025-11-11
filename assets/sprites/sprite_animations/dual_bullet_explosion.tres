@@ -1,10 +1,10 @@
 [gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://b3vmb13kk2v55"]
 
-[ext_resource type="Texture2D" uid="uid://bvmr3lh0msqfl" path="res://assets/sprites/player/default_bullet.png" id="1_a1vik"]
-[ext_resource type="Texture2D" uid="uid://c3crhyilqm1j4" path="res://assets/sprites/player/spaceship_frozone_bullets.png" id="3_8wj6r"]
+[ext_resource type="Texture2D" uid="uid://bvmr3lh0msqfl" path="res://assets/sprites/player/weapons/default_bullet.png" id="1_51mot"]
+[ext_resource type="Texture2D" uid="uid://c3crhyilqm1j4" path="res://assets/sprites/player/ship/spaceship_frozone_bullets.png" id="3_8wj6r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1uvfu"]
-atlas = ExtResource("1_a1vik")
+atlas = ExtResource("1_51mot")
 region = Rect2(0, 0, 30, 23)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qoy11"]
