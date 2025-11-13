@@ -56,7 +56,10 @@ texture = ExtResource("4_x4fr3")
 centered = false
 
 [node name="Camera" parent="." instance=ExtResource("6_uo2vg")]
+position = Vector2(0, -5)
 zoom = Vector2(1.2, 1.2)
+limit_top = -485
+limit_bottom = 463
 
 [node name="Player" parent="." instance=ExtResource("1_13bel")]
 unique_name_in_owner = true

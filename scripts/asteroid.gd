@@ -60,7 +60,7 @@ func _process(delta):
 	
 	if droppable != null:
 		droppable.global_transform = global_transform
-		#print(droppable)
+		
 
 
 func _get_random_edge_point(half_size: Vector2, margin: float) -> Vector2:
@@ -96,7 +96,6 @@ func choose_loot():
 		droppable = loot_scene.instantiate()
 		
 	elif random_float > healthpack_drop_percentage and random_float < healthpack_drop_percentage + weapon_drop_percentage:
-		print(weapon_drops)
 		var data = weapon_drops[1]#weapon_drops.pick_random()
 		
 		var weapon_pickup = weapon_pickup_scene.instantiate()

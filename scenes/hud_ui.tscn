@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="5_dh3a3"]
 [ext_resource type="Texture2D" uid="uid://c0rb8geot7o55" path="res://assets/sprites/player/powerups/ShieldPowerUpIcon-4fps.png" id="5_n3kp7"]
 [ext_resource type="Texture2D" uid="uid://rvexaq6t41u4" path="res://assets/white.png" id="6_47rti"]
-[ext_resource type="Texture2D" uid="uid://iofww4h8ovh8" path="res://assets/sprites/environment/planets.png" id="7_cq5av"]
+[ext_resource type="Texture2D" uid="uid://cmjh7mrbhpggb" path="res://assets/sprites/player/HUDForcefieldTEST2.png" id="7_n3kp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi2ed"]
 atlas = ExtResource("3_xi2ed")
@@ -316,17 +316,16 @@ libraries = {
 [node name="forcefield_icon" type="Sprite2D" parent="."]
 visible = false
 clip_children = 2
-position = Vector2(59.000008, 593)
-scale = Vector2(0.21496533, 0.21496533)
-texture = ExtResource("7_cq5av")
+position = Vector2(90, 557)
+texture = ExtResource("7_n3kp7")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="forcefield_icon"]
 self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
-offset_left = -125.60157
-offset_top = -269.81137
-offset_right = -85.60157
-offset_bottom = -229.81137
-scale = Vector2(12.201328, 7.1403637)
+offset_left = -52.999992
+offset_top = -50.0
+offset_right = -12.999992
+offset_bottom = -10.0
+scale = Vector2(2.641327, 2.5003638)
 fill_mode = 3
 nine_patch_stretch = true
 texture_progress = ExtResource("6_47rti")
@@ -338,11 +337,11 @@ libraries = {
 
 [node name="Label" type="Label" parent="forcefield_icon"]
 z_index = 1
-offset_left = -88.38638
-offset_top = -432.62793
-offset_right = -11.386383
-offset_bottom = -409.62793
-scale = Vector2(3.7866323, 3.7866323)
+offset_left = -50.000004
+offset_top = -76.00006
+offset_right = 80.0
+offset_bottom = -53.00006
+scale = Vector2(0.7558498, 0.7558498)
 theme_override_fonts/font = ExtResource("1_aowct")
 text = "Forcefield"
 

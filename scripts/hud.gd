@@ -44,6 +44,7 @@ func start_powerup_cooldown(powerup):
 	
 
 func _process(_delta: float) -> void:
+	# TODO set this to a signal when the game is paused
 	if get_tree().paused == true:
 		hide()
 	else:

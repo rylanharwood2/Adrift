@@ -44,13 +44,14 @@ func _process(delta: float) -> void:
 		
 	rotation = lerp_angle(rotation, target_angle, TURN_SPEED * delta * speed_mod)
 	velocity = direction * speed * delta * speed_mod
-
+	choose_ai_behavior()
 	move_and_slide()
 
 
 # enemy on hit damage {
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		$ship.play("attack")
 		body.hurt_player(1)
 		player_node = body
 		$hit_cooldown.start(1.0)
@@ -58,6 +59,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	player_node = null
+	if $ship.animation == "attack":
+		$ship.animation = "moving"
 
 
 func _on_hit_cooldown_timeout() -> void:
@@ -69,3 +72,4 @@ func _on_hit_cooldown_timeout() -> void:
 func _on_ship_animation_finished() -> void:
 	if $ship.animation == "death":
 		queue_free()
+	

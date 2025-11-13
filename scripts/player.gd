@@ -179,7 +179,7 @@ func apply_recoil(recoil_strength : float):
 	# TODO this technically works but its not good
 	#var recoil_dir = -transform.x.normalized() # opposite of facing direction
 	#var recoil_distance = recoil_dir * recoil_strength
-#
+	#
 	## Apply smooth knockback using a tween
 	#var tween = get_tree().create_tween()
 	#tween.tween_property(self, "position", position + recoil_distance, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -266,7 +266,6 @@ func _input(event: InputEvent) -> void:
 		
 		
 	if forcefield_enabled and not forcefield_active and event.is_action_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
-		print(forcefield.expand(false))
 		$forcefield_invul_timer.start(forcefield.expand(false))
 		
 		forcefield_active = true

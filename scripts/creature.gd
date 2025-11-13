@@ -12,13 +12,10 @@ var icey = false
 var offset : Vector2 = Vector2.ZERO
 var retreat_direction = null
 
-
-#var player_node = null
-
  
 func _ready():
 	SignalBus.mine_boom.connect(set_retreat_direction)
-	choose_ai_behavior()
+	#choose_ai_behavior()
 	
 # getters
 func get_health() -> int:
@@ -29,9 +26,11 @@ func get_health() -> int:
 func flash():
 	$ship.material.set_shader_parameter("flash_modifier", 0.8)
 	$flash_timer.start()
+	_change_state(EnemyAiOptions.DASH)
 
 func _on_flash_timer_timeout() -> void:
 	$ship.material.set_shader_parameter("flash_modifier", 0)
+	
 
 
 # shader freeze effect (powerup)
@@ -149,8 +148,9 @@ func dash():
 	maybe the father they are from you the longer the dash
 	"""
 	speed_mod = 6.
-	var dash_timer = get_tree().create_timer(1)
+	var dash_timer = get_tree().create_timer(0.3)
 	dash_timer.timeout.connect(_on_dash_timer_timeout)
+	
 
 
 func _on_dash_timer_timeout():
