@@ -94,6 +94,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_5gbug"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_n3kp7"]
 resource_name = "cooldown"
 length = 15.0
@@ -110,7 +125,13 @@ tracks/0/keys = {
 "values": [100.0, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_5gbug"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cq5av"]
+_data = {
+&"RESET": SubResource("Animation_5gbug"),
+&"cooldown": SubResource("Animation_n3kp7")
+}
+
+[sub_resource type="Animation" id="Animation_ml6tl"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -123,12 +144,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cq5av"]
-_data = {
-&"RESET": SubResource("Animation_5gbug"),
-&"cooldown": SubResource("Animation_n3kp7")
 }
 
 [sub_resource type="Animation" id="Animation_cq5av"]
@@ -147,8 +162,14 @@ tracks/0/keys = {
 "values": [100.0, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_ml6tl"]
-length = 0.001
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gbug"]
+_data = {
+&"RESET": SubResource("Animation_ml6tl"),
+&"cooldown": SubResource("Animation_cq5av")
+}
+
+[sub_resource type="Animation" id="Animation_47rti"]
+length = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -160,12 +181,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gbug"]
-_data = {
-&"RESET": SubResource("Animation_ml6tl"),
-&"cooldown": SubResource("Animation_cq5av")
 }
 
 [sub_resource type="Animation" id="Animation_kkiei"]
@@ -182,21 +197,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [100.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_47rti"]
-length = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureProgressBar:value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n3kp7"]
@@ -281,6 +281,7 @@ frame_progress = 1.0
 [node name="upgrades_popup" parent="." instance=ExtResource("4_4mesk")]
 
 [node name="ice_powerup_icon" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 position = Vector2(393, 566)
 scale = Vector2(2.1340032, 2.1340032)
@@ -313,6 +314,7 @@ libraries = {
 }
 
 [node name="forcefield_icon" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 position = Vector2(59.000008, 593)
 scale = Vector2(0.21496533, 0.21496533)
@@ -345,6 +347,7 @@ theme_override_fonts/font = ExtResource("1_aowct")
 text = "Forcefield"
 
 [node name="proxy_mine_icon" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 texture_filter = 3
 position = Vector2(231, 572)

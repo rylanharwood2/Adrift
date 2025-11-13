@@ -27,6 +27,8 @@ func _ready() -> void:
 	SignalBus.ammo_changed.connect(update_ammo)
 	SignalBus.boost_changed.connect(update_boost_meter)
 	SignalBus.ability_used.connect(start_powerup_cooldown)
+	SignalBus.add_new_ability.connect(enable_ability_icon)
+	
 	
 
 func _init() -> void:
@@ -47,7 +49,14 @@ func _process(_delta: float) -> void:
 	else:
 		show()
 
-
+func enable_ability_icon(ability : String):
+	if ability == "proxy_mine":
+		$proxy_mine_icon.show()
+	if ability == "ice_powerup":
+		$ice_powerup_icon.show()
+	if ability == "forcefield":
+		$forcefield_icon.show()
+		
 
 func _on_message_timer_timeout() -> void:
 	$start_message.hide()

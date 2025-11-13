@@ -60,6 +60,7 @@ sprite_frames = SubResource("SpriteFrames_kj8if")
 animation = &"base"
 autoplay = "base"
 script = ExtResource("2_vtlgl")
+despawn_time_sec = null
 
 [node name="Area2D" type="Area2D" parent="."]
 

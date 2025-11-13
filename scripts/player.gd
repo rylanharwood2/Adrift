@@ -66,6 +66,8 @@ func _ready() -> void:
 	SignalBus.healthpack_captured.connect(adjust_health)
 	SignalBus.change_max_health.connect(change_max_health)
 	SignalBus.add_new_ability.connect(enable_ability)
+	SignalBus.weapon_broken.connect(break_weapon)
+	SignalBus.applied_recoil.connect(apply_recoil)
 	max_health = health
 	
 
@@ -124,19 +126,21 @@ func _physics_process(delta: float) -> void:
 
 ## Weapon Mechanics
 func equip_weapon(data: WeaponData):
-	print("hello")
 	if current_weapon:
 		current_weapon.queue_free()
 		
-	var new_weapon = load("res://scenes/railgun.tscn").instantiate()
+	
+	var new_weapon = data.projectile_scene.instantiate()
+	
 	new_weapon.weapon_data = data
-	add_child(new_weapon)
 	current_weapon = new_weapon
+	call_deferred("add_child", new_weapon)
+	
 
 
 func shoot(_bullet_typey):
 	var bullet = player_bullet_scene.instantiate()
-	#bullet.speed *= 2
+	bullet.speed *= 2
 	if iced_up:
 		bullet.icey = true
 	$shoot_sound.set_pitch_scale(rng.randf_range(0.95, 1.25))
@@ -150,7 +154,11 @@ func shoot(_bullet_typey):
 func detect_shoot():
 	if Input.is_action_just_pressed("shoot"):
 		if (ammo > 0):
-			shoot("")
+			if current_weapon == null:
+				shoot("")
+			else:
+				current_weapon.shoot()
+			
 	
 	if $reload_timer.is_stopped() and ammo < ammo_cap:
 		reload()
@@ -161,6 +169,20 @@ func reload():
 
 func _on_reload_timer_timeout() -> void:
 	ammo += 1
+
+func break_weapon():
+	if current_weapon:
+		current_weapon.queue_free()
+
+func apply_recoil(recoil_strength : float):
+	pass
+	# TODO this technically works but its not good
+	#var recoil_dir = -transform.x.normalized() # opposite of facing direction
+	#var recoil_distance = recoil_dir * recoil_strength
+#
+	## Apply smooth knockback using a tween
+	#var tween = get_tree().create_tween()
+	#tween.tween_property(self, "position", position + recoil_distance, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
 # boooooooooost
@@ -286,6 +308,8 @@ func update_health_changed(updated_health):
 	if last_health != updated_health:
 		last_health = updated_health
 		SignalBus.health_changed.emit(updated_health)
+		if health <= 2 and not $low_health_alert.playing:
+			$low_health_alert.play(0.1)
 
 
 func update_ammo_changed(updated_ammo):
@@ -322,3 +346,9 @@ func _process(_delta: float) -> void:
 	if dead:
 		if Input.is_action_pressed("restart"):
 			get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+
+func _on_low_health_alert_cooldown_timeout() -> void:
+	if health <= 2:
+		$low_health_alert.play()
+		$low_health_alert_cooldown.start(5)

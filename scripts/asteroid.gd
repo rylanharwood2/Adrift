@@ -6,17 +6,15 @@ extends StaticBody2D
 @export var despawn_margin: float = 400.0  # how far offscreen before despawning
 @export var healthpack_drop_threshold_percent : int = 20 # percentage of the time that it spawns
 
+@export var weapon_drops: Array[WeaponData]
+@export var weapon_pickup_scene : PackedScene
+
 var velocity: Vector2
 var rotation_speed: float
 var loot_scene = preload("res://scenes/health_pack.tscn")
-#var frozen_asteroid_scene = preload("res://scenes/ice_powerup.tscn")
 var droppable = null
-var drop_chance = randi_range(1,101)
-var asteroid_type = "gray_asteroid"
-
-
-
-
+var healthpack_drop_percentage : float = 0.2
+var weapon_drop_percentage : float = 0.2
 
 func _ready() -> void:
 	randomize()
@@ -79,35 +77,34 @@ func play_death() -> void:
 	$AnimatedSprite2D.play("death")
 	#$CollisionShape2D.disabled = true    # Does not work
 	$CollisionShape2D.set_deferred("disabled", true) # Works
-	drop_loot()
+	choose_loot()
 	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "death":
-		
 		queue_free()
 
 
 func _on_asteroid_collision_detector_area_entered(area: Area2D) -> void:
-	
 	if area.is_in_group("asteroid"):
 		play_death()
 
-func drop_loot():
-	# TODO frozen no drops
-	#var chosen_loot = choose_loot()
-	
-	if drop_chance > healthpack_drop_threshold_percent and asteroid_type == "gray_asteroid":
-		return
-	droppable = loot_scene.instantiate()#chosen_loot.instantiate()
-	
-	get_tree().get_first_node_in_group("game").add_child(droppable)
 
-
-#func choose_loot() -> PackedScene:
-	#match asteroid_type:
-		#"frozen_asteroid":
-			#return frozen_asteroid_scene
-		#"gray_asteroid":
-			#return healthpack_scene
-	#return null
+func choose_loot():
+	var random_float = randf()
+	if random_float < healthpack_drop_percentage:
+		droppable = loot_scene.instantiate()
+		
+	elif random_float > healthpack_drop_percentage and random_float < healthpack_drop_percentage + weapon_drop_percentage:
+		print(weapon_drops)
+		var data = weapon_drops[1]#weapon_drops.pick_random()
+		
+		var weapon_pickup = weapon_pickup_scene.instantiate()
+		weapon_pickup.global_position = global_position
+		weapon_pickup.weapon_data = data
+		droppable = weapon_pickup
+	
+	else:
+		return null
+		
+	get_tree().get_first_node_in_group("game").call_deferred("add_child", droppable)

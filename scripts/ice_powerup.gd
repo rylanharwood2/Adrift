@@ -1,6 +1,6 @@
 extends AnimatedSprite2D
 
-@onready var player = get_node("%Player")
+#@onready var player = get_node("%Player")
 @export var despawn_time_sec : int = 10
 
 
@@ -13,11 +13,10 @@ func _process(delta: float) -> void:
 	pass
 
 
-@export var weapon_data : WeaponData
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 	if body.is_in_group("player"):
-		body.equip_weapon(weapon_data)
+		#body.equip_weapon(weapon_data)
 		queue_free()
 		
 

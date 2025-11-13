@@ -21,3 +21,4 @@ signal mine_boom(explosion_location)
 # Weapon logic
 signal weapon_broken
 signal ability_used(String)
+signal applied_recoil(float)

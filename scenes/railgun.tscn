@@ -1,6 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://e8inac05em8u"]
+[gd_scene load_steps=7 format=3 uid="uid://e8inac05em8u"]
 
 [ext_resource type="Script" uid="uid://drvyjw3mynit0" path="res://scripts/railgun.gd" id="1_du38f"]
+[ext_resource type="Texture2D" uid="uid://t7bksdhyyqte" path="res://assets/sprites/player/weapons/Railgun.png" id="2_5xp3l"]
+[ext_resource type="AudioStream" uid="uid://c3uf4dnl1tv0c" path="res://assets/sfx/Death Laser.wav" id="3_b1trn"]
 
-[node name="railgun" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xp3l"]
+size = Vector2(20, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1trn"]
+atlas = ExtResource("2_5xp3l")
+region = Rect2(0, 0, 20, 163)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_advuo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1trn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="railgun" type="Area2D"]
+z_as_relative = false
+position = Vector2(819, 0)
+rotation = 1.5707964
 script = ExtResource("1_du38f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 10.24)
+shape = SubResource("RectangleShape2D_5xp3l")
+disabled = true
+
+[node name="railgun_beam" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_advuo")
+
+[node name="railgun_shoot_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b1trn")
+volume_db = 10.0
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

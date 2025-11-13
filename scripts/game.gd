@@ -155,7 +155,7 @@ func pick_random_asteroid() -> PackedScene:
 	if rand_percent >= 70:
 		choice = 1
 	elif rand_percent < 70:
-		choice = 1
+		choice = 0 
 	
 	return asteroid_options[choice]
 

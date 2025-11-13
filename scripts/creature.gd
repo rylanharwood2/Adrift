@@ -127,7 +127,6 @@ func retreat():
 
 func set_retreat_direction(pos):
 	retreat_direction = -(pos - global_position).normalized()
-	print(retreat_direction)
 	var retreat_timer = get_tree().create_timer(4)
 	retreat_timer.timeout.connect(_on_retreat_timer_timeout)
 
