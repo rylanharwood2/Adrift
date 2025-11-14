@@ -22,3 +22,4 @@ signal mine_boom(explosion_location)
 signal weapon_broken
 signal ability_used(String)
 signal applied_recoil(float)
+signal railgun_shot(float)

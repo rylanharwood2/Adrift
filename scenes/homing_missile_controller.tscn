@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://borbhqfnlpu34"]
+
+[ext_resource type="Script" uid="uid://cvhfdtsl2nblp" path="res://scripts/homing_missile_controller.gd" id="1_67xdo"]
+
+[node name="homing_missile_controller" type="Node2D"]
+script = ExtResource("1_67xdo")

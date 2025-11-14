@@ -4,4 +4,8 @@
 
 [resource]
 script = ExtResource("1_xe7nu")
+damage = 1.0
+fire_rate = 1.0
+shoot_cooldown = 1.0
+durability = 5
 metadata/_custom_type_script = "uid://uv8ghjm4bt1o"

@@ -36,7 +36,7 @@ var last_ammo: int = -1
 var last_boost: int = -1
 var just_hit = false
 var iced_up = false
-
+var can_spin = true
 var ice_powerup_duration : int = 15
 
 
@@ -67,7 +67,7 @@ func _ready() -> void:
 	SignalBus.change_max_health.connect(change_max_health)
 	SignalBus.add_new_ability.connect(enable_ability)
 	SignalBus.weapon_broken.connect(break_weapon)
-	SignalBus.applied_recoil.connect(apply_recoil)
+	SignalBus.railgun_shot.connect(_railgun_shot)
 	max_health = health
 	
 
@@ -111,9 +111,9 @@ func _physics_process(delta: float) -> void:
 		if boost_meter < 100 and is_boost_recharging:
 			boost_meter += 0.4
 	
-	if Input.is_action_pressed("drift(ebrake)"):
+	if Input.is_action_pressed("drift(ebrake)") and can_spin:
 		rotation_speed = 4
-	elif !Input.is_action_pressed("drift(ebrake)"):
+	elif !Input.is_action_pressed("drift(ebrake)") and can_spin:
 		rotation_speed = 2
 		
 	detect_shoot()
@@ -130,7 +130,7 @@ func equip_weapon(data: WeaponData):
 		current_weapon.queue_free()
 		
 	
-	var new_weapon = data.projectile_scene.instantiate()
+	var new_weapon = data.weapon_scene.instantiate()
 	
 	new_weapon.weapon_data = data
 	current_weapon = new_weapon
@@ -183,6 +183,13 @@ func apply_recoil(recoil_strength : float):
 	## Apply smooth knockback using a tween
 	#var tween = get_tree().create_tween()
 	#tween.tween_property(self, "position", position + recoil_distance, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _railgun_shot(time: float):
+	can_spin = false
+	rotation_speed = 0.4
+	await get_tree().create_timer(time).timeout
+	rotation_speed = 2
+	can_spin = true
 
 
 # boooooooooost
