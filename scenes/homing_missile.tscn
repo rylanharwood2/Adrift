@@ -60,7 +60,6 @@ shape = SubResource("RectangleShape2D_j864u")
 [node name="rocket_sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_60i8j")
-animation = &"explode"
 autoplay = "default"
 
 [node name="despawn_timer" type="Timer" parent="."]

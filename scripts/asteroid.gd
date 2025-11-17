@@ -102,8 +102,8 @@ func choose_loot():
 		weapon_pickup.global_position = global_position
 		weapon_pickup.weapon_data = data
 		droppable = weapon_pickup
-	
+		print(droppable.weapon_data)
 	else:
 		return null
-		
+	
 	get_tree().get_first_node_in_group("game").call_deferred("add_child", droppable)
