@@ -19,6 +19,11 @@ config/icon="res://assets/sprites/GameLogoTest.webp"
 
 GameManager="*res://scripts/game_manager.gd"
 SignalBus="*res://scripts/signal_bus.gd"
+EnemyDistanceManager="*res://scripts/managers/enemy_distance_manager.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
 
 [display]
 

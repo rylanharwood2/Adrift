@@ -35,7 +35,6 @@ func _on_body_entered(body: Node2D) -> void:
 		deal_damage(body)
 	
 
-
 func _on_despawn_timer_timeout() -> void:
 	explode()
 	

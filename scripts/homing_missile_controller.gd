@@ -17,13 +17,4 @@ func shoot():
 	individual_missile.global_rotation = player.global_rotation
 	individual_missile.target = get_tree().get_nodes_in_group("enemies").pick_random() # TODO check for empty group
 	get_tree().get_first_node_in_group("game").add_child(individual_missile)
-
-
-func create_enemy_tree():
-	pass
-	
-func dwadaw():
-	pass
-
-func select_nearest_enemy():
-	pass
+	apply_durability()

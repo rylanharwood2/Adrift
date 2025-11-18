@@ -106,24 +106,24 @@ func wave_controller():
 
 func spawn_enemy(enemy_type: String):
 	rand.randomize()
-
+	var enemy : Node2D
 	match enemy_type:
 		"suicune":
-			var enemy = suicune_enemy_scene.instantiate()
+			enemy = suicune_enemy_scene.instantiate()
 			var spawn_path = $enemy_spawn_points/suicune_spawn_path/spawn_location
 			spawn_path.progress_ratio = randf()
 			enemy.position = spawn_path.position
 			add_child(enemy)
 
 		"capo":
-			var enemy = capo_enemy_scene.instantiate()
+			enemy = capo_enemy_scene.instantiate()
 			var spawn_path = $enemy_spawn_points/suicune_spawn_path/spawn_location
 			spawn_path.progress_ratio = randf()
 			enemy.position = spawn_path.position
 			add_child(enemy)
 
 		"boss", "helheim":
-			var enemy = helheim_scene.instantiate()
+			enemy = helheim_scene.instantiate()
 			enemy.position = Vector2(0, 0)
 			add_child(enemy)
 			
