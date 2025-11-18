@@ -14,8 +14,8 @@ var retreat_direction = null
 
  
 func _ready():
-	pass
-	#choose_ai_behavior()
+	EnemyDistanceManager.register_enemy(self)
+
 	
 # getters
 func get_health() -> int:
@@ -62,6 +62,7 @@ func play_death():
 	velocity = Vector2(0,0)
 	if is_in_group("player"):
 		return
+	EnemyDistanceManager.unregister_enemy(self)
 	if is_in_group("boss"):
 		queue_free()
 	set_collision_layer_value(1, false)

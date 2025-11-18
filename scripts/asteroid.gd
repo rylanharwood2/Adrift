@@ -102,7 +102,6 @@ func choose_loot():
 		weapon_pickup.global_position = global_position
 		weapon_pickup.weapon_data = data
 		droppable = weapon_pickup
-		print(droppable.weapon_data)
 	else:
 		return null
 	

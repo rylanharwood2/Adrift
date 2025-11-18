@@ -24,6 +24,7 @@ var player_node = null
 
 
 func _ready() -> void:
+	super()
 	flash()
 	
 

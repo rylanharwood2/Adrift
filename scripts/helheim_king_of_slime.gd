@@ -20,6 +20,7 @@ var locked = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	EnemyDistanceManager.register_enemy(self)
 	$ship.animation_finished.connect(_on_animation_finished)
 	add_to_group("boss")
 	

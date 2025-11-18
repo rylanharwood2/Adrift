@@ -102,7 +102,7 @@ func _change_state():
 	else:
 		current_state = EnemyAiOptions.IDLE
 	get_tree().create_timer(2.0).timeout.connect(_change_state)
-	print(current_state)
+	#print(current_state)
 	choose_ai_behavior()
 
 func choose_ai_behavior():

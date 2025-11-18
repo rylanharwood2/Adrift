@@ -15,6 +15,6 @@ func shoot():
 	var individual_missile = missile_scene.instantiate()
 	individual_missile.global_position = global_position
 	individual_missile.global_rotation = player.global_rotation
-	individual_missile.target = get_tree().get_nodes_in_group("enemies").pick_random() # TODO check for empty group
+	individual_missile.target = EnemyDistanceManager.get_closest()
 	get_tree().get_first_node_in_group("game").add_child(individual_missile)
 	apply_durability()
