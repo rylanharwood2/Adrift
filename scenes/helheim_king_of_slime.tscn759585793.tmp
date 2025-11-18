@@ -79,6 +79,38 @@ region = Rect2(332, 0, 83, 83)
 atlas = ExtResource("3_3wq1r")
 region = Rect2(415, 0, 83, 83)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wq1r"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(0, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4peh"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(83, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bdla"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(166, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0bb8"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(249, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnhhu"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(332, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1vxw"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(415, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v24f2"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(498, 0, 83, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqbkp"]
+atlas = ExtResource("4_6qc34")
+region = Rect2(581, 0, 83, 83)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxiuj"]
 atlas = ExtResource("4_6qc34")
 region = Rect2(664, 0, 83, 83)
@@ -127,38 +159,6 @@ region = Rect2(1494, 0, 83, 83)
 atlas = ExtResource("4_6qc34")
 region = Rect2(1577, 0, 83, 83)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3wq1r"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(0, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c4peh"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(83, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7bdla"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(166, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b0bb8"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(249, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pnhhu"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(332, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1vxw"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(415, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v24f2"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(498, 0, 83, 83)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqbkp"]
-atlas = ExtResource("4_6qc34")
-region = Rect2(581, 0, 83, 83)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_7bdla"]
 animations = [{
 "frames": [{
@@ -197,7 +197,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"charge attack",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -220,12 +220,12 @@ animations = [{
 }],
 "loop": false,
 "name": &"charging charge attack",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [],
-"loop": false,
+"loop": true,
 "name": &"death",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -236,6 +236,30 @@ animations = [{
 "speed": 9.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wq1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4peh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bdla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0bb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnhhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1vxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v24f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqbkp")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oxiuj")
 }, {
@@ -274,36 +298,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"spin attack",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3wq1r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c4peh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7bdla")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b0bb8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pnhhu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g1vxw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v24f2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qqbkp")
-}],
-"loop": false,
-"name": &"spin charge",
-"speed": 10.0
+"speed": 9.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xp4uy"]
@@ -322,7 +317,7 @@ position = Vector2(0, -1)
 rotation = 1.5708
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_7bdla")
-animation = &"death"
+animation = &"spin attack"
 autoplay = "default"
 
 [node name="spin_hitbox" type="Area2D" parent="."]
@@ -351,6 +346,7 @@ one_shot = true
 [node name="charge_timer" type="Timer" parent="."]
 wait_time = 3.0
 
+[connection signal="animation_finished" from="ship" to="." method="_on_ship_animation_finished"]
 [connection signal="body_entered" from="spin_hitbox" to="." method="_on_spin_hitbox_body_entered"]
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
 [connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]

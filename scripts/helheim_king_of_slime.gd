@@ -12,7 +12,7 @@ const TURN_SPEED : float = 3.0
 
 var player_position = Vector2(0, 0)
 var player_angle = Vector2(0, 0)
-var move_speed_mod = 0
+var move_speed_mod = 1
 #@onready var target = get_tree().current_scene.get_node("Player")
 
 var searching = true
@@ -22,11 +22,10 @@ var locked = false
 func _ready() -> void:
 	$ship.animation_finished.connect(_on_animation_finished)
 	add_to_group("boss")
+	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#if (player.distance_to() < 50):    # if close attack and slow
+func move_process(delta: float) -> void:
+		#if (player.distance_to() < 50):    # if close attack and slow
 	#	print("si")						# if far idle/move and 2.5x? speed
 	# if you wanna be really cool start a timer as long as the player is not 
 	# within a raduius and only if they leave it for x time he switches to 
@@ -34,6 +33,7 @@ func _process(delta: float) -> void:
 	if dead:
 		return
 	var direction = Vector2(cos(rotation), sin(rotation))
+	velocity = direction * MOVE_SPEED * delta * speed_mod * move_speed_mod
 	if searching:
 		var distance_to_player = (0)
 		player_position = player.position
@@ -43,19 +43,16 @@ func _process(delta: float) -> void:
 		# limit rotation speed
 		rotation = lerp_angle(rotation, player_angle, TURN_SPEED * delta * speed_mod)
 	if !searching:
-		velocity = direction * MOVE_SPEED * delta * speed_mod * move_speed_mod
 		begin_charge()
-	else:
-		velocity = Vector2(0, 0)
 	
 	if abs(rotation - player_angle) < 0.05:
 		searching = false
 	
 	move_and_slide()
 
-
-func turn_blue():
-	speed_mod = 0.75
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	move_process(delta)
 
 
 func _on_charge_timer_timeout() -> void:
@@ -67,17 +64,31 @@ func begin_charge() -> void:
 		locked = true
 	
 func _on_animation_finished():
-	if $ship.animation == "charging charge attack":
-		$ship.play("charge attack")
+	if $ship.animation == "death":
+		queue_free()
+	elif $ship.animation == "spin charge":
+		$ship.play("spin attack")
+		for body in $spin_hitbox.get_overlapping_bodies():
+			if body.is_in_group("player"):
+				body.hurt_player(1)
+	elif $ship.animation == "spin attack":
+		searching = true
+		locked = false
 		move_speed_mod = 1
+		$ship.play("default")
+	elif $ship.animation == "charging charge attack":
+		$ship.play("charge attack")
+		move_speed_mod = 3
 	elif $ship.animation == "charge attack":
-		move_speed_mod = 0
+		move_speed_mod = 1
 		searching = true
 		locked = false
 	else:
 		$ship.play("default")
 
 
-func _on_ship_animation_finished() -> void:
-	if $ship.animation == "death":
-		queue_free()
+
+
+func _on_spin_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		$ship.play("spin charge")

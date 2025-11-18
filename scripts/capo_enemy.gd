@@ -4,7 +4,7 @@ extends Creature
 # TODO do finding the player with a signal instead
 @onready var target = get_tree().current_scene.get_node("Player")
 @onready var game_world := get_tree().root.get_node("Game")
-var scene = preload("res://scenes/capo_bullet.tscn")
+@onready var scene = preload("res://scenes/capo_bullet.tscn")
 
 var rand = RandomNumberGenerator.new()
 
@@ -99,7 +99,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		$hit_cooldown.start(1.0)
 
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+func _on_area_2d_body_exited(_body: Node2D) -> void:
 	player_node = null
 
 
