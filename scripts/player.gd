@@ -331,6 +331,7 @@ func update_boost_changed(updated_boost):
 	
 func change_max_health(added_amount):
 	max_health += added_amount
+	health += added_amount
 
 func hurt_player(dmg : int):
 	if not forcefield_active:

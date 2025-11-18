@@ -8,10 +8,10 @@ signal fire_animation_done
 func _ready() -> void:
 	speed = 0
 	animation_finished.connect(_on_animation_finished)
-	play_fire_animation()
+	play("fire")
 
-func play_fire_animation() -> void:
-	play("fire")  # play the fire/charge-up animation
+#func play_fire_animation() -> void:
+	#play("fire")  # play the fire/charge-up animation
 
 func _on_animation_finished() -> void:
 	if animation == "fire":

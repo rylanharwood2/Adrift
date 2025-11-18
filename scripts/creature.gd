@@ -14,7 +14,7 @@ var retreat_direction = null
 
  
 func _ready():
-	SignalBus.mine_boom.connect(set_retreat_direction)
+	pass
 	#choose_ai_behavior()
 	
 # getters
@@ -26,7 +26,6 @@ func get_health() -> int:
 func flash():
 	$ship.material.set_shader_parameter("flash_modifier", 0.8)
 	$flash_timer.start()
-	_change_state(EnemyAiOptions.DASH)
 
 func _on_flash_timer_timeout() -> void:
 	$ship.material.set_shader_parameter("flash_modifier", 0)
@@ -61,106 +60,9 @@ func play_death():
 	dead = true
 	$ship.play("death")
 	velocity = Vector2(0,0)
-	if is_in_group("player") or is_in_group("boss"):
+	if is_in_group("player"):
 		return
+	if is_in_group("boss"):
+		queue_free()
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
-
-
-# New enemy AI
-enum EnemyAiOptions {
-	ATTACK,
-	DASH,
-	MOVE,
-	RETREAT,
-	IDLE
-}
-
-var current_state : EnemyAiOptions = EnemyAiOptions.MOVE
-
-func _change_state(new_state : EnemyAiOptions):
-	current_state = new_state
-
-func choose_random_behavior():
-	pass
-	#_change_state(EnemyAiOptions.)
-
-func choose_ai_behavior():
-	offset = Vector2.ZERO
-	retreat_direction = null
-	#await get_tree().create_timer(randi_range(2,5)).timeout
-	match current_state:
-		EnemyAiOptions.MOVE:
-			move()
-		EnemyAiOptions.RETREAT:
-			retreat()
-		EnemyAiOptions.DASH:
-			dash()
-		EnemyAiOptions.ATTACK:
-			attack()
-		EnemyAiOptions.IDLE:
-			idle()
-	
-
-func move():
-	"""
-	both just drift towards the player after picking a random point 
-	in a circle around the player. 
-	adjust the radius of attack mode and move mode based on num enemies
-	with area2d entered exited
-	"""
-	var angle = randf() * TAU
-	offset = Vector2(cos(angle), sin(angle)) * 125
-	
-	
-	
-
-func retreat():
-	
-	"""
-	maybe still pick a point and then move directly opposite?
-	also make this more likely when watching a friend die?
-	or more likely after watching a mine blow up
-	they could get smart if they were within LOS of a mine when exploded
-	"""
-
-func set_retreat_direction(pos):
-	retreat_direction = -(pos - global_position).normalized()
-	var retreat_timer = get_tree().create_timer(4)
-	retreat_timer.timeout.connect(_on_retreat_timer_timeout)
-
-func _on_retreat_timer_timeout():
-	retreat_direction = null
-
-
-func attack():
-	pass
-	"""
-	if within the ring suicunes should move towards and attack the player
-	capos should pick a larger ring than suicunes and not move closer when theyre in it
-	unless the player shoots at them at which point they may move? who knows man
-	"""
-
-func dash():
-	"""
-	call move and set the speed high? maybe a unique animation
-	charge up - then dash
-	maybe the father they are from you the longer the dash
-	"""
-	speed_mod = 6.
-	var dash_timer = get_tree().create_timer(0.3)
-	dash_timer.timeout.connect(_on_dash_timer_timeout)
-	
-
-
-func _on_dash_timer_timeout():
-	speed_mod = 1.
-
-
-func idle():
-	pass
-	"""
-	move in a small path? maybe in a circle or random points 
-	in a lil box or somethin
-	maybe a little idle animation?
-	"""
