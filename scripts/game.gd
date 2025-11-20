@@ -15,9 +15,6 @@ var has_started_game : bool
 @export var startup_pause_sec : int # init ~5
 @export var wave_cooldown_sec : int # init ~2
 
-func _process(_delta: float) -> void:
-	pass
-	
 
 func _ready() -> void:
 	SignalBus.gamestate_changed.connect(_on_state_changed)
@@ -44,7 +41,6 @@ func new_game():
 	
 	# while true: # this has to be a dumb way of doing this     # im leaving this here as a reminder of the time 
 	# I hung the game for a day and so to never put while true without using all your braincells
-	
 
 
 # Helper function to load and parse the file

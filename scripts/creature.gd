@@ -14,9 +14,13 @@ var retreat_direction = null
 
  
 func _ready():
-	EnemyDistanceManager.register_enemy(self)
+	register_enemy()
 
-	
+func register_enemy():
+	await get_tree().process_frame
+	if is_inside_tree() and is_instance_valid(self):
+		EnemyDistanceManager.register_enemy(self)
+
 # getters
 func get_health() -> int:
 	return health
@@ -62,7 +66,6 @@ func play_death():
 	velocity = Vector2(0,0)
 	if is_in_group("player"):
 		return
-	EnemyDistanceManager.unregister_enemy(self)
 	if is_in_group("boss"):
 		queue_free()
 	set_collision_layer_value(1, false)

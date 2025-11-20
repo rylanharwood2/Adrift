@@ -3,13 +3,15 @@ extends Node
 @onready var simpleboards = $simpleboards_api
 @onready var api_key_path = 'res://data/key.txt'
 
-var leaderboard_data : Array = []
+var uid = "player-0000"
+const leaderboard_id : String = "0e253f7a-b1af-436f-34e2-08de26d637f1"
 
 func _ready() -> void:
 	# Set the API key
 	simpleboards.set_api_key(load_file(api_key_path))
 	simpleboards.entries_got.connect(_on_entries_got)
 	simpleboards.entry_sent.connect(_on_entry_sent)
+	SignalBus.leaderboard_data_requested.connect(get_leaderboard_data)
 	SignalBus.final_time_sent.connect(submit_time)
 	
 	# Send a score
@@ -28,21 +30,48 @@ func load_file(file_path):
 
 
 func _on_entries_got(entries):
-	for entry in entries:
-		entry.id = "api-key"
-		leaderboard_data = entries
-		print(leaderboard_data)
+	print("received entries from server")
+	var leaderboard_data : Array = []
+	
+	
+	leaderboard_data = entries
+	print("were sending", leaderboard_data)
+	SignalBus.leaderboard_data_received.emit(leaderboard_data)
+	#for entry in entries:
+		##entry.id = "api-key"
+		#leaderboard_data = entries
+		#print(leaderboard_data)
 	
 func _on_entry_sent(entry):
 	entry.id = "api-key"
 	print(entry)
 
+func get_or_create_unique_id() -> String:
+	var js = """
+	function() {
+		let id = localStorage.getItem('unique_player_id');
+		if (!id) {
+			id = crypto.randomUUID();
+			localStorage.setItem('unique_player_id', id);
+		}
+		return id;
+	}) ()
+	"""
+	return JavaScriptBridge.eval(js)
 
-#await simpleboards.send_score_without_id("0e253f7a-b1af-436f-34e2-08de26d637f1", "Rylan", "00:12:34:567", "[]")
-#if event.is_action_pressed("drift(ebrake)"):
+#await simpleboards.send_score_with_id("0e253f7a-b1af-436f-34e2-08de26d637f1", "Rylan", "00:12:34:567", "[]", "1")
 #await simpleboards.get_entries("0e253f7a-b1af-436f-34e2-08de26d637f1")
+
 func get_leaderboard_data():
-	await simpleboards.get_entries("0e253f7a-b1af-436f-34e2-08de26d637f1")
+	print("asked server")
+	await simpleboards.get_entries(leaderboard_id)
 
 func submit_time(final_time : String):
-	await simpleboards.send_score_without_id("0e253f7a-b1af-436f-34e2-08de26d637f1", "Rylan", final_time, "[]")
+	print("submitting time")
+	if OS.get_name() == "HTML5":
+		var unique_id = get_or_create_unique_id()
+		print(unique_id)
+		await simpleboards.send_score_with_id(leaderboard_id, "please work", final_time, "[]", unique_id)
+	else:
+		# TODO add a unique identifier for non web exports
+		await simpleboards.send_score_without_id(leaderboard_id, "please work", final_time, "[]")

@@ -29,8 +29,16 @@ func _ready() -> void:
 
 func register_enemy(enemy: Node2D) -> void:
 	# Calculate initial distance
+	if not is_instance_valid(enemy):
+		return
+	if not is_inside_tree():
+		return
+	
 	var dist = player.global_position.distance_to(enemy.global_position)
 	_heap_push({"enemy": enemy, "distance": dist})
+	
+	# hopefully auto-unregister when freed
+	enemy.tree_exited.connect(func(): unregister_enemy(enemy))
 
 
 func unregister_enemy(enemy: Node2D) -> void:

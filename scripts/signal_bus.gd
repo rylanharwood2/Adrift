@@ -1,14 +1,21 @@
 extends Node
 
+@warning_ignore_start("unused_signal")
 # Global Signals
+
+# Gamestate / leaderboard 
+signal game_finished
+signal final_time_sent(String)
 signal gamestate_changed(new_state)
+signal leaderboard_data_received(leaderboard_data : Array)
+signal leaderboard_data_requested
+
+# Wave end logic
 signal select_upgrade_reward
 signal display_reward_menu
 signal add_new_ability(String)
 
-signal game_finished
-signal final_time_sent(String)
-
+# Player logic
 signal player_died
 signal healthpack_captured(int)
 signal health_changed(new_health)
@@ -24,3 +31,6 @@ signal weapon_broken
 signal ability_used(String)
 signal applied_recoil(float)
 signal railgun_shot(float)
+
+
+@warning_ignore_restore("unused_signal")

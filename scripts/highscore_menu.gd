@@ -6,6 +6,7 @@ var entry_date_text  : String = ""
 
 func _on_ready() -> void:
 	hide()
+	
 
 func _process(_delta: float) -> void:
 	pass
@@ -13,9 +14,12 @@ func _process(_delta: float) -> void:
 
 func display_leaderboard():
 	show()
-	await $leaderboard.get_leaderboard_data()
+	SignalBus.leaderboard_data_requested.emit() #await $leaderboard.get_leaderboard_data()
+	print("data requested")
+	var formatted_leaderboard_data : Array = await SignalBus.leaderboard_data_received
+	print("displayable data ready")
 	$loading_text.hide()
-	var formatted_leaderboard_data = $leaderboard.leaderboard_data
+	print(formatted_leaderboard_data)
 	for entry in formatted_leaderboard_data:
 		$scores_container/entry_name.text += entry.playerDisplayName + '\n'
 		$scores_container/entry_score.text += entry.score.substr(0,11) + '\n'
