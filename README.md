@@ -173,3 +173,7 @@ screen. I also created some of the weapon system, the base Weapon class and Weap
 ice powerup logic to apply to generating a random weapon.
 
 Addison made an early railgun animation that I'll look at after the weekend.
+
+### nov 19
+*Leaderboard*  
+*Homing Missile*  

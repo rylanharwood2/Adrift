@@ -51,7 +51,7 @@ func _process(delta: float) -> void:
 
 # enemy on hit damage {
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if $ship.animation == "dead":
+	if $ship.animation == "death":
 		return
 	
 	if body.is_in_group("player"):
@@ -62,7 +62,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if $ship.animation == "dead":
+	if $ship.animation == "death":
 		return
 	
 	player_node = null
