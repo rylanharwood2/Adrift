@@ -25,3 +25,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_leaderboard_button_pressed() -> void:
+	$VBoxContainer.hide()
+	$RichTextLabel.hide()
+	$highscore_menu.display_leaderboard()

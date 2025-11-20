@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://brcffsluj5uh5" path="res://assets/sprites/player/healthbar.png" id="3_xi2ed"]
 [ext_resource type="PackedScene" uid="uid://c8b54giv5xw34" path="res://scenes/upgrades_popup.tscn" id="4_4mesk"]
 [ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_ml6tl"]
+[ext_resource type="Texture2D" uid="uid://dlqd1nlksxyg5" path="res://assets/sprites/enemies/testboss2.png" id="5_dh3a3"]
 [ext_resource type="Texture2D" uid="uid://c0rb8geot7o55" path="res://assets/sprites/player/powerups/ShieldPowerUpIcon-4fps.png" id="5_n3kp7"]
 [ext_resource type="Texture2D" uid="uid://rvexaq6t41u4" path="res://assets/white.png" id="6_47rti"]
 [ext_resource type="Texture2D" uid="uid://cmjh7mrbhpggb" path="res://assets/sprites/player/HUDForcefieldTEST2.png" id="7_n3kp7"]
-[ext_resource type="Texture2D" uid="uid://dc3fdanau42iu" path="res://assets/sprites/player/HUDMINE.png" id="10_ml6tl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi2ed"]
 atlas = ExtResource("3_xi2ed")
@@ -277,6 +277,14 @@ theme_override_fonts/font = ExtResource("4_ml6tl")
 theme_override_font_sizes/font_size = 8
 text = "00:12:34.56"
 
+[node name="delta_timer" type="Label" parent="hud_game_time_manager"]
+layout_mode = 0
+offset_left = 1070.0
+offset_top = 45.0
+offset_right = 1126.0
+offset_bottom = 76.0
+text = "123"
+
 [node name="controls" type="Label" parent="."]
 offset_left = 1.0
 offset_top = 623.0
@@ -365,16 +373,17 @@ text = "Forcefield"
 visible = false
 clip_children = 2
 texture_filter = 3
-position = Vector2(231, 556)
-texture = ExtResource("10_ml6tl")
+position = Vector2(231, 572)
+scale = Vector2(0.32152852, 0.32152852)
+texture = ExtResource("5_dh3a3")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="proxy_mine_icon"]
 self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
-offset_left = -35.0
-offset_top = -48.0
-offset_right = 5.0
-offset_bottom = -8.0
-scale = Vector2(1.7213287, 2.5003624)
+offset_left = -227.73782
+offset_top = -177.12943
+offset_right = -187.73782
+offset_bottom = -137.12943
+scale = Vector2(12.201328, 7.1403637)
 fill_mode = 3
 nine_patch_stretch = true
 texture_progress = ExtResource("6_47rti")
@@ -386,13 +395,12 @@ libraries = {
 
 [node name="Label" type="Label" parent="proxy_mine_icon"]
 z_index = 1
-offset_left = -48.0
-offset_top = -75.0
-offset_right = 86.0
-offset_bottom = -52.0
-scale = Vector2(1.5263599, 1.5263599)
+offset_left = -115.075325
+offset_top = -223.93044
+offset_right = 18.924675
+offset_bottom = -200.93044
+scale = Vector2(2.325377, 2.325377)
 theme_override_fonts/font = ExtResource("1_aowct")
-theme_override_font_sizes/font_size = 8
 text = "Proxy Mine"
 
 [connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]

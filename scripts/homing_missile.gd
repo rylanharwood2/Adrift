@@ -1,8 +1,8 @@
 extends Weapon
 
 @onready var rocket = $rocket_sprite
-@export var speed = 300
-@export var steer_force = 10
+@export var speed = 200
+@export var steer_force = 20
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO

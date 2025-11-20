@@ -22,14 +22,14 @@ func _process(_delta: float) -> void:
 func _ready() -> void:
 	SignalBus.gamestate_changed.connect(_on_state_changed)
 	has_started_game = false
-	
 	new_game()
-		
+	
 	asteroid_generation()
 
+
 func _on_state_changed(new_state):
-	await get_tree().create_timer(startup_pause_sec).timeout
 	if has_started_game == false and GameManager.current_state != GameManager.GameState.MAIN_MENU:
+		await get_tree().create_timer(startup_pause_sec).timeout
 		has_started_game = true
 		wave_controller()
 
@@ -39,15 +39,12 @@ func apply_slow():
 
 
 func new_game():
-	
 	$menus/main_menu_ui.display_menu()
 	#$menus/HUD.show_message("")#Welcome to the \nThunderdome!!")
 	
 	# while true: # this has to be a dumb way of doing this     # im leaving this here as a reminder of the time 
 	# I hung the game for a day and so to never put while true without using all your braincells
 	
-	$highscore_menu.start_timer(Time.get_ticks_msec())
-
 
 
 # Helper function to load and parse the file
@@ -93,9 +90,11 @@ func wave_controller():
 				await get_tree().create_timer(wave_cooldown_sec).timeout
 
 		print("Wave", wave_number, "cleared!")
-		SignalBus.display_reward_menu.emit()
-		await SignalBus.select_upgrade_reward
-
+		if wave_number != wave_data["waves"][-1]["wave"]:
+			SignalBus.display_reward_menu.emit()
+			await SignalBus.select_upgrade_reward
+	
+	SignalBus.game_finished.emit() 
 	print("All waves complete!")
 	
 	"""

@@ -29,6 +29,10 @@ gdscript/warnings/unused_signal=0
 
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/simpleboards_plugin/plugin.cfg")
+
 [global_group]
 
 enemies=""

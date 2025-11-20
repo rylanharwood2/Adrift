@@ -339,14 +339,12 @@ func hurt_player(dmg : int):
 		SignalBus.apply_camera_shake.emit(1)
 
 
-func _on_player_died(nothing, also_nothing) -> void: # the player died signal is dumb the way I did it, its used in main with HUD to display the message
-	dead = true
-	
-
 func play_death():
+	if not dead:
+		SignalBus.player_died.emit()
 	super()
 	update_health_changed(0)
-	SignalBus.player_died.emit("You Died!\nPress R to Restart", true)
+	
 
 # restart game - should probs be in game
 func _process(_delta: float) -> void:

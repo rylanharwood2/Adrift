@@ -6,9 +6,10 @@ signal select_upgrade_reward
 signal display_reward_menu
 signal add_new_ability(String)
 
-signal start_game
+signal game_finished
+signal final_time_sent(String)
 
-signal player_died(message, bool)
+signal player_died
 signal healthpack_captured(int)
 signal health_changed(new_health)
 signal ammo_changed(new_ammo)

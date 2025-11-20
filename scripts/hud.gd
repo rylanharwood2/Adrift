@@ -1,11 +1,15 @@
 extends CanvasLayer
 
-func show_message(text, dead: bool = false):	
+var player_died : bool = false
+
+func show_message(text):
+	if not player_died:
+		$message_timer.start()
+		
 	$start_message.text = text
 	$start_message.show()
-	if !dead:
-		$message_timer.start()
-
+	
+	
 func display_healthbar(new_health : int):
 	var healthbar_ratio = new_health / 8. # max health at the moment
 	healthbar_ratio = (floor(healthbar_ratio*10))
@@ -22,7 +26,7 @@ func update_boost_meter(boost_update:float):
 
 
 func _ready() -> void:
-	SignalBus.player_died.connect(show_message)
+	SignalBus.player_died.connect(death_screen)
 	SignalBus.health_changed.connect(display_healthbar)
 	SignalBus.ammo_changed.connect(update_ammo)
 	SignalBus.boost_changed.connect(update_boost_meter)
@@ -33,6 +37,11 @@ func _ready() -> void:
 
 func _init() -> void:
 	hide()
+	player_died = false
+
+func death_screen():
+	player_died = true
+	show_message("You Died!\nPress R to Restart")
 
 func start_powerup_cooldown(powerup):
 	if powerup == "proxy_mine":

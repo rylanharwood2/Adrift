@@ -1,63 +1,45 @@
 extends CanvasLayer
 
-var ticks = 0
-var time_start = 0
-var time_end = 0
-var milliseconds = 0
-var total_seconds = 0
-var hours = 0
-var minutes = 0
-var seconds = 0
-
-
-var time_elapsed = 0.00
-
-
-# Leaderboard system, store personal high scores in a json like file stored even in between games
-# Organize and trim - view high scores in the main menu, other button!
-# If we actually want to be cool - this is where we implement a data structure to measure how many points each gets
-# and store them in some way in the json
-# show timer on death or endgame but only fulltime if "show speedrun timer" is on
+var entry_name_text  : String = ""
+var entry_score_text : String = ""
+var entry_date_text  : String = ""
 
 func _on_ready() -> void:
-	pass
-	
-
-func _process(delta: float) -> void:
-	milliseconds = Time.get_ticks_msec()
-	#minutes = seconds
-	display()
-	show_scores(false)
-
-func display():
-	$scores.text = ticks_to_clock(milliseconds - time_start)
-	"""
-	await? while user has not pressed quit
-		$scores.text = ticks_to_clock(milliseconds)
 	hide()
-	"""
 
-func ticks_to_clock(milliseconds: int) -> String:
-	total_seconds = ( milliseconds - time_start ) / 1000 
-	seconds = total_seconds % 60
-	hours = total_seconds / 3600
-	minutes = ( total_seconds / 60 ) % 60
-	#`print(minutes)
-	if hours / 10 == 0:
-		hours = "0" + str(hours)
-	if minutes / 10 == 0:
-		minutes = "0" + str(minutes)
-	if seconds / 10 == 0:
-		seconds = "0" + str(seconds)
+func _process(_delta: float) -> void:
+	pass
+
+
+func display_leaderboard():
+	show()
+	await $leaderboard.get_leaderboard_data()
+	$loading_text.hide()
+	var formatted_leaderboard_data = $leaderboard.leaderboard_data
+	for entry in formatted_leaderboard_data:
+		$scores_container/entry_name.text += entry.playerDisplayName + '\n'
+		$scores_container/entry_score.text += entry.score.substr(0,11) + '\n'
+		$scores_container/entry_date.text += iso_utc_to_pst(entry.createdAt) + '\n'
 		
-	return "%s : %s : %s" % [hours, minutes, seconds]
 	
-func start_timer(start_time_milliseconds: int):
-	time_start = start_time_milliseconds
-	
-func show_scores(currently_visible):
-	if currently_visible:
-		show()
-	else:
-		hide()
-	
+func _on_show_timer_pressed() -> void:
+	pass
+
+func iso_utc_to_pst(iso: String) -> String:
+	var unix_utc := Time.get_unix_time_from_datetime_string(iso)
+	var unix_pst := unix_utc - 8 * 3600
+	var dt := Time.get_datetime_dict_from_unix_time(unix_pst)
+
+	# Format output: YYYY-MM-DD HH:MM:SS PST
+	return "%04d-%02d-%02d %02d:%02d:%02d PST" % [
+		dt.year,
+		dt.month,
+		dt.day,
+		dt.hour,
+		dt.minute,
+		dt.second,
+	]
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/game.tscn")
