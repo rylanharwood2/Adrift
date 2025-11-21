@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://iuddfgyfngi5"]
+
+[ext_resource type="Shader" uid="uid://mxia4m5fcfew" path="res://scripts/pause_menu_blur.gdshader" id="1_ujlt3"]
+[ext_resource type="Script" uid="uid://c16gh3vrhqljg" path="res://scripts/victory_screen.gd" id="1_wdgif"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdgif"]
+shader = ExtResource("1_ujlt3")
+shader_parameter/amount = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pfcnd"]
+
+[node name="victory_screen" type="CanvasLayer"]
+script = ExtResource("1_wdgif")
+
+[node name="blur_layer" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_wdgif")
+position = Vector2(576.5, 322.25)
+scale = Vector2(1169, 671.5)
+texture = SubResource("PlaceholderTexture2D_pfcnd")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_right = 68.5625
+offset_bottom = 31.0

@@ -17,7 +17,6 @@ func set_api_key(key: String):
 	api_key = key
 
 func get_entries(leaderboard_id: String):
-	print("getting etries from la serveur")
 	"""Fetches leaderboard entries for a given leaderboard ID."""
 	var url = base_url + "leaderboards/%s/entries" % leaderboard_id
 	var headers = ["x-api-key: " + api_key]
@@ -26,7 +25,6 @@ func get_entries(leaderboard_id: String):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	await http_request.request_completed
-	print("done awaiting")
 
 func send_score_with_id(leaderboard_id: String, 
 		player_display_name: String, 
@@ -49,7 +47,6 @@ func send_score_with_id(leaderboard_id: String,
 	
 	var error = http_request.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	await http_request.request_completed
-	print("done awaiting")
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
@@ -72,12 +69,10 @@ func send_score_without_id(leaderboard_id: String,
 	
 	var error = http_request.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	await http_request.request_completed
-	print("done awaiting")
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
 func _on_request_completed(result, response_code, headers, body):
-	print("and we made it through")
 	if response_code == 200:
 		var response = JSON.parse_string(body.get_string_from_utf8())
 		if response is Array:

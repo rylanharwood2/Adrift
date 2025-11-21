@@ -30,12 +30,8 @@ func load_file(file_path):
 
 
 func _on_entries_got(entries):
-	print("received entries from server")
 	var leaderboard_data : Array = []
-	
-	
 	leaderboard_data = entries
-	print("were sending", leaderboard_data)
 	SignalBus.leaderboard_data_received.emit(leaderboard_data)
 	#for entry in entries:
 		##entry.id = "api-key"
@@ -48,14 +44,15 @@ func _on_entry_sent(entry):
 
 func get_or_create_unique_id() -> String:
 	var js = """
-	function() {
+	(function() {
 		let id = localStorage.getItem('unique_player_id');
 		if (!id) {
 			id = crypto.randomUUID();
 			localStorage.setItem('unique_player_id', id);
 		}
+		console.log(id);
 		return id;
-	}) ()
+	})()
 	"""
 	return JavaScriptBridge.eval(js)
 
@@ -63,15 +60,13 @@ func get_or_create_unique_id() -> String:
 #await simpleboards.get_entries("0e253f7a-b1af-436f-34e2-08de26d637f1")
 
 func get_leaderboard_data():
-	print("asked server")
 	await simpleboards.get_entries(leaderboard_id)
 
 func submit_time(final_time : String):
-	print("submitting time")
-	if OS.get_name() == "HTML5":
+	if OS.get_name() == "Web":
 		var unique_id = get_or_create_unique_id()
 		print(unique_id)
-		await simpleboards.send_score_with_id(leaderboard_id, "please work", final_time, "[]", unique_id)
+		await simpleboards.send_score_with_id(leaderboard_id, "Rylan", final_time, "[]", unique_id)
 	else:
 		# TODO add a unique identifier for non web exports
-		await simpleboards.send_score_without_id(leaderboard_id, "please work", final_time, "[]")
+		await simpleboards.send_score_without_id(leaderboard_id, "Rylan", final_time, "[]")
