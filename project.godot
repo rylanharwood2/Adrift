@@ -17,9 +17,9 @@ config/icon="res://assets/sprites/GameLogoTest.webp"
 
 [autoload]
 
-GameManager="*res://scripts/game_manager.gd"
-SignalBus="*res://scripts/signal_bus.gd"
-EnemyDistanceManager="*res://scripts/managers/enemy_distance_manager.gd"
+GameManager="*res://game/global_ish/game_manager.gd"
+SignalBus="*res://game/global_ish/signal_bus.gd"
+EnemyDistanceManager="*res://data/enemy_distance_manager.gd"
 
 [display]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://w7ik1pckwa3i"]
 
-[ext_resource type="PackedScene" uid="uid://bkguwvaq5v04b" path="res://scenes/bullet.tscn" id="1_jyyfw"]
+[ext_resource type="PackedScene" uid="uid://bkguwvaq5v04b" path="res://game/entities/creatures/bullet.tscn" id="1_jyyfw"]
 [ext_resource type="SpriteFrames" uid="uid://bslnfkqjqpqwt" path="res://assets/sprites/sprite_animations/laser_bullet_explosion.tres" id="2_5awad"]
 
 [node name="exploding_bullet" instance=ExtResource("1_jyyfw")]

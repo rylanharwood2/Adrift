@@ -1,0 +1,94 @@
+[gd_scene load_steps=18 format=3 uid="uid://cepyg8irkh4ah"]
+
+[ext_resource type="Script" uid="uid://cgy0gwat5fbg6" path="res://game/entities/asteroids/asteroid.gd" id="1_y6b3a"]
+[ext_resource type="Script" uid="uid://uv8ghjm4bt1o" path="res://data/WeaponData.gd" id="2_7l506"]
+[ext_resource type="Resource" uid="uid://cyk53f3c657ko" path="res://data/homing_launcher.tres" id="3_mv742"]
+[ext_resource type="Resource" uid="uid://bo1jgw7su5p2u" path="res://data/railgun.tres" id="4_h2au4"]
+[ext_resource type="Resource" uid="uid://demm2kcayeiob" path="res://data/spreader.tres" id="5_a0liu"]
+[ext_resource type="PackedScene" uid="uid://dyceqe6fqfty1" path="res://game/entities/asteroids/weapon_pickup.tscn" id="6_ud2uf"]
+[ext_resource type="Texture2D" uid="uid://bnajwj7sfx5gi" path="res://assets/sprites/environment/Asteroid Explosionsplosion.png" id="7_fe70q"]
+[ext_resource type="Texture2D" uid="uid://caqt7stblywj8" path="res://assets/sprites/environment/asteroid_gray.png" id="8_xxcfv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6quoa"]
+atlas = ExtResource("7_fe70q")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fklea"]
+atlas = ExtResource("7_fe70q")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rts3"]
+atlas = ExtResource("7_fe70q")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41688"]
+atlas = ExtResource("7_fe70q")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cll4m"]
+atlas = ExtResource("7_fe70q")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njyhl"]
+atlas = ExtResource("8_xxcfv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_df8qa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6quoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fklea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rts3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41688")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cll4m")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njyhl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mk8i"]
+radius = 30.28
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t4se3"]
+radius = 36.0139
+
+[node name="asteroid" type="StaticBody2D" groups=["asteroid"]]
+z_index = 1
+z_as_relative = false
+script = ExtResource("1_y6b3a")
+weapon_drops = Array[ExtResource("2_7l506")]([ExtResource("3_mv742"), ExtResource("4_h2au4"), ExtResource("5_a0liu")])
+weapon_pickup_scene = ExtResource("6_ud2uf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["asteroid"]]
+sprite_frames = SubResource("SpriteFrames_df8qa")
+autoplay = "default"
+speed_scale = 1.11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0mk8i")
+
+[node name="asteroid_collision_detector" type="Area2D" parent="." groups=["asteroid"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="asteroid_collision_detector"]
+shape = SubResource("CircleShape2D_t4se3")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="asteroid_collision_detector" to="." method="_on_asteroid_collision_detector_area_entered"]

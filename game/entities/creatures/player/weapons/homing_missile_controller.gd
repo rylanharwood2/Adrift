@@ -1,0 +1,20 @@
+extends Weapon
+
+@onready var missile_scene = load("res://game/entities/creatures/player/weapons/homing_missile.tscn")
+@onready var player = get_tree().get_first_node_in_group("player")
+
+func shoot():
+	if not weapon_data:
+		return
+		
+	if not can_shoot:
+		return
+	
+	#can_shoot = false
+	if missile_scene:
+		var individual_missile = missile_scene.instantiate()
+		individual_missile.global_position = global_position
+		individual_missile.global_rotation = player.global_rotation
+		individual_missile.target = EnemyDistanceManager.get_closest()
+		get_tree().get_first_node_in_group("game").add_child(individual_missile)
+		apply_durability()

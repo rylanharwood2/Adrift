@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://iuddfgyfngi5"]
+
+[ext_resource type="Script" uid="uid://c16gh3vrhqljg" path="res://game/ui_components/victory_screen.gd" id="1_2olrc"]
+[ext_resource type="Shader" uid="uid://mxia4m5fcfew" path="res://game/ui_components/pause_menu_blur.gdshader" id="2_2smgc"]
+[ext_resource type="PackedScene" uid="uid://b8igy724bdffm" path="res://game/ui_components/input_field.tscn" id="3_7ij7y"]
+[ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="4_y45ar"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdgif"]
+shader = ExtResource("2_2smgc")
+shader_parameter/amount = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pfcnd"]
+
+[node name="victory_screen" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_2olrc")
+
+[node name="blur_layer" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_wdgif")
+position = Vector2(576.5, 322.25)
+scale = Vector2(1169, 671.5)
+texture = SubResource("PlaceholderTexture2D_pfcnd")
+
+[node name="input_field" parent="." instance=ExtResource("3_7ij7y")]
+layer = 2
+visible = false
+
+[node name="victory_text" type="Label" parent="."]
+offset_left = 452.0
+offset_top = 94.0
+offset_right = 677.0
+offset_bottom = 189.0
+theme_override_fonts/font = ExtResource("4_y45ar")
+text = "You Won!"

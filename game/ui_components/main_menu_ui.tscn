@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://chtfsxrptqxc"]
+
+[ext_resource type="Script" uid="uid://bmlheefhi4lcc" path="res://game/ui_components/main_menu_ui.gd" id="1_nfhhm"]
+[ext_resource type="Shader" uid="uid://mxia4m5fcfew" path="res://game/ui_components/pause_menu_blur.gdshader" id="2_rpghy"]
+[ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_lmcw8"]
+[ext_resource type="PackedScene" uid="uid://d3epp5wxoh4mn" path="res://game/ui_components/highscore_menu.tscn" id="4_towyk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_towyk"]
+shader = ExtResource("2_rpghy")
+shader_parameter/amount = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fixva"]
+
+[node name="main_menu_ui" type="CanvasLayer"]
+process_mode = 2
+visible = false
+script = ExtResource("1_nfhhm")
+
+[node name="blur_layer" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_towyk")
+position = Vector2(576.5, 322.25)
+scale = Vector2(1169, 671.5)
+texture = SubResource("PlaceholderTexture2D_fixva")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.0
+offset_top = 66.0
+offset_right = 2.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2.08)
+
+[node name="play_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+text = "Play"
+
+[node name="options_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+text = "Options"
+
+[node name="leaderboard_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+theme_override_font_sizes/font_size = 16
+text = "Leaderboard"
+
+[node name="quit_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+text = "Quit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 317.0
+offset_top = 129.0
+offset_right = 903.0
+offset_bottom = 295.0
+theme_override_fonts/normal_font = ExtResource("3_lmcw8")
+theme_override_font_sizes/normal_font_size = 102
+text = "Adrift"
+
+[node name="highscore_menu" parent="." instance=ExtResource("4_towyk")]
+visible = false
+
+[connection signal="pressed" from="VBoxContainer/play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/leaderboard_button" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

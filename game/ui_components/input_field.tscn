@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8igy724bdffm"]
+
+[ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="1_4h3fx"]
+[ext_resource type="Script" uid="uid://b3yrmd1iehlc8" path="res://game/ui_components/input_field.gd" id="1_402ym"]
+
+[node name="input_field" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_402ym")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 536.0
+offset_top = 293.0
+offset_right = -465.0
+offset_bottom = -287.0
+scale = Vector2(1.0799975, 1.0799975)
+
+[node name="input_field" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h3fx")
+placeholder_text = "Enter Name"
+
+[node name="submit_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h3fx")
+text = "Submit"
+
+[connection signal="pressed" from="VBoxContainer/submit_button" to="." method="_on_submit_button_pressed"]

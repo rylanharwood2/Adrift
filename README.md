@@ -177,3 +177,5 @@ Addison made an early railgun animation that I'll look at after the weekend.
 ### nov 19
 *Leaderboard*  
 *Homing Missile*  
+*Project Reorganization YAY*
+*Victory Screen Flow Debacle*

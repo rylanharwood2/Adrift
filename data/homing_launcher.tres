@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://cyk53f3c657ko"]
 
 [ext_resource type="Script" uid="uid://uv8ghjm4bt1o" path="res://data/WeaponData.gd" id="1_xe7nu"]
-[ext_resource type="PackedScene" uid="uid://borbhqfnlpu34" path="res://scenes/homing_missile_controller.tscn" id="2_kti56"]
+[ext_resource type="PackedScene" uid="uid://borbhqfnlpu34" path="res://game/entities/creatures/player/weapons/homing_missile_controller.tscn" id="2_kti56"]
 
 [resource]
 script = ExtResource("1_xe7nu")

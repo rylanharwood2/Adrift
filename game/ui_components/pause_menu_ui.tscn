@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://c27fp8o3i2qqh"]
+
+[ext_resource type="Script" uid="uid://c5lju2a5pcpyg" path="res://game/ui_components/pause_menu_ui.gd" id="1_xd47n"]
+[ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_lmcw8"]
+
+[sub_resource type="Shader" id="Shader_tvuuu"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+uniform float amount: hint_range(0.0, 5.0);
+
+void fragment() {
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, amount).rgb;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vau2j"]
+shader = SubResource("Shader_tvuuu")
+shader_parameter/amount = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sdnv6"]
+
+[node name="pause_menu_ui" type="CanvasLayer"]
+process_mode = 3
+layer = 5
+visible = false
+script = ExtResource("1_xd47n")
+
+[node name="blur_layer" type="Sprite2D" parent="."]
+z_index = 7
+material = SubResource("ShaderMaterial_vau2j")
+position = Vector2(579.5, 325)
+scale = Vector2(1201, 704)
+texture = SubResource("PlaceholderTexture2D_sdnv6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 8
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -59.0
+offset_right = 30.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="start_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+text = "Start"
+
+[node name="options_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+text = "Options"
+
+[node name="quit_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_lmcw8")
+theme_override_font_sizes/font_size = 16
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
