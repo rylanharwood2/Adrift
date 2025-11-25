@@ -1,15 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqaeo7l8e6b7l"]
 
 [ext_resource type="Script" uid="uid://bduqcgjswpdow" path="res://game/entities/creatures/player/weapons/homing_missile.gd" id="1_j864u"]
-[ext_resource type="Texture2D" uid="uid://uoahg8spuqbp" path="res://assets/sprites/items/HealthPack.png" id="2_j864u"]
+[ext_resource type="Texture2D" uid="uid://cyvte4dim51po" path="res://assets/sprites/player/weapons/SpreaderPowerupBullet.png" id="2_llg4c"]
 [ext_resource type="Texture2D" uid="uid://cqc6bvqop0bt0" path="res://assets/sprites/GameLogoTest.webp" id="3_a6ut0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j864u"]
-size = Vector2(14.153847, 16)
+size = Vector2(15, 15)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a6ut0"]
-atlas = ExtResource("2_j864u")
-region = Rect2(0, 0, 40, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb8ba"]
+atlas = ExtResource("2_llg4c")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60i8j"]
 atlas = ExtResource("3_a6ut0")
@@ -19,7 +19,7 @@ region = Rect2(0, 0, 128, 128)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a6ut0")
+"texture": SubResource("AtlasTexture_vb8ba")
 }],
 "loop": true,
 "name": &"default",
@@ -54,7 +54,6 @@ z_as_relative = false
 script = ExtResource("1_j864u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.9230765, 0)
 shape = SubResource("RectangleShape2D_j864u")
 
 [node name="rocket_sprite" type="AnimatedSprite2D" parent="."]

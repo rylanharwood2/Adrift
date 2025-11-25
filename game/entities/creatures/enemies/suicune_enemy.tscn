@@ -447,6 +447,7 @@ z_index = 1
 z_as_relative = false
 rotation = 1.5708
 collision_mask = 129
+safe_margin = 0.1
 script = ExtResource("1_pesig")
 health = 2
 

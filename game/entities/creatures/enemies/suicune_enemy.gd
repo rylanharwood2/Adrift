@@ -4,7 +4,7 @@ extends Creature
 
 var rand = RandomNumberGenerator.new()
 
-var  speed = randf_range(105.0, 115.0)
+var  speed = randf_range(80.0, 90.0)
 const TURN_SPEED = 2.0 # max turn speed (idk units)
 # var health = 2
 var player_node = null
@@ -94,7 +94,7 @@ func _change_state():
 	var rand_val = randf()
 	if rand_val < 0.7:
 		current_state = EnemyAiOptions.MOVE
-	elif rand_val < 0.9:
+	elif rand_val < 0.93:
 		current_state = EnemyAiOptions.DASH
 	else:
 		current_state = EnemyAiOptions.IDLE

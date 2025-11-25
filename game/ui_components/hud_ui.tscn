@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://brcffsluj5uh5" path="res://assets/sprites/player/healthbar.png" id="3_xi2ed"]
 [ext_resource type="PackedScene" uid="uid://c8b54giv5xw34" path="res://game/ui_components/upgrades_popup.tscn" id="4_4mesk"]
 [ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_ml6tl"]
-[ext_resource type="Texture2D" uid="uid://c0rb8geot7o55" path="res://assets/sprites/player/powerups/ShieldPowerUpIcon-4fps.png" id="5_n3kp7"]
 [ext_resource type="Texture2D" uid="uid://rvexaq6t41u4" path="res://assets/white.png" id="6_47rti"]
 [ext_resource type="Texture2D" uid="uid://cmjh7mrbhpggb" path="res://assets/sprites/player/HUDForcefieldTEST2.png" id="7_n3kp7"]
+[ext_resource type="Texture2D" uid="uid://dy1ohr028xlqu" path="res://assets/sprites/player/ICEPOWERUPHUD.png" id="7_ywtak"]
 [ext_resource type="Texture2D" uid="uid://dc3fdanau42iu" path="res://assets/sprites/player/HUDMINE.png" id="10_ml6tl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi2ed"]
@@ -278,12 +278,12 @@ theme_override_font_sizes/font_size = 8
 text = "00:12:34.56"
 
 [node name="controls" type="Label" parent="."]
-offset_left = 1.0
-offset_top = 623.0
-offset_right = 41.0
-offset_bottom = 646.0
+offset_left = 280.0
+offset_top = -7.0
+offset_right = 910.0
+offset_bottom = 16.0
 theme_override_fonts/font = ExtResource("1_aowct")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 text = "WASD move, SPACE shoot, SHIFT boost, CTRL turn harder, 2 forcefield, 3 proximity mine, 4 ice powerup"
 vertical_alignment = 2
 
@@ -297,28 +297,27 @@ frame_progress = 1.0
 [node name="upgrades_popup" parent="." instance=ExtResource("4_4mesk")]
 
 [node name="ice_powerup_icon" type="Sprite2D" parent="."]
-visible = false
 clip_children = 2
-position = Vector2(393, 566)
-scale = Vector2(2.1340032, 2.1340032)
-texture = ExtResource("5_n3kp7")
+position = Vector2(207, 604)
+texture = ExtResource("7_ywtak")
 
 [node name="Label" type="Label" parent="ice_powerup_icon"]
 z_index = 1
-offset_left = -26.710363
-offset_top = -27.178967
-offset_right = 121.289635
-offset_bottom = -4.1789665
-scale = Vector2(0.398804, 0.398804)
+offset_left = -40.000008
+offset_top = -77.000015
+offset_right = 40.158104
+offset_bottom = -63.787125
+scale = Vector2(1.182812, 1.182812)
 theme_override_fonts/font = ExtResource("1_aowct")
+theme_override_font_sizes/font_size = 8
 text = "Ice Powerup"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="ice_powerup_icon"]
 self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
-offset_left = -29.990587
-offset_top = -15.932499
-offset_right = 10.009413
-offset_bottom = 24.067501
+offset_left = -34.99999
+offset_top = -44.999985
+offset_right = 7.943142
+offset_bottom = 68.541275
 scale = Vector2(1.7020652, 0.7926634)
 fill_mode = 3
 nine_patch_stretch = true
@@ -330,9 +329,8 @@ libraries = {
 }
 
 [node name="forcefield_icon" type="Sprite2D" parent="."]
-visible = false
 clip_children = 2
-position = Vector2(90, 557)
+position = Vector2(35, 598)
 texture = ExtResource("7_n3kp7")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="forcefield_icon"]
@@ -353,19 +351,19 @@ libraries = {
 
 [node name="Label" type="Label" parent="forcefield_icon"]
 z_index = 1
-offset_left = -50.000004
-offset_top = -76.00006
-offset_right = 80.0
-offset_bottom = -53.00006
-scale = Vector2(0.7558498, 0.7558498)
+offset_left = -34.000004
+offset_top = -72.0
+offset_right = 42.73482
+offset_bottom = -57.446777
+scale = Vector2(1.0831504, 1.0831504)
 theme_override_fonts/font = ExtResource("1_aowct")
+theme_override_font_sizes/font_size = 8
 text = "Forcefield"
 
 [node name="proxy_mine_icon" type="Sprite2D" parent="."]
-visible = false
 clip_children = 2
 texture_filter = 3
-position = Vector2(231, 556)
+position = Vector2(119, 595)
 texture = ExtResource("10_ml6tl")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="proxy_mine_icon"]
@@ -386,11 +384,11 @@ libraries = {
 
 [node name="Label" type="Label" parent="proxy_mine_icon"]
 z_index = 1
-offset_left = -48.0
-offset_top = -75.0
-offset_right = 86.0
-offset_bottom = -52.0
-scale = Vector2(1.5263599, 1.5263599)
+offset_left = -39.0
+offset_top = -69.0
+offset_right = 31.756569
+offset_bottom = -58.517548
+scale = Vector2(1.1689442, 1.1689442)
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 8
 text = "Proxy Mine"

@@ -308,7 +308,7 @@ height = 19.2
 
 [node name="capo_enemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_m2rrh")
-health = 4
+health = 3
 
 [node name="ship" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_i3d7n")
@@ -337,7 +337,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="reload_speed" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 3.5
 one_shot = true
 autostart = true
 

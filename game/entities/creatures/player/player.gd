@@ -17,7 +17,7 @@ var rng = RandomNumberGenerator.new()
 @export var acceleration: float = 9.0  	## Acceleration while pressing forward
 @export var max_speed: float = 200.0      	## Maximum speed the spaceship can reach
 @export var friction: float = 0.982        	## Friction for gradual slowdown
-@export var rotation_speed: float = 2    	## Rotation speed when pressing a side input
+@export var rotation_speed: float = 2.5    	## Rotation speed when pressing a side input
 @export var boost_meter: float = 100.0
 
 
@@ -112,9 +112,9 @@ func _physics_process(delta: float) -> void:
 			boost_meter += 0.4
 	
 	if Input.is_action_pressed("drift(ebrake)") and can_spin:
-		rotation_speed = 4
+		rotation_speed = 4.5
 	elif !Input.is_action_pressed("drift(ebrake)") and can_spin:
-		rotation_speed = 2
+		rotation_speed = 2.5
 		
 	detect_shoot()
 	play_tilting_animation()
