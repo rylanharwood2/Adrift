@@ -34,3 +34,10 @@ func detect_personal_best():
 		SignalBus.submit_leaderboard_time.emit(player_name)
 	else:
 		print("no new entry for them")
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://game/global_ish/game.tscn")

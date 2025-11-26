@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://iuddfgyfngi5"]
+[gd_scene load_steps=8 format=3 uid="uid://iuddfgyfngi5"]
 
 [ext_resource type="Script" uid="uid://c16gh3vrhqljg" path="res://game/ui_components/victory_screen.gd" id="1_2olrc"]
 [ext_resource type="Shader" uid="uid://mxia4m5fcfew" path="res://game/ui_components/pause_menu_blur.gdshader" id="2_2smgc"]
 [ext_resource type="PackedScene" uid="uid://b8igy724bdffm" path="res://game/ui_components/input_field.tscn" id="3_7ij7y"]
+[ext_resource type="FontFile" uid="uid://dn3wcxcgwamg3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_litxt"]
 [ext_resource type="FontFile" uid="uid://bh110mjkyclct" path="res://assets/fonts/PixelOperator8.ttf" id="4_y45ar"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wdgif"]
@@ -26,9 +27,38 @@ layer = 2
 visible = false
 
 [node name="victory_text" type="Label" parent="."]
-offset_left = 452.0
-offset_top = 94.0
-offset_right = 677.0
-offset_bottom = 189.0
-theme_override_fonts/font = ExtResource("4_y45ar")
+offset_left = 397.00003
+offset_top = 130.0
+offset_right = 622.0
+offset_bottom = 225.0
+scale = Vector2(2.6711206, 2.6711206)
+theme_override_fonts/font = ExtResource("4_litxt")
 text = "You Won!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -223.0
+offset_top = -138.0
+offset_right = 175.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.2, 1.2)
+
+[node name="main_menu_button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_y45ar")
+text = "Leaderboard"
+
+[node name="quit_button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_y45ar")
+text = "Quit"
+
+[connection signal="pressed" from="HBoxContainer/main_menu_button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

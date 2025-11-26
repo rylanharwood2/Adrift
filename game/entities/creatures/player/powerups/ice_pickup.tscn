@@ -1,27 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://ven0ypcm3pn6"]
+[gd_scene load_steps=6 format=3 uid="uid://ven0ypcm3pn6"]
 
-[ext_resource type="Texture2D" uid="uid://dyhs5vqfwrcqq" path="res://assets/sprites/environment/IcePowerUpIcon-4fps.png" id="1_vihs2"]
 [ext_resource type="Script" uid="uid://cmg304pba1rs6" path="res://game/entities/creatures/player/powerups/ice_pickup.gd" id="2_2tsui"]
+[ext_resource type="Texture2D" uid="uid://c5k38ye2835ob" path="res://assets/sprites/environment/Ice-Power-Up-Circle-Icon3.png" id="2_vihs2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cu6o0"]
 radius = 16.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ioiuq"]
-atlas = ExtResource("1_vihs2")
-region = Rect2(0, 0, 30, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ffiq3"]
-atlas = ExtResource("1_vihs2")
-region = Rect2(30, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tsui"]
+atlas = ExtResource("2_vihs2")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kj8if"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ioiuq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ffiq3")
+"texture": SubResource("AtlasTexture_2tsui")
 }],
 "loop": true,
 "name": &"wiggle",
@@ -36,6 +29,7 @@ shape = SubResource("CircleShape2D_cu6o0")
 
 [node name="ice_pickup_sprite" type="AnimatedSprite2D" parent="."]
 z_as_relative = false
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_kj8if")
 animation = &"wiggle"
 autoplay = "wiggle"
