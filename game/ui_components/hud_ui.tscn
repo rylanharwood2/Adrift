@@ -297,6 +297,7 @@ frame_progress = 1.0
 [node name="upgrades_popup" parent="." instance=ExtResource("4_4mesk")]
 
 [node name="ice_powerup_icon" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 position = Vector2(207, 604)
 texture = ExtResource("7_ywtak")
@@ -329,6 +330,7 @@ libraries = {
 }
 
 [node name="forcefield_icon" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 position = Vector2(35, 598)
 texture = ExtResource("7_n3kp7")
@@ -361,6 +363,7 @@ theme_override_font_sizes/font_size = 8
 text = "Forcefield"
 
 [node name="proxy_mine_icon" type="Sprite2D" parent="."]
+visible = false
 clip_children = 2
 texture_filter = 3
 position = Vector2(119, 595)

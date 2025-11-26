@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq4ipi4w7vmb0"]
+
+[ext_resource type="Script" uid="uid://d0t0wb42fybvf" path="res://game/entities/creatures/player/powerups/proxy_mine_pickup.gd" id="1_b4cw0"]
+[ext_resource type="Texture2D" uid="uid://bx6x3s7no1aws" path="res://assets/sprites/player/powerups/Mine-sheet.png" id="1_eq1q2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eq1q2"]
+radius = 33.06055
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4cw0"]
+atlas = ExtResource("1_eq1q2")
+region = Rect2(88, 0, 44, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nugrv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4cw0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="proxy_mine_pickup" type="Area2D"]
+script = ExtResource("1_b4cw0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eq1q2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nugrv")
+autoplay = "default"
+
+[node name="despawn_timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]

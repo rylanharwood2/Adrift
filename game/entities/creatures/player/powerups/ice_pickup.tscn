@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://ven0ypcm3pn6"]
+
+[ext_resource type="Texture2D" uid="uid://dyhs5vqfwrcqq" path="res://assets/sprites/environment/IcePowerUpIcon-4fps.png" id="1_vihs2"]
+[ext_resource type="Script" uid="uid://cmg304pba1rs6" path="res://game/entities/creatures/player/powerups/ice_pickup.gd" id="2_2tsui"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cu6o0"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioiuq"]
+atlas = ExtResource("1_vihs2")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffiq3"]
+atlas = ExtResource("1_vihs2")
+region = Rect2(30, 0, 30, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kj8if"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ioiuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffiq3")
+}],
+"loop": true,
+"name": &"wiggle",
+"speed": 5.0
+}]
+
+[node name="ice_pickup" type="Area2D"]
+script = ExtResource("2_2tsui")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cu6o0")
+
+[node name="ice_pickup_sprite" type="AnimatedSprite2D" parent="."]
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_kj8if")
+animation = &"wiggle"
+autoplay = "wiggle"
+
+[node name="despawn_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]

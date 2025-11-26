@@ -6,15 +6,18 @@ extends StaticBody2D
 @export var despawn_margin: float = 400.0  # how far offscreen before despawning
 @export var healthpack_drop_threshold_percent : int = 20 # percentage of the time that it spawns
 
-@export var weapon_drops: Array[WeaponData]
-@export var weapon_pickup_scene : PackedScene
+var ice_pickup_scene = preload("res://game/entities/creatures/player/powerups/ice_pickup.tscn")
+var forcefield_pickup_scene = preload("res://game/entities/creatures/player/powerups/forcefield_pickup.tscn")
+var proxy_mine_pickup_scene = preload("res://game/entities/creatures/player/powerups/proxy_mine_pickup.tscn")
+
+var powerup_pickup_scenes : Array = [ice_pickup_scene, forcefield_pickup_scene, proxy_mine_pickup_scene]
 
 var velocity: Vector2
 var rotation_speed: float
 var loot_scene = preload("res://game/entities/asteroids/health_pack.tscn")
 var droppable = null
 var healthpack_drop_percentage : float = 0.2
-var weapon_drop_percentage : float = 0.2
+var powerup_drop_percentage : float = 0.2
 
 func _ready() -> void:
 	randomize()
@@ -40,8 +43,7 @@ func _ready() -> void:
 	
 	
 
-func _process(delta):
-	
+func _process(delta):	
 	position += velocity * delta
 	rotation += rotation_speed * delta
 
@@ -90,19 +92,38 @@ func _on_asteroid_collision_detector_area_entered(area: Area2D) -> void:
 		play_death()
 
 
+# Weapon Loot Drop
+#func choose_loot():
+	#var random_float = randf()
+	#if random_float < healthpack_drop_percentage:
+		#droppable = loot_scene.instantiate()
+		#
+	#elif random_float > healthpack_drop_percentage and random_float < healthpack_drop_percentage + weapon_drop_percentage:
+		##var data = [weapon_drops[0], weapon_drops[1]].pick_random()
+		#var data = weapon_drops[0]#weapon_drops.pick_random()
+		#
+		#var weapon_pickup = weapon_pickup_scene.instantiate()
+		#weapon_pickup.global_position = global_position
+		#weapon_pickup.weapon_data = data
+		#droppable = weapon_pickup
+	#else:
+		#return null
+	#
+	#get_tree().get_first_node_in_group("game").call_deferred("add_child", droppable)
+
+# Powerup Loot Drops
 func choose_loot():
 	var random_float = randf()
 	if random_float < healthpack_drop_percentage:
 		droppable = loot_scene.instantiate()
+	
+	elif random_float > healthpack_drop_percentage and random_float < healthpack_drop_percentage + powerup_drop_percentage:
+		var powerup_pickup_scene = powerup_pickup_scenes.pick_random()
+		var powerup_pickup = powerup_pickup_scene.instantiate()
 		
-	elif random_float > healthpack_drop_percentage and random_float < healthpack_drop_percentage + weapon_drop_percentage:
-		#var data = [weapon_drops[0], weapon_drops[1]].pick_random()
-		var data = weapon_drops[0]#weapon_drops.pick_random()
+		powerup_pickup.global_position = global_position
+		droppable = powerup_pickup
 		
-		var weapon_pickup = weapon_pickup_scene.instantiate()
-		weapon_pickup.global_position = global_position
-		weapon_pickup.weapon_data = data
-		droppable = weapon_pickup
 	else:
 		return null
 	

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://kfws1qjaq83w"]
+
+[ext_resource type="Script" uid="uid://cj06t5plvtmof" path="res://game/entities/creatures/player/powerups/forcefield_pickup.gd" id="1_q3ned"]
+[ext_resource type="Texture2D" uid="uid://c0rb8geot7o55" path="res://assets/sprites/player/powerups/ShieldPowerUpIcon-4fps.png" id="1_uoi5o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uoi5o"]
+radius = 17.029387
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3ned"]
+atlas = ExtResource("1_uoi5o")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7k8d"]
+atlas = ExtResource("1_uoi5o")
+region = Rect2(30, 0, 30, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wusli"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3ned")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7k8d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="forcefield_pickup" type="Area2D"]
+script = ExtResource("1_q3ned")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uoi5o")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wusli")
+autoplay = "default"
+
+[node name="despawn_timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]
