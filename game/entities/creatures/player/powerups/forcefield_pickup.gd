@@ -14,4 +14,5 @@ func _on_despawn_timer_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		body.activate_powerups("forcefield")
 		queue_free()

@@ -7,6 +7,7 @@
 radius = 101.0198
 
 [node name="weapon_pickup" type="Area2D"]
+visible = false
 script = ExtResource("1_0reak")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -43,13 +43,22 @@ func death_screen():
 	player_died = true
 	show_message("You Died!\nPress R to Restart")
 
-func start_powerup_cooldown(powerup):
-	if powerup == "proxy_mine":
-		$proxy_mine_icon/AnimationPlayer.play("cooldown")
-	elif powerup == "forcefield":
-		$forcefield_icon/AnimationPlayer.play("cooldown")
-	elif powerup == "ice_powerup":
-		$ice_powerup_icon/AnimationPlayer.play("cooldown")
+func start_powerup_cooldown(weapon_equipped : String):
+	if weapon_equipped == "spreader":
+		$forcefield_icon/TextureProgressBar.value = 100
+		$proxy_mine_icon/TextureProgressBar.value = 0
+		$ice_powerup_icon/TextureProgressBar.value = 0
+		#$proxy_mine_icon/AnimationPlayer.play("cooldown")
+	elif weapon_equipped == "homing_missile":
+		$forcefield_icon/TextureProgressBar.value = 0
+		$proxy_mine_icon/TextureProgressBar.value = 100
+		$ice_powerup_icon/TextureProgressBar.value = 0
+		#$forcefield_icon/AnimationPlayer.play("cooldown")
+	elif weapon_equipped == "railgun":
+		$forcefield_icon/TextureProgressBar.value = 0
+		$proxy_mine_icon/TextureProgressBar.value = 0
+		$ice_powerup_icon/TextureProgressBar.value = 100
+		#$ice_powerup_icon/AnimationPlayer.play("cooldown")
 	
 
 func _process(_delta: float) -> void:

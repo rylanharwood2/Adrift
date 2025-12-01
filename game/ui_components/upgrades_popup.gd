@@ -1,6 +1,6 @@
 extends Panel
 
-var ability_list : Array[String] = ["proxy_mine", "ice_powerup", "forcefield"]
+var ability_list : Array[String] = ["spreader", "homing_missile", "railgun"]
 
 func _ready() -> void:
 	hide()

@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 	rotate_mine(delta)
 	queue_redraw()
 
+
 # draw the red line animation on mine ARMED
 func _draw():
 	if current_state == MineState.ARMED:

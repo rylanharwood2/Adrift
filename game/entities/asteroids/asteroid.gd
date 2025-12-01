@@ -8,7 +8,7 @@ extends StaticBody2D
 
 var ice_pickup_scene = preload("res://game/entities/creatures/player/powerups/ice_pickup.tscn")
 var forcefield_pickup_scene = preload("res://game/entities/creatures/player/powerups/forcefield_pickup.tscn")
-var proxy_mine_pickup_scene = preload("res://game/entities/creatures/player/powerups/proxy_mine_pickup.tscn")
+var proxy_mine_pickup_scene = preload("res://game/entities/creatures/player/powerups/proxy_mine.tscn")
 
 var powerup_pickup_scenes : Array = [ice_pickup_scene, forcefield_pickup_scene, proxy_mine_pickup_scene]
 

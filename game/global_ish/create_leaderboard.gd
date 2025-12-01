@@ -10,7 +10,9 @@ var final_time : String = ""
 
 func _ready() -> void:
 	# Set the API key
-	simpleboards.set_api_key(load_file(api_key_path))
+	var api_key = load_file(api_key_path)
+	if api_key:
+		simpleboards.set_api_key(api_key)
 	simpleboards.entries_got.connect(_on_entries_got)
 	simpleboards.entry_sent.connect(_on_entry_sent)
 	
@@ -28,6 +30,8 @@ func _ready() -> void:
 
 func load_file(file_path):
 	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file == null:
+		return null
 	var content = file.get_as_text()
 	content = content.strip_edges()
 	return content

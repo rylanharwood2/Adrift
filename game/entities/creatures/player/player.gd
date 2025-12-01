@@ -41,10 +41,10 @@ var ice_powerup_duration : int = 15
 
 
 ## Powerups
-# powerup enabled flags
-var proxy_mine_enabled  : bool = false
-var forcefield_enabled  : bool = false
-var ice_powerup_enabled : bool = false
+# weapon enabled flags
+var spreader_enabled  : bool = true
+var homing_missile_enabled  : bool = true
+var railgun_enabled : bool = true
 
 var forcefield_active   : bool = false
 
@@ -54,7 +54,7 @@ var current_weapon = null
 
 
 var player_bullet_scene = preload("res://game/entities/creatures/player/player_bullet.tscn")
-var proxy_mine_scene = preload("res://game/entities/creatures/player/powerups/proxy_mine.tscn")
+var weapon_pickup_scene = preload("res://game/entities/asteroids/weapon_pickup.tscn")
 @onready var game_world := get_tree().root.get_node("Game")
 
 func _ready() -> void:
@@ -65,7 +65,7 @@ func _ready() -> void:
 	$forcefield.expand(true)
 	SignalBus.healthpack_captured.connect(adjust_health)
 	SignalBus.change_max_health.connect(change_max_health)
-	SignalBus.add_new_ability.connect(enable_ability)
+	SignalBus.add_new_ability.connect(enable_weapon)
 	SignalBus.weapon_broken.connect(break_weapon)
 	SignalBus.railgun_shot.connect(_railgun_shot)
 	max_health = health
@@ -128,8 +128,7 @@ func _physics_process(delta: float) -> void:
 func equip_weapon(data: WeaponData):
 	if current_weapon:
 		current_weapon.queue_free()
-		
-	
+		 
 	var new_weapon = data.weapon_scene.instantiate()
 	
 	new_weapon.weapon_data = data
@@ -250,39 +249,47 @@ func play_tilting_animation() -> void:
 
 
 ## Powerups
-func enable_ability(ability : String):
-	if ability == "proxy_mine":
-		proxy_mine_enabled = true
-	if ability == "ice_powerup":
-		ice_powerup_enabled = true
-	if ability == "forcefield":
-		forcefield_enabled = true
+func enable_weapon(ability : String):
+	if ability == "spreader":
+		spreader_enabled = true
+	if ability == "homing_missile":
+		homing_missile_enabled = true
+	if ability == "railgun":
+		railgun_enabled = true
 
 
 func _input(event: InputEvent) -> void:
 	if dead:
 		return
 		
-	if proxy_mine_enabled and event.is_action_pressed("activate_proxy_mine") and $proxy_mine_cooldown.is_stopped():
-		var proxy_mine = proxy_mine_scene.instantiate()
-		proxy_mine.position = position
+	if spreader_enabled and event.is_action_pressed("activate_spreader"):
+		var weapon_pickup = weapon_pickup_scene.instantiate()
+		weapon_pickup.position = position
+		weapon_pickup.weapon_data = load("res://data/spreader.tres")
+		SignalBus.ability_used.emit("spreader")
+		game_world.add_child(weapon_pickup)
 		
-		game_world.add_child(proxy_mine)
-		$proxy_mine_cooldown.start(10)
-		SignalBus.ability_used.emit("proxy_mine")
+	if homing_missile_enabled and event.is_action_pressed("activate_homing_missile"):
+		var weapon_pickup = weapon_pickup_scene.instantiate()
+		weapon_pickup.position = position
+		weapon_pickup.weapon_data = load("res://data/homing_launcher.tres")
+		SignalBus.ability_used.emit("homing_missile")
+		game_world.add_child(weapon_pickup)
 		
-		
-	if forcefield_enabled and not forcefield_active and event.is_action_pressed("activate_forcefield") and $forcefield_cooldown.is_stopped():
+	if railgun_enabled and event.is_action_pressed("activate_railgun"):
+		var weapon_pickup = weapon_pickup_scene.instantiate()
+		weapon_pickup.position = position
+		weapon_pickup.weapon_data = load("res://data/railgun.tres")
+		SignalBus.ability_used.emit("railgun")
+		game_world.add_child(weapon_pickup)
+	
+
+func activate_powerups(powerup_type : String):
+	if powerup_type == "forcefield":
 		$forcefield_invul_timer.start(forcefield.expand(false))
-		
 		forcefield_active = true
-		SignalBus.ability_used.emit("forcefield")
-		
-		
-	if ice_powerup_enabled and event.is_action_pressed("activate_ice_powerup") and $ice_timer.is_stopped():
+	elif powerup_type == "ice_powerup":
 		activate_ice_powerup()
-		SignalBus.ability_used.emit("ice_powerup")
-		
 
 
 func _on_forcefield_invul_timer_timeout() -> void:
