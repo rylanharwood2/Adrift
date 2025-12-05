@@ -6,7 +6,7 @@ Tyler   : The other developer that hangs around these parts
 Addison : Team lead of the Art Team  
 Aidan   : Sole member of the Audio Team  
 
-##### Start date: Nov 1, 2024  
+##### Start Date: Nov 1, 2024  
 
 ### nov 1 
 first player/shooting iteration  
