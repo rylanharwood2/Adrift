@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://w7l1bj0mh51e"]
+[gd_scene load_steps=19 format=3 uid="uid://w7l1bj0mh51e"]
 
 [ext_resource type="PackedScene" uid="uid://b327nj58ktob7" path="res://game/entities/creatures/player/player.tscn" id="1_13bel"]
 [ext_resource type="Script" uid="uid://de44gtnt4kvb3" path="res://game/global_ish/game.gd" id="1_p1si3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://baf7exhdloebg" path="res://game/ui_components/hud_ui.tscn" id="7_sxbnq"]
 [ext_resource type="PackedScene" uid="uid://iuddfgyfngi5" path="res://game/ui_components/victory_screen.tscn" id="8_j56ax"]
 [ext_resource type="AudioStream" uid="uid://dvq2d8dai8kry" path="res://assets/sfx/Game music 2.mp3" id="10_cg0uc"]
+[ext_resource type="PackedScene" uid="uid://bgr8mv6xl4dam" path="res://game/entities/creatures/enemies/helheim_king_of_slime.tscn" id="10_gf4vb"]
 [ext_resource type="PackedScene" uid="uid://cyuex3c4uchf7" path="res://game/global_ish/leaderboard.tscn" id="12_dinhu"]
 [ext_resource type="Script" uid="uid://bb3qo4yasb62a" path="res://game/ui_components/joystick.gd" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b2186vav488pa" path="res://game/ui_components/touch_buttons.gd" id="14_trtic"]
@@ -75,6 +76,9 @@ unique_name_in_owner = true
 visible = false
 
 [node name="leaderboard" parent="menus" instance=ExtResource("12_dinhu")]
+
+[node name="helheim" parent="menus" instance=ExtResource("10_gf4vb")]
+position = Vector2(-276, -70)
 
 [node name="enemy_spawn_points" type="Node" parent="."]
 

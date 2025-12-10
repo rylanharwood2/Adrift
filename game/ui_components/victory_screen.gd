@@ -8,7 +8,7 @@ func display_victory_scene(new_personal_best: bool):
 	$blur_layer.material.set_shader_parameter("amount", 1)
 	show()
 	
-#
+
 	#
 	#var final_time = await SignalBus.get_final_time
 	#if best:
@@ -22,7 +22,6 @@ func display_victory_scene(new_personal_best: bool):
 
 
 func detect_personal_best():
-	pass #TODO detect if internet connection deleteme
 	SignalBus.get_personal_best.emit()
 	var was_best : bool = await SignalBus.personal_best_verified
 	print("was_best", was_best)

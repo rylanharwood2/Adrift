@@ -303,14 +303,14 @@ texture = ExtResource("7_ywtak")
 
 [node name="Label" type="Label" parent="ice_powerup_icon"]
 z_index = 1
-offset_left = -40.000008
-offset_top = -77.000015
-offset_right = 40.158104
-offset_bottom = -63.787125
+offset_left = -27.000008
+offset_top = -78.000015
+offset_right = 53.158104
+offset_bottom = -64.787125
 scale = Vector2(1.182812, 1.182812)
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 8
-text = "Ice Powerup"
+text = "Railgun"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="ice_powerup_icon"]
 self_modulate = Color(0.18431373, 0.18431373, 0.18039216, 0.6901961)
@@ -358,7 +358,7 @@ offset_bottom = -57.446777
 scale = Vector2(1.0831504, 1.0831504)
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 8
-text = "Forcefield"
+text = "Spreader"
 
 [node name="proxy_mine_icon" type="Sprite2D" parent="."]
 clip_children = 2
@@ -384,13 +384,13 @@ libraries = {
 
 [node name="Label" type="Label" parent="proxy_mine_icon"]
 z_index = 1
-offset_left = -39.0
+offset_left = -52.0
 offset_top = -69.0
-offset_right = 31.756569
+offset_right = 39.0
 offset_bottom = -58.517548
 scale = Vector2(1.1689442, 1.1689442)
 theme_override_fonts/font = ExtResource("1_aowct")
 theme_override_font_sizes/font_size = 8
-text = "Proxy Mine"
+text = "Homing Missile"
 
 [connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]

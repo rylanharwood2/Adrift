@@ -42,7 +42,7 @@ var ice_powerup_duration : int = 15
 
 ## Powerups
 # weapon enabled flags
-var spreader_enabled  : bool = true
+var spreader_enabled  : bool = false
 var homing_missile_enabled  : bool = true
 var railgun_enabled : bool = true
 
