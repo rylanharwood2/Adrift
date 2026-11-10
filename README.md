@@ -165,7 +165,7 @@ the forcefield active time, or lowering a cooldown. The details are not finalize
 
 Also the upgrade's screen is very ugly.  
 
-### nov 7
+### nov 7  
 *Updated to Godot 4.5.x*
 Yeah that's all actually. Not a ton of impactful changes for us on that end.  
 
@@ -176,11 +176,11 @@ down. Hopefully putting some pressure on the art team, the icons suck haha.
 *Item Philosophy pt 2*  
 I started the new powerup and weapon system. There is a new clean way to enable powerups as you unlock them, and it is attached to the wave end reward  
 screen. I also created some of the weapon system, the base Weapon class and WeaponData resource are in place. Currently in the process of shifting the  
-ice powerup logic to apply to generating a random weapon.
+ice powerup logic to apply to generating a random weapon.  
 
-Addison made an early railgun animation that I'll look at after the weekend.
+Addison made an early railgun animation that I'll look at after the weekend.  
 
-### nov 25
+### nov 25  
 *Leaderboard*  
 We found a free leaderboard database (simpleboards.dev) created by a team of indie devs for indie devs, for the current amount of traffic we expect to  
 receive, this solution seems fine for now. After a lot of troubleshooting the leaderboard is currently live on the site. Whenever the player finishes  
@@ -245,6 +245,27 @@ Lastly, in the spirit of making the powerups non-button activated, I think the m
 The weapons, whether attained through the wave end reward screen or at set intervals, can still have random attributes. Higher attack speed, higher damage,  
 or a bigger hitbox, perhaps gained in upgrades in that reward screen. That might never see the light of day to be honest. Regardless, this is going to be at  
 least a couple weeks of work for both myself and Addison to redesign several icons and animations. However, I hope it will significantly improve the game's  
-feel when playing and make pushing buttons feel rewarding and shooting asteroids feel less necessary and more of a bonus for skilled play.
+feel when playing and make pushing buttons feel rewarding and shooting asteroids feel less necessary and more of a bonus for skilled play.  
 
-Anyway it's all speculative, I'll see you sometime in December!
+Anyway it's all speculative, I'll see you sometime in December!  
+
+###nov 10  
+Well....  
+It has been a year since I last opened this project. Clearly I wasn't specific enough with * which * December. Alas, it keeps calling back to me. My schedule  
+has recently opened up significantly so I would like to set some goals. I hope in the next 6 months, let's say by June, that I am finished with the tutorial  
+level / Adrift demo that I have half baked in my head. And even cooler would be if I posted it on Steam. I also hope that I have a full time job by this point  
+as well as prospects are currently limited.  
+Let's do this thing.  
+
+*Updated Godot Version 4.5 -> 4.7.2*
+Disappeared from the world for a year and come back to find Godot has released two minor updates. Docmentation implies nothing will go wrong by raw updating.  
+
+*Future Plans*  
+
+*Addressing the Elephant of reading the next entry*
+I am not sure I am ready to get right back into this creating this game right now, and maybe that will change, but I think I need to work on something a little  
+simplier and fun to get back in the flow of things in Godot. I worried about running out of steam before I can even begin. I kind of what to make an idle game,  
+the main crux there being thinking of an interesting design premise than an idle game that has already been created. Or maybe to begin I just make a super basic  
+copy of a similar game to remember how to use godot. I think I am going to remake AdVenture Communist. And then after that some sort of 3d idle game. It doesn't  
+seem like exactly the right mashup but I was recently inspired by a needle in a haystack simulator that had the player walk around a giant pile of hay and search  
+for one tiny needle using better and better tools.
